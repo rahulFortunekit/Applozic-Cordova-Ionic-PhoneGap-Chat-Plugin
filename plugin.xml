@@ -32,6 +32,9 @@
       <feature name="Hello">
         <param name="ios-package" value="HWPHello" />
       </feature>
+      <feature name="ALChatManager">
+        <param name="ios-package" value="ALChatManager" />
+      </feature>
     </config-file>
 
     <header-file src="src/ios/HWPHello.h" target-dir="HelloPlugin"/>

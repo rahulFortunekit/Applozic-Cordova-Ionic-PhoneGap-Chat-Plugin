@@ -5,6 +5,6 @@ module.exports = {
         cordova.exec(successCallback, errorCallback, "Hello", "greet", [name]);
     },
     chatDemo: function (name, successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "Hello", "chatDemo", [name]);
+        cordova.exec(successCallback, errorCallback, "ALChatManager", "chatDemo", [name]);
     }
 };
