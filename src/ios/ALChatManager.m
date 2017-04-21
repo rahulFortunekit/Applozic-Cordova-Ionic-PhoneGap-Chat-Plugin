@@ -18,6 +18,25 @@
 @implementation ALChatManager
 
 
+- (void)registerALUser:(CDVInvokedUrlCommand*)command
+{
+    NSString *jsonStr = [command arguments objectAtIndex:0];
+    jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
+    jsonStr = [NSString stringWithFormat:@"[%@]",jsonStr];
+    NSObject *arg = [jsonStr JSONValue];
+
+    ALUser * alUser = [[ALUser alloc] initWithJSONString:jsonStr];
+    [self registerUser: alUser];
+
+    //Todo: replace msg with the server response
+    NSString* msg = [NSString stringWithFormat: @"Hello, %@", jsonStr];
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:msg];
+
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
 - (void)chatDemo:(CDVInvokedUrlCommand*)command
 {
 

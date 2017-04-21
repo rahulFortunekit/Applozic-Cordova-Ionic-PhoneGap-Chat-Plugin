@@ -21,6 +21,7 @@
 
 - (void) chatDemo:(CDVInvokedUrlCommand*)command;
 
+- (void) registerALUser:(CDVInvokedUrlCommand*)command;
 
 @property(nonatomic,strong) ALChatLauncher * chatLauncher;
 
