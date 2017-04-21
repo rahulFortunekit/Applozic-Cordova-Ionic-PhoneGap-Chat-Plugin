@@ -19,7 +19,7 @@
 
 -(instancetype)init {
     
-    return [self initWithApplicationKey:APPLICATION_ID];
+    return [self initWithApplicationKey:[self getApplicationKey]];
 }
 
 -(instancetype)initWithApplicationKey:(NSString *)applicationKey;

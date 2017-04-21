@@ -21,8 +21,6 @@
 
 @property(nonatomic,strong) ALChatManager * alChatManager;
 
--(NSString *)getApplicationKey;
-
 - (void) chatDemo:(CDVInvokedUrlCommand*)command;
 
 - (void) registerALUser:(CDVInvokedUrlCommand*)command;

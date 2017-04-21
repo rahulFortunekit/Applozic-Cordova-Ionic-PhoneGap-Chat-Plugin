@@ -20,28 +20,6 @@
 
 @implementation ALChatManagerCDVPlugin
 
--(instancetype)init {
-    return [self initWithApplicationKey:APPLICATION_ID];
-}
-
--(instancetype)initWithApplicationKey:(NSString *)applicationKey;
-{
-    self = [super init];
-    if (self)
-    {
-        self.alChatManager = [[ALChatManager alloc] initWithApplicationId:[self getApplicationKey]];
-    }
-    
-    return self;
-}
-
--(NSString *)getApplicationKey
-{
-    NSString * appKey = [ALUserDefaultsHandler getApplicationKey];
-    NSLog(@"APPLICATION_KEY :: %@",appKey);
-    return appKey ? appKey : APPLICATION_ID;
-}
-
 - (void)registerALUser:(CDVInvokedUrlCommand*)command
 {
     NSString *jsonStr = [[command arguments] objectAtIndex:0];
@@ -50,7 +28,9 @@
     //NSObject *arg = [jsonStr JSONValue];
 
     ALUser * alUser = [[ALUser alloc] initWithJSONString:jsonStr];
-    [alChatManager registerUser: alUser];
+    self.alChatManager = [[ALChatManager alloc] initWithApplicationKey:alUser.applicationId];
+
+    [[self alChatManager] registerUser:alUser];
 
     //Todo: replace msg with the server response
     NSString* msg = [NSString stringWithFormat: @"Hello, %@", jsonStr];
@@ -58,26 +38,29 @@
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:msg];
 
-    [alChatManager.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
 - (void)openChat:(CDVInvokedUrlCommand*)command
 {
+    self.alChatManager = [[ALChatManager alloc] init];
+
     NSString* name = [[command arguments] objectAtIndex:0];
     NSString* msg = [NSString stringWithFormat: @"Hello, %@", name];
 
     ALPushAssist * assitant = [[ALPushAssist alloc] init];
-    [alChatManager launchChat:[assitant topViewController]];
+    [[self alChatManager] launchChat:[assitant topViewController]];
 
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:msg];
 
-    [alChatManager.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
 - (void)chatDemo:(CDVInvokedUrlCommand*)command
 {
+    self.alChatManager = [[ALChatManager alloc] init];
 
     NSString* name = [[command arguments] objectAtIndex:0];
     NSString* msg = [NSString stringWithFormat: @"Hello, %@", name];
@@ -86,7 +69,7 @@
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:msg];
 
-    [alChatManager.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
 @end
