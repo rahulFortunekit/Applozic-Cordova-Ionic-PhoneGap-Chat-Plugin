@@ -13,6 +13,7 @@
 #import <Applozic/ALChatViewController.h>
 #import <Applozic/ALMessage.h>
 #import <Applozic/ALNewContactsViewController.h>
+#import <Applozic/ALPushAssist.h>
 
 
 @implementation ALChatManager
@@ -30,6 +31,21 @@
 
     //Todo: replace msg with the server response
     NSString* msg = [NSString stringWithFormat: @"Hello, %@", jsonStr];
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:msg];
+
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+- (void)openChat:(CDVInvokedUrlCommand*)command
+{
+    NSString* name = [[command arguments] objectAtIndex:0];
+    NSString* msg = [NSString stringWithFormat: @"Hello, %@", name];
+
+    ALPushAssist * assitant = [[ALPushAssist alloc] init];
+    [self launchChat:[assitant topViewController]];
+
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:msg];

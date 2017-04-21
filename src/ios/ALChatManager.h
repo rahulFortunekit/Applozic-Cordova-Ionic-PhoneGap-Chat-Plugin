@@ -23,6 +23,8 @@
 
 - (void) registerALUser:(CDVInvokedUrlCommand*)command;
 
+- (void) openChat:(CDVInvokedUrlCommand*)command;
+
 @property(nonatomic,strong) ALChatLauncher * chatLauncher;
 
 @property(nonatomic,strong) NSArray * permissableVCList;

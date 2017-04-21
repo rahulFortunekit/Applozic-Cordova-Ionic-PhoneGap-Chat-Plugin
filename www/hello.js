@@ -9,5 +9,8 @@ module.exports = {
     },
     registerALUser: function(alUser, successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ALChatManager", "registerALUser", [JSON.stringify(alUser)]);
+    },
+    openChat: function(userId, successCallback, errorCallback) {
+    	cordova.exec(successCallback, errorCallback, "ALChatManager", "openChat", [userId]);
     }
 };

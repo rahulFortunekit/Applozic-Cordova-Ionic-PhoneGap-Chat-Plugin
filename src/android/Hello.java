@@ -4,6 +4,7 @@ import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+// http://stackoverflow.com/a/18609901/1122828
 public class Hello extends CordovaPlugin {
 
     @Override
