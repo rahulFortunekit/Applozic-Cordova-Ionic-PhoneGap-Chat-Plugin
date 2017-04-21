@@ -8,6 +8,6 @@ module.exports = {
         cordova.exec(successCallback, errorCallback, "ALChatManager", "chatDemo", [name]);
     },
     registerALUser: function(alUser, successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ALChatManager", "registerALUser", JSON.stringify(alUser));
+    	cordova.exec(successCallback, errorCallback, "ALChatManager", "registerALUser", [JSON.stringify(alUser)]);
     }
 };
