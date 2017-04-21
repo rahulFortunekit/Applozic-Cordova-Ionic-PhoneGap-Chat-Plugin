@@ -22,7 +22,7 @@
 {
     NSString *jsonStr = [[command arguments] objectAtIndex:0];
     jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
-    jsonStr = [NSString stringWithFormat:@"[%@]",jsonStr];
+    jsonStr = [NSString stringWithFormat:@"%@",jsonStr];
     //NSObject *arg = [jsonStr JSONValue];
 
     ALUser * alUser = [[ALUser alloc] initWithJSONString:jsonStr];
