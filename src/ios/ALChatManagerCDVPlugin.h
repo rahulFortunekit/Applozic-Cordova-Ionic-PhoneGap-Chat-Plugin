@@ -12,6 +12,7 @@
 #import <Applozic/ALConversationService.h>
 #import <Applozic/ALRegisterUserClientService.h>
 #import <Cordova/CDV.h>
+#import "alChatManager.h"
 
 #define APPLICATION_ID @"applozic-sample-app"
 
@@ -19,6 +20,8 @@
 @interface ALChatManagerCDVPlugin : CDVPlugin
 
 @property(nonatomic,strong) ALChatManager * alChatManager;
+
+-(NSString *)getApplicationKey;
 
 - (void) chatDemo:(CDVInvokedUrlCommand*)command;
 

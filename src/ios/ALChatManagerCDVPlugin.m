@@ -7,7 +7,7 @@
 //
 
 #import "ALChatManagerCDVPlugin.h"
-#import "alChatManager.h"
+#import "ALChatManager.h"
 #import <Applozic/ALUserDefaultsHandler.h>
 #import <Applozic/ALMessageClientService.h>
 #import <Applozic/ALApplozicSettings.h>
