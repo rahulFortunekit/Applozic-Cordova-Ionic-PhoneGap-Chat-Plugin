@@ -11,7 +11,6 @@
 #import <Applozic/ALUser.h>
 #import <Applozic/ALConversationService.h>
 #import <Applozic/ALRegisterUserClientService.h>
-#import <Cordova/CDV.h>
 
 #define APPLICATION_ID @"applozic-sample-app"
 

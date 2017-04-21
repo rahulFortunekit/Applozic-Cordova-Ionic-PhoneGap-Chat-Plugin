@@ -6,7 +6,8 @@
 //  Copyright © 2015 applozic Inc. All rights reserved.
 //
 
-#import "ALChatManager.h"
+#import "ALChatManagerCDVPlugin.h"
+#import "alChatManager.h"
 #import <Applozic/ALUserDefaultsHandler.h>
 #import <Applozic/ALMessageClientService.h>
 #import <Applozic/ALApplozicSettings.h>
@@ -14,6 +15,7 @@
 #import <Applozic/ALMessage.h>
 #import <Applozic/ALNewContactsViewController.h>
 #import <Applozic/ALPushAssist.h>
+
 
 
 @implementation ALChatManagerCDVPlugin

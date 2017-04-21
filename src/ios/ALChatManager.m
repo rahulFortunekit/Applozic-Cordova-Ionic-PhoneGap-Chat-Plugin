@@ -13,7 +13,6 @@
 #import <Applozic/ALChatViewController.h>
 #import <Applozic/ALMessage.h>
 #import <Applozic/ALNewContactsViewController.h>
-#import <Applozic/ALPushAssist.h>
 
 
 @implementation ALChatManager
