@@ -20,7 +20,7 @@
 
 - (void)registerALUser:(CDVInvokedUrlCommand*)command
 {
-    NSString *jsonStr = [command arguments objectAtIndex:0];
+    NSString *jsonStr = [[command arguments] objectAtIndex:0];
     jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
     jsonStr = [NSString stringWithFormat:@"[%@]",jsonStr];
     //NSObject *arg = [jsonStr JSONValue];
