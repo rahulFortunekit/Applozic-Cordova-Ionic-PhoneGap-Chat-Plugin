@@ -16,14 +16,7 @@
 #define APPLICATION_ID @"applozic-sample-app"
 
 
-@interface ALChatManager : CDVPlugin
-
-
-- (void) chatDemo:(CDVInvokedUrlCommand*)command;
-
-- (void) registerALUser:(CDVInvokedUrlCommand*)command;
-
-- (void) openChat:(CDVInvokedUrlCommand*)command;
+@interface ALChatManager : NSObject
 
 @property(nonatomic,strong) ALChatLauncher * chatLauncher;
 

@@ -18,55 +18,6 @@
 
 @implementation ALChatManager
 
-
-- (void)registerALUser:(CDVInvokedUrlCommand*)command
-{
-    NSString *jsonStr = [[command arguments] objectAtIndex:0];
-    jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
-    jsonStr = [NSString stringWithFormat:@"%@",jsonStr];
-    //NSObject *arg = [jsonStr JSONValue];
-
-    ALUser * alUser = [[ALUser alloc] initWithJSONString:jsonStr];
-    [self registerUser: alUser];
-
-    //Todo: replace msg with the server response
-    NSString* msg = [NSString stringWithFormat: @"Hello, %@", jsonStr];
-    CDVPluginResult* result = [CDVPluginResult
-                               resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:msg];
-
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-}
-
-- (void)openChat:(CDVInvokedUrlCommand*)command
-{
-    NSString* name = [[command arguments] objectAtIndex:0];
-    NSString* msg = [NSString stringWithFormat: @"Hello, %@", name];
-
-    ALPushAssist * assitant = [[ALPushAssist alloc] init];
-    [self launchChat:[assitant topViewController]];
-
-    CDVPluginResult* result = [CDVPluginResult
-                               resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:msg];
-
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-}
-
-- (void)chatDemo:(CDVInvokedUrlCommand*)command
-{
-
-    NSString* name = [[command arguments] objectAtIndex:0];
-    NSString* msg = [NSString stringWithFormat: @"Hello, %@", name];
-
-    CDVPluginResult* result = [CDVPluginResult
-                               resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:msg];
-
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-}
-
-
 -(instancetype)init {
     
     return [self initWithApplicationKey:APPLICATION_ID];

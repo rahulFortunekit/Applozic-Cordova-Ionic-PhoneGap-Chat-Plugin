@@ -5,12 +5,12 @@ module.exports = {
         cordova.exec(successCallback, errorCallback, "Hello", "greet", [name]);
     },
     chatDemo: function (name, successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "ALChatManager", "chatDemo", [name]);
+        cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "chatDemo", [name]);
     },
     registerALUser: function(alUser, successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ALChatManager", "registerALUser", [JSON.stringify(alUser)]);
+    	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "registerALUser", [JSON.stringify(alUser)]);
     },
     openChat: function(userId, successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ALChatManager", "openChat", [userId]);
+    	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "openChat", [userId]);
     }
 };

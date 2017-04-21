@@ -35,6 +35,9 @@
       <feature name="ALChatManager">
         <param name="ios-package" value="ALChatManager" />
       </feature>
+      <feature name="ALChatManagerCDVPlugin">
+        <param name="ios-package" value="ALChatManagerCDVPlugin" />
+      </feature>
     </config-file>
 
     <header-file src="src/ios/HWPHello.h" target-dir="HelloPlugin"/>
@@ -42,6 +45,9 @@
 
     <header-file src="src/ios/ALChatManager.h" target-dir="HelloPlugin"/>
     <source-file src="src/ios/ALChatManager.m" target-dir="HelloPlugin"/>
+
+    <header-file src="src/ios/ALChatManagerCDVPlugin.h" target-dir="HelloPlugin"/>
+    <source-file src="src/ios/ALChatManagerCDVPlugin.m" target-dir="HelloPlugin"/>
 
     <framework src="src/ios/Applozic.framework" custom="true" />
 
