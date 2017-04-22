@@ -25,6 +25,8 @@
 
 - (void) login:(CDVInvokedUrlCommand*)command;
 
+- (void) launchChat:(CDVInvokedUrlCommand*)command;
+
 - (void) launchChatWithUserId:(CDVInvokedUrlCommand*)command;
 
 - (void) launchChatWithGroupId:(CDVInvokedUrlCommand*)command;

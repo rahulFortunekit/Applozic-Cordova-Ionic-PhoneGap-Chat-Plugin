@@ -59,6 +59,22 @@
     }];
 }
 
+- (void) launchChat:(CDVInvokedUrlCommand*)command
+{
+    ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
+    
+    ALPushAssist * assitant = [[ALPushAssist alloc] init];
+    [alChatManager launchChatForUserWithDisplayName:nil
+                                      withGroupId:nil  //If launched for group, pass groupId(pass userId as nil)
+                               andwithDisplayName:nil //Not mandatory, if receiver is not already registered you should pass Displayname.
+                            andFromViewController:[assitant topViewController]];
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:@"success"];
+    
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
 - (void) launchChatWithUserId:(CDVInvokedUrlCommand*)command
 {
     ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
