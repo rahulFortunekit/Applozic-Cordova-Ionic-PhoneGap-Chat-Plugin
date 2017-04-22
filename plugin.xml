@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
-        id="com.example.hello"
+        id="com.applozic.phonegap"
         version="0.7.0">
 
-  <name>Hello</name>
+  <name>Applozic</name>
 
   <engines>
     <engine name="cordova" version=">=3.4.0"/>
   </engines>
 
-  <asset src="www/hello.js" target="js/hello.js"/>
+  <asset src="www/applozic.js" target="js/applozic.js"/>
 
-  <js-module src="www/hello.js" name="hello">
-    <clobbers target="hello" />
+  <js-module src="www/applozic.js" name="applozic">
+    <clobbers target="applozic" />
   </js-module>
 
   <platform name="android">
@@ -29,32 +29,23 @@
   <platform name="ios">
     
     <config-file target="config.xml" parent="/widget">
-      <feature name="Hello">
-        <param name="ios-package" value="HWPHello" />
-      </feature>
-      <feature name="ALChatManager">
-        <param name="ios-package" value="ALChatManager" />
-      </feature>
       <feature name="ALChatManagerCDVPlugin">
         <param name="ios-package" value="ALChatManagerCDVPlugin" />
       </feature>
     </config-file>
 
-    <header-file src="src/ios/HWPHello.h" target-dir="HelloPlugin"/>
-    <source-file src="src/ios/HWPHello.m" target-dir="HelloPlugin"/>
+    <header-file src="src/ios/ALChatManagerCDVPlugin.h" target-dir="ApplozicPlugin"/>
+    <source-file src="src/ios/ALChatManagerCDVPlugin.m" target-dir="ApplozicPlugin"/>
 
-    <header-file src="src/ios/ALChatManager.h" target-dir="HelloPlugin"/>
-    <source-file src="src/ios/ALChatManager.m" target-dir="HelloPlugin"/>
-
-    <header-file src="src/ios/ALChatManagerCDVPlugin.h" target-dir="HelloPlugin"/>
-    <source-file src="src/ios/ALChatManagerCDVPlugin.m" target-dir="HelloPlugin"/>
+    <header-file src="src/ios/ALChatManager.h" target-dir="ApplozicPlugin"/>
+    <source-file src="src/ios/ALChatManager.m" target-dir="ApplozicPlugin"/>
 
     <framework src="src/ios/Applozic.framework" custom="true" embed="true" />
 
   </platform>
 
   <platform name="wp7">
-    <source-file src="src/wp7/Hello.cs"/>
+    <source-file src="src/wp7/Applozic.cs"/>
   </platform>
 
 </plugin>
