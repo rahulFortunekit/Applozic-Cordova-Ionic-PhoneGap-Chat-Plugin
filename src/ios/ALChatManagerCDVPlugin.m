@@ -34,7 +34,7 @@
     return [[ALChatManager alloc] initWithApplicationKey:applicationId];
 }
 
-- (void)registerALUser:(CDVInvokedUrlCommand*)command
+- (void)login:(CDVInvokedUrlCommand*)command
 {
     NSString *jsonStr = [[command arguments] objectAtIndex:0];
     jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
