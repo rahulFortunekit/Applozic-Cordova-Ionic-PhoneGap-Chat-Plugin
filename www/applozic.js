@@ -7,7 +7,7 @@ module.exports = {
     launchChat: function(userId, successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "launchChat", [userId]);
     },
-    launchChatWithUserId: function(userId, successCallback, errorCallback) {
+    launchChatWithUserId: function(successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "launchChatWithUserId", [userId]);
     },
     launchChatWithGroupId: function(groupId, successCallback, errorCallback) {
