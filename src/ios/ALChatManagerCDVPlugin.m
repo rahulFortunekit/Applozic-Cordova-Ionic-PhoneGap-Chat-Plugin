@@ -39,7 +39,6 @@
     NSString *jsonStr = [[command arguments] objectAtIndex:0];
     jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
     jsonStr = [NSString stringWithFormat:@"%@",jsonStr];
-    //NSObject *arg = [jsonStr JSONValue];
 
     ALUser * alUser = [[ALUser alloc] initWithJSONString:jsonStr];
     ALChatManager *alChatManager = [self getALChatManager:alUser.applicationId];
@@ -57,6 +56,20 @@
                                    messageAsString:msg];
         [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
     }];
+}
+
+- (void) isLoggedIn:(CDVInvokedUrlCommand*)command
+{
+    NSString* deviceKey = [ALUserDefaultsHandler getDeviceKeyString];
+    NSString* response = "false";
+    if (deviceKey) {
+        response = "true";
+    }
+
+    CDVPluginResult* result = [CDVPluginResult
+                                   resultWithStatus:CDVCommandStatus_OK
+                                   messageAsString:response];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
 - (void) launchChat:(CDVInvokedUrlCommand*)command

@@ -4,6 +4,9 @@ module.exports = {
     login: function(alUser, successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "login", [JSON.stringify(alUser)]);
     },
+    isLoggedIn: function(successCallback, errorCallback) {
+    	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "isLoggedIn", []);
+    },
     launchChat: function(successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "launchChat", []);
     },
