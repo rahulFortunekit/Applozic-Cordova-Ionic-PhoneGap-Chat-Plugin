@@ -49,7 +49,7 @@
     <header-file src="src/ios/ALChatManagerCDVPlugin.h" target-dir="HelloPlugin"/>
     <source-file src="src/ios/ALChatManagerCDVPlugin.m" target-dir="HelloPlugin"/>
 
-    <framework src="src/ios/Applozic.framework" custom="true" />
+    <framework src="src/ios/Applozic.framework" custom="true" embed="true" />
 
   </platform>
 
