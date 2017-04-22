@@ -19,12 +19,22 @@
 
 @interface ALChatManagerCDVPlugin : CDVPlugin
 
-@property(nonatomic,strong) ALChatManager * alChatManager;
+-(NSString *)getApplicationKey;
+
+- (ALChatManager *)getALChatManager:(NSString*)applicationId;
 
 - (void) chatDemo:(CDVInvokedUrlCommand*)command;
 
 - (void) registerALUser:(CDVInvokedUrlCommand*)command;
 
 - (void) openChat:(CDVInvokedUrlCommand*)command;
+
+- (void) launchChatWithUserId:(CDVInvokedUrlCommand*)command;
+
+- (void) launchChatWithGroupId:(CDVInvokedUrlCommand*)command;
+
+- (void) launchChatWithClientGroupId:(CDVInvokedUrlCommand*)command;
+
+- (void) logout:(CDVInvokedUrlCommand*)command;
 
 @end
