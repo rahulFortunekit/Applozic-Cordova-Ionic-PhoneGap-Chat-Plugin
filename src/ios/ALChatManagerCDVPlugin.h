@@ -23,11 +23,7 @@
 
 - (ALChatManager *)getALChatManager:(NSString*)applicationId;
 
-- (void) chatDemo:(CDVInvokedUrlCommand*)command;
-
 - (void) registerALUser:(CDVInvokedUrlCommand*)command;
-
-- (void) openChat:(CDVInvokedUrlCommand*)command;
 
 - (void) launchChatWithUserId:(CDVInvokedUrlCommand*)command;
 

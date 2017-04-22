@@ -59,34 +59,6 @@
     }];
 }
 
-- (void)openChat:(CDVInvokedUrlCommand*)command
-{
-    ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
-    NSString* name = [[command arguments] objectAtIndex:0];
-    NSString* msg = [NSString stringWithFormat: @"Opening chat, %@", name];
-
-    ALPushAssist * assitant = [[ALPushAssist alloc] init];
-    [alChatManager launchChat:[assitant topViewController]];
-
-    CDVPluginResult* result = [CDVPluginResult
-                               resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:msg];
-
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-}
-
-- (void)chatDemo:(CDVInvokedUrlCommand*)command
-{
-    NSString* name = [[command arguments] objectAtIndex:0];
-    NSString* msg = [NSString stringWithFormat: @"Hello, %@", name];
-
-    CDVPluginResult* result = [CDVPluginResult
-                               resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:msg];
-
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-}
-
 - (void) launchChatWithUserId:(CDVInvokedUrlCommand*)command
 {
     ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
