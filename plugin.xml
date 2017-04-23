@@ -18,24 +18,24 @@
   <platform name="android">
 
     <config-file target="res/xml/config.xml" parent="/*">
-      <feature name="Hello">
-        <param name="android-package" value="com.example.plugin.Hello"/>
+      <feature name="ApplozicCordovaPlugin">
+        <param name="android-package" value="com.applozic.phonegap.plugin.ApplozicCordovaPlugin"/>
       </feature>
     </config-file>
 
-    <source-file src="src/android/Hello.java" target-dir="src/com/example/plugin/"/>
+    <source-file src="src/android/ApplozicCordovaPlugin.java" target-dir="src/com/applozic/phonegap/plugin/"/>
   </platform>
 
   <platform name="ios">
     
     <config-file target="config.xml" parent="/widget">
-      <feature name="ALChatManagerCDVPlugin">
-        <param name="ios-package" value="ALChatManagerCDVPlugin" />
+      <feature name="ApplozicCordovaPlugin">
+        <param name="ios-package" value="ApplozicCordovaPlugin" />
       </feature>
     </config-file>
 
-    <header-file src="src/ios/ALChatManagerCDVPlugin.h" target-dir="ApplozicPlugin"/>
-    <source-file src="src/ios/ALChatManagerCDVPlugin.m" target-dir="ApplozicPlugin"/>
+    <header-file src="src/ios/ApplozicCordovaPlugin.h" target-dir="ApplozicPlugin"/>
+    <source-file src="src/ios/ApplozicCordovaPlugin.m" target-dir="ApplozicPlugin"/>
 
     <header-file src="src/ios/ALChatManager.h" target-dir="ApplozicPlugin"/>
     <source-file src="src/ios/ALChatManager.m" target-dir="ApplozicPlugin"/>

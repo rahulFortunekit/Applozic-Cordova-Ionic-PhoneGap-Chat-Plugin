@@ -17,13 +17,15 @@
 #define APPLICATION_ID @"applozic-sample-app"
 
 
-@interface ALChatManagerCDVPlugin : CDVPlugin
+@interface ApplozicCordovaPlugin : CDVPlugin
 
 -(NSString *)getApplicationKey;
 
 - (ALChatManager *)getALChatManager:(NSString*)applicationId;
 
 - (void) login:(CDVInvokedUrlCommand*)command;
+
+- (void) isLoggedIn:(CDVInvokedUrlCommand*)command;
 
 - (void) launchChat:(CDVInvokedUrlCommand*)command;
 

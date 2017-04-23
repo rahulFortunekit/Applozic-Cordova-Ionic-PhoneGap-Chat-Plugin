@@ -2,24 +2,24 @@
 
 module.exports = {
     login: function(alUser, successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "login", [JSON.stringify(alUser)]);
+    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "login", [JSON.stringify(alUser)]);
     },
     isLoggedIn: function(successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "isLoggedIn", []);
+    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "isLoggedIn", []);
     },
     launchChat: function(successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "launchChat", []);
+    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChat", []);
     },
     launchChatWithUserId: function(userId, successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "launchChatWithUserId", [userId]);
+    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChatWithUserId", [userId]);
     },
     launchChatWithGroupId: function(groupId, successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "launchChatWithGroupId", [groupId]);
+    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChatWithGroupId", [groupId]);
     },
     launchChatWithClientGroupId: function(clientGroupid, successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "launchChatWithClientGroupId", [clientGroupid]);
+    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChatWithClientGroupId", [clientGroupid]);
     },
     logout: function(successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ALChatManagerCDVPlugin", "logout", []);
+    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "logout", []);
     }
 };

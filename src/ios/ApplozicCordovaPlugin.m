@@ -6,7 +6,7 @@
 //  Copyright © 2015 applozic Inc. All rights reserved.
 //
 
-#import "ALChatManagerCDVPlugin.h"
+#import "ApplozicCordovaPlugin.h"
 #import "ALChatManager.h"
 #import <Applozic/ALUserDefaultsHandler.h>
 #import <Applozic/ALMessageClientService.h>
@@ -17,7 +17,7 @@
 #import <Applozic/ALPushAssist.h>
 
 
-@implementation ALChatManagerCDVPlugin
+@implementation ApplozicCordovaPlugin
 
 -(NSString *)getApplicationKey
 {
