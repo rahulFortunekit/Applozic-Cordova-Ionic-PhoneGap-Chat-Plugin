@@ -61,9 +61,9 @@
 - (void) isLoggedIn:(CDVInvokedUrlCommand*)command
 {
     NSString* deviceKey = [ALUserDefaultsHandler getDeviceKeyString];
-    NSString* response = "false";
+    NSString* response = @"false";
     if (deviceKey) {
-        response = "true";
+        response = @"true";
     }
 
     CDVPluginResult* result = [CDVPluginResult
@@ -77,10 +77,7 @@
     ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
     
     ALPushAssist * assitant = [[ALPushAssist alloc] init];
-    [alChatManager launchChatForUserWithDisplayName:nil
-                                      withGroupId:nil  //If launched for group, pass groupId(pass userId as nil)
-                               andwithDisplayName:nil //Not mandatory, if receiver is not already registered you should pass Displayname.
-                            andFromViewController:[assitant topViewController]];
+    [alChatManager launchChat:[assitant topViewController]];
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:@"success"];
