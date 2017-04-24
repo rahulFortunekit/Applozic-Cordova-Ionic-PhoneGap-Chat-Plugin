@@ -33,7 +33,7 @@
                  android:value="applozic-sample-app" /> <!-- Applozic Application Key -->
 
       <meta-data android:name="com.applozic.mobicomkit.notification.smallIcon"
-                 android:resource="YOUR_LAUNCHER_SMALL_ICON" /> <!-- Launcher white Icon -->
+                 android:resource="@mipmap/icon" /> <!-- Launcher white Icon -->
 
       <meta-data android:name="main_folder_name"
                  android:value="chat" /> <!-- Attachment Folder Name -->
