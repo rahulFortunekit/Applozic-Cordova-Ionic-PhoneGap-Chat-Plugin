@@ -133,7 +133,7 @@
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
- -(void)launchContactList:(CDVInvokedUrlCommand*)command
+ -(void)startNewConversation:(CDVInvokedUrlCommand*)command
 {
     ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
     alChatManager.chatLauncher = [[ALChatLauncher alloc] initWithApplicationId:[self getApplicationKey]];
