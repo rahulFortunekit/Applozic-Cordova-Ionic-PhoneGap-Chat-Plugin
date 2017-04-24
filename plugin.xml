@@ -28,28 +28,6 @@
     <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
 
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
-        <activity
-            android:name="com.instabug.library.InstabugFeedbackActivity">
-        </activity>
-    </config-file>
-
-    <config-file target="AndroidManifest.xml" parent="/manifest">
-      <!--
-      <uses-permission android:name="<APP_PKG_NAME>.permission.MAPS_RECEIVE" />
-      <permission android:name="<APP_PKG_NAME>.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
-    -->
-      <uses-permission android:name="android.permission.INTERNET" />
-      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"  />
-      <uses-permission android:name="android.permission.READ_CONTACTS" />
-      <uses-permission android:name="android.permission.VIBRATE"/>
-      <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-      <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-      <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-      <uses-permission android:name="android.permission.CALL_PHONE" />
-      <uses-permission android:name="android.permission.CAMERA" />
-      <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
       <meta-data android:name="com.applozic.application.key"
                  android:value="applozic-sample-app" /> <!-- Applozic Application Key -->
@@ -79,16 +57,16 @@
                   android:resource="@xml/provider_paths"/>
        </provider>
 
-        <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
+      <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
            android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
            android:label="@string/app_name"
-           android:parentActivityName="<APP_PARENT_ACTIVITY>"
+           android:parentActivityName="MainActivity"
            android:theme="@style/ApplozicTheme"
            android:launchMode="singleTask" >
             <!-- Parent activity meta-data to support API level 7+ -->
               <meta-data
                  android:name="android.support.PARENT_ACTIVITY"
-                 android:value="<APP_PARENT_ACTIVITY>" />
+                 android:value="MainActivity" />
        </activity>
 
       <activity android:name="com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity"
@@ -211,6 +189,25 @@
                     <action android:name="android.intent.action.BOOT_COMPLETED" />
                 </intent-filter>
       </receiver>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <!--
+      <uses-permission android:name="<APP_PKG_NAME>.permission.MAPS_RECEIVE" />
+      <permission android:name="<APP_PKG_NAME>.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
+    -->
+      <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"  />
+      <uses-permission android:name="android.permission.READ_CONTACTS" />
+      <uses-permission android:name="android.permission.VIBRATE"/>
+      <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+      <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+      <uses-permission android:name="android.permission.CALL_PHONE" />
+      <uses-permission android:name="android.permission.CAMERA" />
+      <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     </config-file>
 

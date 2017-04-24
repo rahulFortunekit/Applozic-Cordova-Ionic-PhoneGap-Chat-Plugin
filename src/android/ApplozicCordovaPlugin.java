@@ -1,9 +1,13 @@
 package com.applozic.phonegap;
 
+import android.content.Context;
+import android.content.Intent;
+
 import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import com.applozic.mobicomkit.api.account.user.MobiComUserPreference;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
 import com.applozic.mobicomkit.api.account.user.UserClientService;
@@ -21,29 +25,32 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
 
 
         } else if (action.equals("isLoggedIn")) {
-
-
+            Context context = cordova.getActivity().getApplicationContext();
+            callbackContext.success(String.valueOf(MobiComUserPreference.getInstance(context).isLoggedIn()));
         } else if (action.equals("launchChat")) {
-            Intent intent = new Intent(this, ConversationActivity.class);            
-            startActivity(intent);
+            Context context = cordova.getActivity().getApplicationContext();
+            Intent intent = new Intent(context, ConversationActivity.class);
+            cordova.getActivity().startActivity(intent);
         } else if (action.equals("launchChatWithUserId")) {
-            Intent intent = new Intent(this, ConversationActivity.class);            
-            intent.putExtra(ConversationUIService.USER_ID, data.getString(0));             
-            startActivity(intent);
+            Context context = cordova.getActivity().getApplicationContext();
+            Intent intent = new Intent(context, ConversationActivity.class);
+            intent.putExtra(ConversationUIService.USER_ID, data.getString(0));
+            cordova.getActivity().startActivity(intent);
         } else if (action.equals("launchChatWithGroupId")) {
-            Intent intent = new Intent(this, ConversationActivity.class);            
+            Context context = cordova.getActivity().getApplicationContext();
+            Intent intent = new Intent(context, ConversationActivity.class);
             intent.putExtra(ConversationUIService.GROUP_ID, 12);      //Pass group id here.       
-            startActivity(intent);
+            cordova.getActivity().startActivity(intent);
         } else if (action.equals("launchChatWithClientGroupId")) {
 
 
         }  else if (action.equals("logout")) {
-            new UserClientService(this).logout();
+            new UserClientService(cordova.getActivity()).logout();
+            callbackContext.success(response);
         } else {
             return false;
         }
 
-        callbackContext.success(response);
         return true;
     }
 
