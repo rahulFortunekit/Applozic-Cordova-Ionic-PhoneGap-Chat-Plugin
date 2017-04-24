@@ -16,6 +16,13 @@ Install the plugin
 Edit `www/js/index.js` and add the following code inside `onDeviceReady`
 
 
+## iOS
+
+Open /platforms/ios/Applozic.xcodeproj in Xcode.
+Verify if the Applozic.framework is added in "Embedded Binaries". If not, then add it to the "Embedded Binaries" by clicking the + button under Project General Settings -> Embedded Binaries.
+Remove duplicate entry from "Linked Framework and Libraries" if any.
+
+
 #### Login/Register User
 ```js
     var alUser = {
