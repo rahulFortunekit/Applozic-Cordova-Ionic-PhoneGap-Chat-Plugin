@@ -60,9 +60,8 @@
 
 - (void) isLoggedIn:(CDVInvokedUrlCommand*)command
 {
-    NSString* deviceKey = [ALUserDefaultsHandler getDeviceKeyString];
     NSString* response = @"false";
-    if (deviceKey) {
+    if ([ALUserDefaultsHandler isLoggedIn]) {
         response = @"true";
     }
 
