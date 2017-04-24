@@ -21,7 +21,7 @@ module.exports = {
     },
     startNewConversation: function(selected, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "startNewConversation", [selected]);
-    }
+    },
     logout: function(successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "logout", []);
     }
