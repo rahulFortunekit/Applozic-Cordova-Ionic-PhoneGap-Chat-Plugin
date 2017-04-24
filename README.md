@@ -16,6 +16,13 @@ Install the plugin
 Edit `www/js/index.js` and add the following code inside `onDeviceReady`
 
 
+## Android
+Open /platforms/android/ folder in Android Studio.
+If you see gradle wrapper error then open gradle/wrapper/gradle-wrapper.properties
+Change distributionUrl to point to 2.14.1-all
+distributionUrl=https\://services.gradle.org/distributions/gradle-2.14.1-all.zip
+
+
 ## iOS
 
 Open /platforms/ios/Applozic.xcodeproj in Xcode.
