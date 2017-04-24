@@ -23,6 +23,17 @@ Change distributionUrl to point to 2.14.1-all
 distributionUrl=https\://services.gradle.org/distributions/gradle-2.14.1-all.zip
 
 
+Create a XML resource file in xml directory as provider_paths and paste the below code
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path name="files" path="."/>
+</paths>
+```
+
+
+
 ## iOS
 
 Open /platforms/ios/Applozic.xcodeproj in Xcode.
