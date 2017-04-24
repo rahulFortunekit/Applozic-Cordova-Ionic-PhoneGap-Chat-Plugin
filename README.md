@@ -19,8 +19,8 @@ Edit `www/js/index.js` and add the following code inside `onDeviceReady`
 #### Login/Register User
 ```js
     var alUser = {
-            'userId' : $("#userId").val(),
-            'password' : $("#password").val(),
+            'userId' : userId,   //Replace it with the userId of the logged in user
+            'password' : password,  //Put password here
             'authenticationTypeId' : 1,
             'applicationId' : 'applozic-sample-app'
         };
