@@ -10,7 +10,6 @@ Signup at https://www.applozic.com/signup.html to get the application key.
     
 Install the plugin
 
-    $ cd hello
     $ cordova plugin add https://github.com/AppLozic/Applozic-Cordova-PhoneGap-Chat-Plugin.git
     
 
