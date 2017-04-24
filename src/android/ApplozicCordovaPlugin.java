@@ -12,18 +12,15 @@ import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
 import com.applozic.mobicomkit.api.account.user.MobiComUserPreference;
 import com.applozic.mobicomkit.api.account.user.User;
 import com.applozic.mobicomkit.api.account.user.UserLoginTask;
-import com.applozic.mobicomkit.feed.ApiResponse;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
 import com.applozic.mobicomkit.api.account.user.UserClientService;
 import com.applozic.mobicommons.json.GsonUtils;
-import com.google.gson.Gson;
 
-// http://stackoverflow.com/a/18609901/1122828
 public class ApplozicCordovaPlugin extends CordovaPlugin {
 
     @Override
-    public boolean execute(String action, JSONArray data, final CallbackContext callbackContext) throws JSONException {
+    public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
 
         String response = "success";
 
@@ -33,18 +30,20 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             Context context = cordova.getActivity().getApplicationContext();
             Applozic.init(context, user.getApplicationId());
 
+            final CallbackContext callback = callbackContext;
+
             UserLoginTask.TaskListener listener = new UserLoginTask.TaskListener() {
 
                 @Override
                 public void onSuccess(RegistrationResponse registrationResponse, Context context) {
                     //After successful registration with Applozic server the callback will come here
-                    callbackContext.success(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
+                    callback.success(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
                 }
 
                 @Override
                 public void onFailure(RegistrationResponse registrationResponse, Exception exception) {
                     //If any failure in registration the callback  will come here
-                    callbackContext.error(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
+                    callback.error(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
                 }};
 
             new UserLoginTask(user, listener, context).execute((Void) null);
