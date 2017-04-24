@@ -32,8 +32,8 @@
     <!--  <meta-data android:name="com.applozic.application.key"
                  android:value="applozic-sample-app" /> --> <!-- Applozic Application Key -->
 
-      <meta-data android:name="com.applozic.mobicomkit.notification.smallIcon"
-                 android:resource="@mipmap/icon" /> <!-- Launcher white Icon -->
+    <!--  <meta-data android:name="com.applozic.mobicomkit.notification.smallIcon"
+                 android:resource="@mipmap/icon" /> --> <!-- Launcher white Icon -->
 
       <meta-data android:name="main_folder_name"
                  android:value="chat" /> <!-- Attachment Folder Name -->

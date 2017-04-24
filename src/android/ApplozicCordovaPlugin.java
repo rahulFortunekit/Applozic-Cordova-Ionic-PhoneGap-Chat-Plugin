@@ -29,7 +29,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
 
         if (action.equals("login")) {
             String userJson = data.getString(0);
-            User user = (User) GsonUtils.getObjectFromJson(userJson, ApiResponse.class);
+            User user = (User) GsonUtils.getObjectFromJson(userJson, User.class);
             Context context = cordova.getActivity().getApplicationContext();
             Applozic.init(context, user.getApplicationId());
 
