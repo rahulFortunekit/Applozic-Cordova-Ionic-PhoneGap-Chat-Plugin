@@ -16,6 +16,31 @@ Install the plugin
 Edit `www/js/index.js` and add the following code inside `onDeviceReady`
 
 
+## Android
+Open /platforms/android/ folder in Android Studio.
+If you see gradle wrapper error then open gradle/wrapper/gradle-wrapper.properties
+Change distributionUrl to point to 2.14.1-all
+distributionUrl=https\://services.gradle.org/distributions/gradle-2.14.1-all.zip
+
+
+Create a XML resource file in xml directory as provider_paths and paste the below code
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path name="files" path="."/>
+</paths>
+```
+
+
+
+## iOS
+
+Open /platforms/ios/Applozic.xcodeproj in Xcode.
+Verify if the Applozic.framework is added in "Embedded Binaries". If not, then add it to the "Embedded Binaries" by clicking the + button under Project General Settings -> Embedded Binaries.
+Remove duplicate entry from "Linked Framework and Libraries" if any.
+
+
 #### Login/Register User
 ```js
     var alUser = {
