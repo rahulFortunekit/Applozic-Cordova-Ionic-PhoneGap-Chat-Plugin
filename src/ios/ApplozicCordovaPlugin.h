@@ -35,6 +35,8 @@
 
 - (void) launchChatWithClientGroupId:(CDVInvokedUrlCommand*)command;
 
+ -(void) startNewConversation:(CDVInvokedUrlCommand*)command;
+
 - (void) logout:(CDVInvokedUrlCommand*)command;
 
 @end

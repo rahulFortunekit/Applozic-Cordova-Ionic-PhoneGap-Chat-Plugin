@@ -15,6 +15,7 @@ import com.applozic.mobicomkit.api.account.user.UserLoginTask;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
 import com.applozic.mobicomkit.api.account.user.UserClientService;
+import com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity;
 import com.applozic.mobicommons.json.GsonUtils;
 
 public class ApplozicCordovaPlugin extends CordovaPlugin {
@@ -62,6 +63,9 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         } else if (action.equals("launchChatWithClientGroupId")) {
             Intent intent = new Intent(context, ConversationActivity.class);
             intent.putExtra(ConversationUIService.CLIENT_GROUP_ID, data.getString(0));
+            cordova.getActivity().startActivity(intent);
+        }  else if (action.equals("startNew")) {
+            Intent intent = new Intent(context, MobiComKitPeopleActivity.class);
             cordova.getActivity().startActivity(intent);
         }  else if (action.equals("logout")) {
             new UserClientService(cordova.getActivity()).logout();

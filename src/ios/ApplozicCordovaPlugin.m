@@ -133,6 +133,20 @@
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
+ -(void)launchContactList:(CDVInvokedUrlCommand*)command
+{
+    ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
+    alChatManager.chatLauncher = [[ALChatLauncher alloc] initWithApplicationId:[self getApplicationKey]];
+    ALPushAssist * assitant = [[ALPushAssist alloc] init];
+
+    [alChatManager.chatLauncher launchContactList:[assitant topViewController]];
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:@"success"];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+
 - (void)logout:(CDVInvokedUrlCommand*)command
 {
     ALRegisterUserClientService * alUserClientService = [[ALRegisterUserClientService alloc]init];
