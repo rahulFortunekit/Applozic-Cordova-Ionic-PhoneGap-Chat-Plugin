@@ -71,6 +71,22 @@
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
+- (void) updatePushNotificationToken:(CDVInvokedUrlCommand*)command;
+{
+   NSString* apnDeviceToken = [[command arguments] objectAtIndex:0];
+   if (![[ALUserDefaultsHandler getApnDeviceToken] isEqualToString:apnDeviceToken]) {                         
+       ALRegisterUserClientService *registerUserClientService = [[ALRegisterUserClientService alloc] init];          
+       [registerUserClientService updateApnDeviceTokenWithCompletion:apnDeviceToken 
+          withCompletion:^(ALRegistrationResponse*rResponse, NSError *error) {   
+        if (error) {          
+          NSLog(@"%@",error);             
+          return;           
+        }              
+        NSLog(@"Registration response from server:%@", rResponse);                         
+    }]; 
+  } 
+}
+
 - (void) launchChat:(CDVInvokedUrlCommand*)command
 {
     ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];

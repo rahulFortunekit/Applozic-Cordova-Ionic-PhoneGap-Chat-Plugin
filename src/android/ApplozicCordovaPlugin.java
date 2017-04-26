@@ -9,6 +9,7 @@ import org.json.JSONException;
 
 import com.applozic.mobicomkit.Applozic;
 import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
+import com.applozic.mobicomkit.api.account.register.RegisterUserClientService;
 import com.applozic.mobicomkit.api.account.user.MobiComUserPreference;
 import com.applozic.mobicomkit.api.account.user.User;
 import com.applozic.mobicomkit.api.account.user.UserLoginTask;
@@ -49,6 +50,10 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             new UserLoginTask(user, listener, context).execute((Void) null);
         } else if (action.equals("isLoggedIn")) {
             callbackContext.success(String.valueOf(MobiComUserPreference.getInstance(context).isLoggedIn()));
+        } else if (action.equals("updatePushNotificationToken")) {
+            if (MobiComUserPreference.getInstance(this).isRegistered()) {
+                  new RegisterUserClientService(this).updatePushNotificationId(data.getString(0));
+             }
         } else if (action.equals("launchChat")) {
             Intent intent = new Intent(context, ConversationActivity.class);
             cordova.getActivity().startActivity(intent);
