@@ -38,6 +38,10 @@ Verify if the Applozic.framework is added in "Embedded Binaries". If not, then a
 Remove duplicate entry from "Linked Framework and Libraries" if any.
 
 
+
+###Steps to integrate:
+
+
 #### Login/Register User
 ```js
     var alUser = {
