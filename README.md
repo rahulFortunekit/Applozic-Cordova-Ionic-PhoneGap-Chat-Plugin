@@ -52,8 +52,8 @@ Remove duplicate entry from "Linked Framework and Libraries" if any.
         };
 
    applozic.login(alUser, function() {
-        		applozic.launchChat(function() {}, failure);
-        	}, failure);
+        		applozic.launchChat(function() {}, function() {});
+        	}, function() {});
 ```
 
 #### Launch Chat
