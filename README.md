@@ -13,9 +13,6 @@ Install the plugin
     $ cordova plugin add https://github.com/AppLozic/Applozic-Cordova-PhoneGap-Chat-Plugin.git
     
 
-Edit `www/js/index.js` and add the following code inside `onDeviceReady`
-
-
 ## Android
 Open /platforms/android/ folder in Android Studio.
 If you see gradle wrapper error then open gradle/wrapper/gradle-wrapper.properties
@@ -41,6 +38,10 @@ Verify if the Applozic.framework is added in "Embedded Binaries". If not, then a
 Remove duplicate entry from "Linked Framework and Libraries" if any.
 
 
+
+### Steps to integrate:
+
+
 #### Login/Register User
 ```js
     var alUser = {
@@ -51,8 +52,8 @@ Remove duplicate entry from "Linked Framework and Libraries" if any.
         };
 
    applozic.login(alUser, function() {
-        		applozic.launchChat(function() {}, failure);
-        	}, failure);
+        		applozic.launchChat(function() {}, function() {});
+        	}, function() {});
 ```
 
 #### Launch Chat
