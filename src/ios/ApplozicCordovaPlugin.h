@@ -29,6 +29,8 @@
 
 - (void) updatePushNotificationToken:(CDVInvokedUrlCommand*)command;
 
+//- (void) processPushNotification:(CDVInvokedUrlCommand*)command;
+
 - (void) launchChat:(CDVInvokedUrlCommand*)command;
 
 - (void) launchChatWithUserId:(CDVInvokedUrlCommand*)command;

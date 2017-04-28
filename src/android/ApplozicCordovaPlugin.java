@@ -51,8 +51,8 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         } else if (action.equals("isLoggedIn")) {
             callbackContext.success(String.valueOf(MobiComUserPreference.getInstance(context).isLoggedIn()));
         } else if (action.equals("updatePushNotificationToken")) {
-            if (MobiComUserPreference.getInstance(this).isRegistered()) {
-                  new RegisterUserClientService(this).updatePushNotificationId(data.getString(0));
+            if (MobiComUserPreference.getInstance(context).isRegistered()) {
+                  new RegisterUserClientService(context).updatePushNotificationId(data.getString(0));
              }
         } else if (action.equals("launchChat")) {
             Intent intent = new Intent(context, ConversationActivity.class);

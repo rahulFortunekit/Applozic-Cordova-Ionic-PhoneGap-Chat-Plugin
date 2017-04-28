@@ -71,7 +71,7 @@
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
-- (void) updatePushNotificationToken:(CDVInvokedUrlCommand*)command;
+- (void) updatePushNotificationToken:(CDVInvokedUrlCommand*)command
 {
    NSString* apnDeviceToken = [[command arguments] objectAtIndex:0];
    if (![[ALUserDefaultsHandler getApnDeviceToken] isEqualToString:apnDeviceToken]) {                         
@@ -86,6 +86,22 @@
     }]; 
   } 
 }
+
+/*
+-(void) processPushNotification:(CDVInvokedUrlCommand*)command {
+    //Todo: create dictionary from command
+    ALPushNotificationService *pushNotificationService = [[ALPushNotificationService alloc] init];
+    [pushNotificationService notificationArrivedToApplication:application withDictionary:dictionary];
+}
+
+-(void) processBackgrou dPushNotification:(CDVInvokedUrlCommand*)command {
+{
+      NSLog(@"Received notification Completion: %@", userInfo);
+    ALPushNotificationService *pushNotificationService = [[ALPushNotificationService alloc] init];
+     [pushNotificationService notificationArrivedToApplication:application withDictionary:userInfo];
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+*/
 
 - (void) launchChat:(CDVInvokedUrlCommand*)command
 {
