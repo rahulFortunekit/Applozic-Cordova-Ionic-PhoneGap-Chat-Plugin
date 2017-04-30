@@ -13,11 +13,16 @@ import com.applozic.mobicomkit.api.account.register.RegisterUserClientService;
 import com.applozic.mobicomkit.api.account.user.MobiComUserPreference;
 import com.applozic.mobicomkit.api.account.user.User;
 import com.applozic.mobicomkit.api.account.user.UserLoginTask;
+import com.applozic.mobicomkit.contact.AppContactService;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
 import com.applozic.mobicomkit.api.account.user.UserClientService;
 import com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity;
 import com.applozic.mobicommons.json.GsonUtils;
+import com.applozic.mobicommons.people.contact.Contact;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ApplozicCordovaPlugin extends CordovaPlugin {
 
@@ -51,9 +56,13 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         } else if (action.equals("isLoggedIn")) {
             callbackContext.success(String.valueOf(MobiComUserPreference.getInstance(context).isLoggedIn()));
         } else if (action.equals("updatePushNotificationToken")) {
-            /*if (MobiComUserPreference.getInstance(context).isRegistered()) {
-                  new RegisterUserClientService(context).updatePushNotificationId(data.getString(0));
-             }*/
+            if (MobiComUserPreference.getInstance(context).isRegistered()) {
+                try {
+                    new RegisterUserClientService(context).updatePushNotificationId(data.getString(0));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         } else if (action.equals("launchChat")) {
             Intent intent = new Intent(context, ConversationActivity.class);
             cordova.getActivity().startActivity(intent);
@@ -72,6 +81,26 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         }  else if (action.equals("startNew")) {
             Intent intent = new Intent(context, MobiComKitPeopleActivity.class);
             cordova.getActivity().startActivity(intent);
+        } else if (action.equals("addContact")) {
+            String contactJson = data.getString(0);
+            Contact contact = (Contact) GsonUtils.getObjectFromJson(contactJson, Contact.class);
+            AppContactService appContactService = new AppContactService(context);
+            appContactService.add(contact);
+        } else if (action.equals("updateContact")) {
+            String contactJson = data.getString(0);
+            Contact contact = (Contact) GsonUtils.getObjectFromJson(contactJson, Contact.class);
+            AppContactService appContactService = new AppContactService(context);
+            appContactService.updateContact(contact);
+        } else if (action.equals("removeContact")) {
+            String contactJson = data.getString(0);
+            Contact contact = (Contact) GsonUtils.getObjectFromJson(contactJson, Contact.class);
+            AppContactService appContactService = new AppContactService(context);
+            appContactService.deleteContact(contact);
+        } else if (action.equals("addContacts")) {
+            String contactJson = data.getString(0);
+            List<Contact> contactList = (ArrayList<Contact>) GsonUtils.getObjectFromJson(contactJson, List.class);
+            AppContactService appContactService = new AppContactService(context);
+            appContactService.addAll(contactList);
         }  else if (action.equals("logout")) {
             new UserClientService(cordova.getActivity()).logout();
             callbackContext.success(response);

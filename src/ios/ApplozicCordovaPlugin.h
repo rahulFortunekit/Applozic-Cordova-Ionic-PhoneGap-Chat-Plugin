@@ -12,7 +12,7 @@
 #import <Applozic/ALConversationService.h>
 #import <Applozic/ALRegisterUserClientService.h>
 #import <Cordova/CDV.h>
-#import "alChatManager.h"
+#import "ALChatManager.h"
 
 #define APPLICATION_ID @"applozic-sample-app"
 
@@ -39,7 +39,15 @@
 
 - (void) launchChatWithClientGroupId:(CDVInvokedUrlCommand*)command;
 
- -(void) startNewConversation:(CDVInvokedUrlCommand*)command;
+- (void) startNewConversation:(CDVInvokedUrlCommand*)command;
+
+- (void) addContact:(CDVInvokedUrlCommand*)command;
+
+- (void) updateContact:(CDVInvokedUrlCommand*)command;
+
+- (void) removeContact:(CDVInvokedUrlCommand*)command;
+
+- (void) addContacts:(CDVInvokedUrlCommand*)command;
 
 - (void) logout:(CDVInvokedUrlCommand*)command;
 
