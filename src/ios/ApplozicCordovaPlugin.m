@@ -182,7 +182,7 @@
 - (void) showAllRegisteredUsers:(CDVInvokedUrlCommand*)command
 {
     NSString* showAll = [[command arguments] objectAtIndex:0];
-    [ALApplozicSettings setFilterContactsStatus:[showAll boolValue]]];
+    [ALApplozicSettings setFilterContactsStatus:[showAll boolValue]];
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:@"success"];
