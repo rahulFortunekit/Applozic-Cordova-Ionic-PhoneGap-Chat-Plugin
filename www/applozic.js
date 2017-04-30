@@ -25,6 +25,9 @@ module.exports = {
     startNewConversation: function(selected, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "startNewConversation", [selected]);
     },
+    showAllRegisteredUsers: function(showAllContacts, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "showAllRegisteredUsers", [showAllContacts]);
+    },
     addContact: function(contact, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "addContact", [JSON.stringify(contact)]);
     },

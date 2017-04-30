@@ -39,6 +39,8 @@
 
 - (void) launchChatWithClientGroupId:(CDVInvokedUrlCommand*)command;
 
+- (void) showAllRegisteredUsers:(CDVInvokedUrlCommand*)command;
+
 - (void) startNewConversation:(CDVInvokedUrlCommand*)command;
 
 - (void) addContact:(CDVInvokedUrlCommand*)command;
