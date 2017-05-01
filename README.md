@@ -78,6 +78,18 @@ applozic.launchChatWithGroupId(groupId, function() {console.log("success");}, fu
 ```
 
 
+#### Contact List
+
+```
+applozic.showAllRegisteredUsers(false, function() {}, function() {});
+               
+var contacts = [
+                    {'userId' : 'adarsh', 'displayName' : 'Adarsh Kumar'}, 
+                    {'userId' : 'ranjeet', 'displayName' : 'Ranjeet Priyadarshi'}
+                ];
+applozic.addContacts(contacts, function() {}, function() {});
+```
+
 #### Logout
 
 ```
