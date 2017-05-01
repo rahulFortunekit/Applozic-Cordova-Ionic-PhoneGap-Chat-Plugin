@@ -82,7 +82,7 @@ applozic.launchChatWithGroupId(groupId, function() {console.log("success");}, fu
 
 ```
 applozic.showAllRegisteredUsers(false, function() {}, function() {});
-               
+// create a contacts array and pass it to addContacts function. Below is the sample:               
 var contacts = [
                     {'userId' : 'adarsh', 'displayName' : 'Adarsh Kumar'}, 
                     {'userId' : 'ranjeet', 'displayName' : 'Ranjeet Priyadarshi'}
