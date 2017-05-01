@@ -29,6 +29,9 @@ Create a XML resource file in xml directory as provider_paths and paste the belo
 </paths>
 ```
 
+Applozic provide easy settings to customise your ui themes color,pop-up messages etc. You need to follow below steps to enable/change these settings:
+1. Download applozic-settings.json file from here
+2. Create a assets directory in app-->main and paste that applozic-settings.json file in assets directory
 
 
 ## iOS
@@ -89,6 +92,13 @@ var contacts = [
                 ];
 applozic.addContacts(contacts, function() {}, function() {});
 ```
+##### Android
+Set the following in applozic-settings.json properties file.
+```
+"registeredUserContactListCall": false,
+"startNewButton": true,
+```
+
 
 #### Logout
 
