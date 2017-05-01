@@ -12,16 +12,23 @@ import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
 import com.applozic.mobicomkit.api.account.register.RegisterUserClientService;
 import com.applozic.mobicomkit.api.account.user.MobiComUserPreference;
 import com.applozic.mobicomkit.api.account.user.User;
+import com.applozic.mobicomkit.api.account.user.UserDetail;
 import com.applozic.mobicomkit.api.account.user.UserLoginTask;
+import com.applozic.mobicomkit.api.account.user.UserService;
+import com.applozic.mobicomkit.api.people.ContactList;
 import com.applozic.mobicomkit.contact.AppContactService;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
 import com.applozic.mobicomkit.api.account.user.UserClientService;
 import com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity;
+import com.applozic.mobicommons.json.AnnotationExclusionStrategy;
 import com.applozic.mobicommons.json.GsonUtils;
 import com.applozic.mobicommons.people.contact.Contact;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ApplozicCordovaPlugin extends CordovaPlugin {
@@ -83,9 +90,8 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             cordova.getActivity().startActivity(intent);
         } else if (action.equals("addContact")) {
             String contactJson = data.getString(0);
-            Contact contact = (Contact) GsonUtils.getObjectFromJson(contactJson, Contact.class);
-            AppContactService appContactService = new AppContactService(context);
-            appContactService.add(contact);
+            UserDetail userDetail = (UserDetail) GsonUtils.getObjectFromJson(contactJson, UserDetail.class);
+            UserService.getInstance(context).processUser(userDetail);
         } else if (action.equals("updateContact")) {
             String contactJson = data.getString(0);
             Contact contact = (Contact) GsonUtils.getObjectFromJson(contactJson, Contact.class);
@@ -98,9 +104,11 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             appContactService.deleteContact(contact);
         } else if (action.equals("addContacts")) {
             String contactJson = data.getString(0);
-            List<Contact> contactList = (ArrayList<Contact>) GsonUtils.getObjectFromJson(contactJson, List.class);
-            AppContactService appContactService = new AppContactService(context);
-            appContactService.addAll(contactList);
+            Gson gson = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).create();
+            UserDetail[] userDetails = (UserDetail[]) gson.fromJson(contactJson, UserDetail[].class);
+            for (UserDetail userDetail: userDetails) {
+                UserService.getInstance(context).processUser(userDetail);
+            }
         }  else if (action.equals("logout")) {
             new UserClientService(cordova.getActivity()).logout();
             callbackContext.success(response);
