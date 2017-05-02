@@ -29,6 +29,9 @@ Create a XML resource file in xml directory as provider_paths and paste the belo
 </paths>
 ```
 
+Applozic provide easy settings to customise your ui themes color,pop-up messages etc. You need to follow below steps to enable/change these settings:
+1. Download applozic-settings.json file from here
+2. Create a assets directory in app-->main and paste that applozic-settings.json file in assets directory
 
 
 ## iOS
@@ -75,6 +78,25 @@ applozic.launchChatWithUserId(userId, function() {console.log("success");}, func
 
 ```
 applozic.launchChatWithGroupId(groupId, function() {console.log("success");}, function () {console.log("error");});
+```
+
+
+#### Contact List
+
+```
+applozic.showAllRegisteredUsers(false, function() {}, function() {});
+// create a contacts array and pass it to addContacts function. Below is the sample:               
+var contacts = [
+                    {'userId' : 'adarsh', 'displayName' : 'Adarsh Kumar'}, 
+                    {'userId' : 'ranjeet', 'displayName' : 'Ranjeet Priyadarshi'}
+                ];
+applozic.addContacts(contacts, function() {}, function() {});
+```
+##### Android
+Set the following in applozic-settings.json properties file.
+```
+"registeredUserContactListCall": false,
+"startNewButton": true,
 ```
 
 
