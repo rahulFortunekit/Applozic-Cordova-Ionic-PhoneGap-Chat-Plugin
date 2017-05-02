@@ -6,7 +6,7 @@ module.exports = {
     },
     registerPushNotification: function(successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "registerPushNotification", []);
-    }
+    },
     isLoggedIn: function(successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "isLoggedIn", []);
     },
