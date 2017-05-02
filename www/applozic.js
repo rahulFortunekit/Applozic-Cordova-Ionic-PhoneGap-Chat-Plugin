@@ -4,6 +4,9 @@ module.exports = {
     login: function(alUser, successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "login", [JSON.stringify(alUser)]);
     },
+    registerPushNotification: function(successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "registerPushNotification", []);
+    }
     isLoggedIn: function(successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "isLoggedIn", []);
     },
@@ -39,6 +42,9 @@ module.exports = {
     },
     addContacts: function(contacts, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "addContacts", [JSON.stringify(contacts)]);
+    },
+    processPushNotification: function(data, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "processPushNotification", [JSON.stringify(data)]);
     },
     logout: function(successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "logout", []);

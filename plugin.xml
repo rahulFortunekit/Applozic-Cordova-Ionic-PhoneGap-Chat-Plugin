@@ -24,6 +24,8 @@
     </config-file>
 
     <source-file src="src/android/ApplozicCordovaPlugin.java" target-dir="src/com/applozic/phonegap/"/>
+    <source-file src="src/android/FcmInstanceIDListenerService.java" target-dir="src/com/applozic/phonegap/notification"/>
+    <source-file src="src/android/FcmListenerService.java" target-dir="src/com/applozic/phonegap/notification"/>
 
     <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
 
@@ -176,11 +178,29 @@
       <service android:name="com.applozic.mobicomkit.api.conversation.ConversationReadService"
                android:exported="false" />
 
+      <service android:name="com.applozic.phonegap.notification.FcmListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+      </service>
+
+      <service android:exported="false" android:name="com.applozic.phonegap.notification.FcmInstanceIDListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
       <receiver android:name="com.applozic.mobicomkit.broadcast.TimeChangeBroadcastReceiver">
                <intent-filter>
                    <action android:name="android.intent.action.TIME_SET" />
                    <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                </intent-filter>
+      </receiver>
+
+      <receiver android:name="com.applozic.mobicomkit.uiwidgets.notification.MTNotificationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="${applicationId}.send.notification"/>
+            </intent-filter>
       </receiver>
 
       <receiver android:name="com.applozic.mobicomkit.broadcast.ConnectivityReceiver"
