@@ -3,26 +3,20 @@ package com.applozic.phonegap;
 import android.content.Context;
 import android.content.Intent;
 
-import org.apache.cordova.*;
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import com.applozic.mobicomkit.Applozic;
-import com.applozic.mobicomkit.ApplozicClient;
-import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
 import com.applozic.mobicomkit.api.account.register.RegisterUserClientService;
+import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
 import com.applozic.mobicomkit.api.account.user.MobiComUserPreference;
+import com.applozic.mobicomkit.api.account.user.PushNotificationTask;
 import com.applozic.mobicomkit.api.account.user.User;
+import com.applozic.mobicomkit.api.account.user.UserClientService;
 import com.applozic.mobicomkit.api.account.user.UserDetail;
 import com.applozic.mobicomkit.api.account.user.UserLoginTask;
 import com.applozic.mobicomkit.api.account.user.UserService;
 import com.applozic.mobicomkit.api.notification.MobiComPushReceiver;
-import com.applozic.mobicomkit.api.people.ContactList;
 import com.applozic.mobicomkit.contact.AppContactService;
-import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
-import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
-import com.applozic.mobicomkit.api.account.user.UserClientService;
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity;
 import com.applozic.mobicommons.json.AnnotationExclusionStrategy;
 import com.applozic.mobicommons.json.GsonUtils;
@@ -30,10 +24,12 @@ import com.applozic.mobicommons.people.contact.Contact;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaPlugin;
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ApplozicCordovaPlugin extends CordovaPlugin {
