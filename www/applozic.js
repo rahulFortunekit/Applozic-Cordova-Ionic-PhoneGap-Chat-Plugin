@@ -46,6 +46,9 @@ module.exports = {
     processPushNotification: function(data, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "processPushNotification", [JSON.stringify(data)]);
     },
+    createGroup: function(group, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "createGroup", [group]);
+    },
     logout: function(successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "logout", []);
     }

@@ -14,12 +14,15 @@ import com.applozic.mobicomkit.api.account.user.UserDetail;
 import com.applozic.mobicomkit.api.account.user.UserLoginTask;
 import com.applozic.mobicomkit.api.account.user.UserService;
 import com.applozic.mobicomkit.api.notification.MobiComPushReceiver;
+import com.applozic.mobicomkit.api.people.ChannelInfo;
+import com.applozic.mobicomkit.channel.service.ChannelService;
 import com.applozic.mobicomkit.contact.AppContactService;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity;
 import com.applozic.mobicommons.json.AnnotationExclusionStrategy;
 import com.applozic.mobicommons.json.GsonUtils;
+import com.applozic.mobicommons.people.channel.Channel;
 import com.applozic.mobicommons.people.contact.Contact;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,6 +42,8 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         Context context = cordova.getActivity().getApplicationContext();
         String response = "success";
 
+        final CallbackContext callback = callbackContext;
+
         if (action.equals("login")) {
             String userJson = data.getString(0);
             User user = (User) GsonUtils.getObjectFromJson(userJson, User.class);
@@ -49,8 +54,6 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             featureList.add(User.Features.IP_AUDIO_CALL.getValue());// FOR AUDIO
             featureList.add(User.Features.IP_VIDEO_CALL.getValue());// FOR VIDEO
             user.setFeatures(featureList);*/
-
-            final CallbackContext callback = callbackContext;
 
             UserLoginTask.TaskListener listener = new UserLoginTask.TaskListener() {
 
@@ -79,11 +82,11 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             PushNotificationTask.TaskListener listener=  new PushNotificationTask.TaskListener() {
                 @Override
                 public void onSuccess(RegistrationResponse registrationResponse) {
-                
+                    callback.success(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
                 }
                 @Override
                 public void onFailure(RegistrationResponse registrationResponse, Exception exception) {
-
+                    callback.error(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
                 }
             };
             pushNotificationTask = new PushNotificationTask(Applozic.getInstance(context).getDeviceRegistrationId(), listener, context);
@@ -94,6 +97,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             if (MobiComUserPreference.getInstance(context).isRegistered()) {
                 try {
                     new RegisterUserClientService(context).updatePushNotificationId(data.getString(0));
+                    callback.success(response);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -120,16 +124,19 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             String contactJson = data.getString(0);
             UserDetail userDetail = (UserDetail) GsonUtils.getObjectFromJson(contactJson, UserDetail.class);
             UserService.getInstance(context).processUser(userDetail);
+            callback.success(response);
         } else if (action.equals("updateContact")) {
             String contactJson = data.getString(0);
             Contact contact = (Contact) GsonUtils.getObjectFromJson(contactJson, Contact.class);
             AppContactService appContactService = new AppContactService(context);
             appContactService.updateContact(contact);
+            callback.success(response);
         } else if (action.equals("removeContact")) {
             String contactJson = data.getString(0);
             Contact contact = (Contact) GsonUtils.getObjectFromJson(contactJson, Contact.class);
             AppContactService appContactService = new AppContactService(context);
             appContactService.deleteContact(contact);
+            callback.success(response);
         } else if (action.equals("addContacts")) {
             String contactJson = data.getString(0);
             Gson gson = new GsonBuilder().setExclusionStrategies(new AnnotationExclusionStrategy()).create();
@@ -137,6 +144,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             for (UserDetail userDetail: userDetails) {
                 UserService.getInstance(context).processUser(userDetail);
             }
+            callback.success(response);
         } else if (action.equals("processPushNotification")) {
             Map<String, String> pushData = new HashMap<String, String>();
             //convert data to pushData
@@ -144,6 +152,11 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             if (MobiComPushReceiver.isMobiComPushNotification(pushData)) {
                 MobiComPushReceiver.processMessageAsync(context, pushData);
             }
+            callback.success(response);
+        } else if (action.equals("createGroup")) {
+            ChannelInfo channelInfo = (ChannelInfo) GsonUtils.getObjectFromJson(data.getString(0), ChannelInfo.class);
+            Channel channel = ChannelService.getInstance(context).createChannel(channelInfo);
+            callback.success(GsonUtils.getJsonFromObject(channel, Channel.class));
         } else if (action.equals("logout")) {
             new UserClientService(cordova.getActivity()).logout();
             callbackContext.success(response);
