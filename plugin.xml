@@ -26,8 +26,8 @@
     <source-file src="src/android/ApplozicCordovaPlugin.java" target-dir="src/com/applozic/phonegap/"/>
     <source-file src="src/android/FcmInstanceIDListenerService.java" target-dir="src/com/applozic/phonegap/notification"/>
     <source-file src="src/android/FcmListenerService.java" target-dir="src/com/applozic/phonegap/notification"/>
-    <source-file src="src/android/applozic-settings.json" target-dir="/assets"/>
-    <source-file src="src/android/provider_paths.xml" target-dir="/res/xml"/>
+    <source-file src="src/android/applozic-settings.json" target-dir="assets"/>
+    <source-file src="src/android/provider_paths.xml" target-dir="res/xml"/>
 
     <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
 
