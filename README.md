@@ -124,6 +124,15 @@ Set the following in applozic-settings.json properties file.
    ```
     
    From login success callback, call applozic.registerPushNotification(function() {}, function(){});
+   
+   For push notifications, you must have a Firebase account: 
+   Signup to https://console.firebase.google.com/ and create your application and generate push notification services file.
+   
+   Download google-services.json from your Firebase Console and paste it to /platforms/android/ folder
+   
+   Go to Applozic Dashboard, update the FCM/GCM Server Key from Firebase account to your Applozic application.
+   "Edit Application -> Push Notification -> Android -> FCM/GCM Server Key"
+
 
 
 #### Logout
