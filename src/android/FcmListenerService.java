@@ -1,4 +1,4 @@
-package com.applozic.mobicomkit.sample.pushnotification;
+package com.applozic.phonegap.notification;
 
 
 import android.util.Log;
