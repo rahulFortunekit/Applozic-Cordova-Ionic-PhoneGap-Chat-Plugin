@@ -20,20 +20,6 @@ Change distributionUrl to point to 2.14.1-all
 distributionUrl=https\://services.gradle.org/distributions/gradle-2.14.1-all.zip
 
 
-Create a XML resource file in xml directory as provider_paths and paste the below code
-
-```
-<?xml version="1.0" encoding="utf-8"?>
-<paths>
-    <external-path name="files" path="."/>
-</paths>
-```
-
-Applozic provide easy settings to customise your ui themes color,pop-up messages etc. You need to follow below steps to enable/change these settings:
-1. Download applozic-settings.json file from here
-2. Create a assets directory in app-->main and paste that applozic-settings.json file in assets directory
-
-
 ## iOS
 
 Open /platforms/ios/Applozic.xcodeproj in Xcode.
@@ -55,8 +41,9 @@ Remove duplicate entry from "Linked Framework and Libraries" if any.
         };
 
    applozic.login(alUser, function() {
-        		applozic.launchChat(function() {}, function() {});
-        	}, function() {});
+       applozic.registerPushNotification(function() {}, function(){});
+       applozic.launchChat(function() {}, function() {});
+   }, function() {});
 ```
 
 #### Launch Chat
@@ -92,12 +79,60 @@ var contacts = [
                 ];
 applozic.addContacts(contacts, function() {}, function() {});
 ```
+
 ##### Android
 Set the following in applozic-settings.json properties file.
 ```
 "registeredUserContactListCall": false,
 "startNewButton": true,
 ```
+
+
+#### Push Notification Setup
+
+   ##### Android
+   Goto /platforms/android/build.gradle
+   Add the following under buildscript -> dependencies
+   ```
+   classpath 'com.google.gms:google-services:3.0.0'
+   ```
+   
+   Add the following at the bottom of the file:
+   ```
+   apply plugin: 'com.google.gms.google-services'
+   ```
+   
+   After adding, it will look something like this:
+   ```
+   buildscript {
+       repositories {
+           mavenCentral()
+           jcenter()
+       }
+       
+       // Switch the Android Gradle plugin version requirement depending on the
+       // installed version of Gradle. This dependency is documented at
+       // http://tools.android.com/tech-docs/new-build-system/version-compatibility
+       // and https://issues.apache.org/jira/browse/CB-8143
+       dependencies {
+          classpath 'com.android.tools.build:gradle:2.2.1'
+          classpath 'com.google.gms:google-services:3.0.0'
+       }
+   }
+
+   apply plugin: 'com.google.gms.google-services'
+   ```
+    
+   From login success callback, call applozic.registerPushNotification(function() {}, function(){});
+   
+   For push notifications, you must have a Firebase account: 
+   Signup to https://console.firebase.google.com/ and create your application and generate push notification services file.
+   
+   Download google-services.json from your Firebase Console and paste it to /platforms/android/ folder
+   
+   Go to Applozic Dashboard, update the FCM/GCM Server Key from Firebase account to your Applozic application.
+   "Edit Application -> Push Notification -> Android -> FCM/GCM Server Key"
+
 
 
 #### Logout
