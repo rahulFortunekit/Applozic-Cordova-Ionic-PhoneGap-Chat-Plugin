@@ -43,7 +43,7 @@
     
     ALUser * alUser = [[ALUser alloc] initWithJSONString:jsonStr];
     ALChatManager *alChatManager = [self getALChatManager:alUser.applicationId];
-
+    
     [ALUserDefaultsHandler setDeviceApnsType:[alUser deviceApnsType]];
     
     [alChatManager registerUser:alUser];
@@ -264,6 +264,35 @@
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:@"success"];
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+- (void) createGroup:(CDVInvokedUrlCommand*)command
+{
+    NSString *jsonStr = [[command arguments] objectAtIndex:0];
+    jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
+    jsonStr = [NSString stringWithFormat:@"%@",jsonStr];
+    NSData *data = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    
+    //ALChannel *alChannel = [[ALChannel alloc] initWithJSONString:jsonStr];
+
+    ALChannelService *alChannelService = [[ALChannelService alloc]init];
+    ALChannel *alChannel = [[ALChannel alloc] init];
+    [alChannel setName:[jsonObject objectForKey:@"groupName"]];
+    //[alChannel setClientChannelKey:[jsonObject objectForKey:@"clientChannelKey"]];
+    [alChannel setMembersId:[jsonObject objectForKey:@"groupMemberList"]];
+    //[alChannel setMetadata:[jsonObject objectForKey:@"metadata"]];
+    [alChannel setType:[[jsonObject objectForKey:@"type"] shortValue]];
+    //Todo: parse json
+    
+    
+    [alChannelService createChannel:alChannel.name orClientChannelKey:alChannel.clientChannelKey andMembersList:alChannel.membersId andImageLink:alChannel.channelImageURL channelType:alChannel.type andMetaData:alChannel.metadata withCompletion:^(ALChannel *alChannel, NSError *error) {
+        
+    }];
+    CDVPluginResult* result = [CDVPluginResult
+                                resultWithStatus:CDVCommandStatus_OK
+                                messageAsString:@"success"];
+     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
 - (void)logout:(CDVInvokedUrlCommand*)command

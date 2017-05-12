@@ -51,6 +51,8 @@
 
 - (void) addContacts:(CDVInvokedUrlCommand*)command;
 
+- (void) createGroup:(CDVInvokedUrlCommand*)command;
+
 - (void) logout:(CDVInvokedUrlCommand*)command;
 
 @end
