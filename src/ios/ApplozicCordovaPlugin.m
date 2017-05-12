@@ -279,6 +279,7 @@
     ALChannelService *alChannelService = [[ALChannelService alloc]init];
     ALChannel *alChannel = [[ALChannel alloc] init];
     [alChannel setName:[jsonObject objectForKey:@"groupName"]];
+    [alChannel setChannelImageURL:[jsonObject objectForKey:@"imageUrl"]];
     [alChannel setClientChannelKey:[jsonObject objectForKey:@"clientGroupId"]];
     [alChannel setMembersId:[jsonObject objectForKey:@"groupMemberList"]];
     [alChannel setMetadata:[jsonObject objectForKey:@"metadata"]];
