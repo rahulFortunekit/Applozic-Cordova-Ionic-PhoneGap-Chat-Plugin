@@ -271,8 +271,10 @@
     NSString *jsonStr = [[command arguments] objectAtIndex:0];
     jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
     jsonStr = [NSString stringWithFormat:@"%@",jsonStr];
-    NSData *data = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSError* error;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error:&error];
+    NSLog(@"%@", error);
     
     //ALChannel *alChannel = [[ALChannel alloc] initWithJSONString:jsonStr];
 
@@ -282,9 +284,7 @@
     //[alChannel setClientChannelKey:[jsonObject objectForKey:@"clientChannelKey"]];
     [alChannel setMembersId:[jsonObject objectForKey:@"groupMemberList"]];
     //[alChannel setMetadata:[jsonObject objectForKey:@"metadata"]];
-    [alChannel setType:[[jsonObject objectForKey:@"type"] shortValue]];
-    //Todo: parse json
-    
+    [alChannel setType:[[jsonObject objectForKey:@"type"] shortValue]];    
     
     [alChannelService createChannel:alChannel.name orClientChannelKey:alChannel.clientChannelKey andMembersList:alChannel.membersId andImageLink:alChannel.channelImageURL channelType:alChannel.type andMetaData:alChannel.metadata withCompletion:^(ALChannel *alChannel, NSError *error) {
         
