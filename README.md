@@ -136,6 +136,8 @@ Set the following in applozic-settings.json properties file.
 
 
     ##### iOS
+    
+    
     Open AppDelegate.m file under /platforms/ios/YOUR_PROJECT/Classes/
     Add code as mentioned in the following documentation:
     https://www.applozic.com/docs/ios-chat-sdk.html#step-4-push-notification-setup
