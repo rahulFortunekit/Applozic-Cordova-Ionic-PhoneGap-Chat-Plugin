@@ -37,7 +37,8 @@ Remove duplicate entry from "Linked Framework and Libraries" if any.
             'userId' : userId,   //Replace it with the userId of the logged in user
             'password' : password,  //Put password here
             'authenticationTypeId' : 1,
-            'applicationId' : 'applozic-sample-app'
+            'applicationId' : 'applozic-sample-app',
+            'deviceApnsType' : 0    //Set 0 for Development and 1 for Distribution (Release)
         };
 
    applozic.login(alUser, function() {
