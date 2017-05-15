@@ -90,7 +90,7 @@ Set the following in applozic-settings.json properties file.
 
 #### Push Notification Setup
 
-   ##### Android
+##### Android
    Goto /platforms/android/build.gradle
    Add the following under buildscript -> dependencies
    ```
@@ -135,7 +135,7 @@ Set the following in applozic-settings.json properties file.
 
 
 
-    ##### iOS
+##### iOS
     
     
     Open AppDelegate.m file under /platforms/ios/YOUR_PROJECT/Classes/
