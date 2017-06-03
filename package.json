@@ -3,7 +3,7 @@
   "version": "0.7.0",
   "description": "Applozic-Cordova-PhoneGap-Chat-Plugin",
   "cordova": {
-    "id": "com.applozic.phonega",
+    "id": "om.applozic.phonegap",
     "platforms": [
       "firefoxos",
       "android",
