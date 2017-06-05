@@ -121,7 +121,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         }  else if (action.equals("startNew")) {
             Intent intent = new Intent(context, MobiComKitPeopleActivity.class);
             cordova.getActivity().startActivity(intent);
-        } else if (action.equals("showAllRegisteredUsers") {
+        } else if (action.equals("showAllRegisteredUsers")) {
             if (data.getString(0) == "true") {
                 ApplozicSetting.getInstance(context).enableRegisteredUsersContactCall();
             }
