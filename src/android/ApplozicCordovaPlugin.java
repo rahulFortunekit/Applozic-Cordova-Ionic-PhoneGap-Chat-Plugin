@@ -51,10 +51,10 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
 
             Applozic.init(context, user.getApplicationId());
 
-            /*List<String> featureList =  new ArrayList<String>();
+            /*List<String> featureList =  new ArrayList<>();
             featureList.add(User.Features.IP_AUDIO_CALL.getValue());// FOR AUDIO
             featureList.add(User.Features.IP_VIDEO_CALL.getValue());// FOR VIDEO
-            user.setFeatures(featureList);*/
+            user.setFeatures(featureList); // ADD FEATURES*/
 
             UserLoginTask.TaskListener listener = new UserLoginTask.TaskListener() {
 
@@ -62,11 +62,12 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                 public void onSuccess(RegistrationResponse registrationResponse, Context context) {
                     //After successful registration with Applozic server the callback will come her
 
-                   /* ApplozicClient.getInstance(context).setHandleDial(true).setIPCallEnabled(true);
+                    ApplozicClient.getInstance(context).setHandleDial(true).setIPCallEnabled(true);
                     Map<ApplozicSetting.RequestCode, String> activityCallbacks = new HashMap<ApplozicSetting.RequestCode, String>();
                     activityCallbacks.put(ApplozicSetting.RequestCode.AUDIO_CALL, AudioCallActivityV2.class.getName());
                     activityCallbacks.put(ApplozicSetting.RequestCode.VIDEO_CALL, VideoActivity.class.getName());
-                    ApplozicSetting.getInstance(context).setActivityCallbacks(activityCallbacks);*/
+                    ApplozicSetting.getInstance(context).setActivityCallbacks(activityCallbacks);
+
 
                     callback.success(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
                 }
