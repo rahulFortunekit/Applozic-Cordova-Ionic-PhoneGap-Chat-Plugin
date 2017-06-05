@@ -24,6 +24,7 @@ import com.applozic.mobicommons.json.AnnotationExclusionStrategy;
 import com.applozic.mobicommons.json.GsonUtils;
 import com.applozic.mobicommons.people.channel.Channel;
 import com.applozic.mobicommons.people.contact.Contact;
+import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -120,6 +121,10 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         }  else if (action.equals("startNew")) {
             Intent intent = new Intent(context, MobiComKitPeopleActivity.class);
             cordova.getActivity().startActivity(intent);
+        } else if (action.equals("showAllRegisteredUsers") {
+            if (data.getString(0) == "true") {
+                ApplozicSetting.getInstance(context).enableRegisteredUsersContactCall();
+            }
         } else if (action.equals("addContact")) {
             String contactJson = data.getString(0);
             UserDetail userDetail = (UserDetail) GsonUtils.getObjectFromJson(contactJson, UserDetail.class);
