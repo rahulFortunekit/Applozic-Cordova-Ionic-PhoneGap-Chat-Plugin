@@ -47,6 +47,22 @@ Remove duplicate entry from "Linked Framework and Libraries" if any.
    }, function() {});
 ```
 
+NOTE: Call it after the platform is ready, for example:
+```
+	platform.ready().then(() => {
+  		 var alUser = {
+            'userId' : 'debug3',   //Replace it with the userId of the logged in user
+            'password' : 'debug3',  //Put password here
+            'authenticationTypeId' : 1,
+            'applicationId' : 'applozic-sample-app'
+        };
+
+	   applozic.login(alUser, function() {
+	        		applozic.launchChat(function() {}, function() {});
+	        	}, function() {});
+    });
+```
+
 #### Launch Chat
 
 
