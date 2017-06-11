@@ -13,6 +13,7 @@ import com.applozic.mobicomkit.api.account.user.UserClientService;
 import com.applozic.mobicomkit.api.account.user.UserDetail;
 import com.applozic.mobicomkit.api.account.user.UserLoginTask;
 import com.applozic.mobicomkit.api.account.user.UserService;
+import com.applozic.mobicomkit.api.conversation.database.MessageDatabaseService;
 import com.applozic.mobicomkit.api.notification.MobiComPushReceiver;
 import com.applozic.mobicomkit.api.people.ChannelInfo;
 import com.applozic.mobicomkit.channel.service.ChannelService;
@@ -99,6 +100,8 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             pushNotificationTask.execute((Void)null);
         } else if (action.equals("isLoggedIn")) {
             callbackContext.success(String.valueOf(MobiComUserPreference.getInstance(context).isLoggedIn()));
+        } else if (action.equals("getUnreadCount")) {
+            callback.success(String.valueOf(new MessageDatabaseService(context).getTotalUnreadCount()));
         } else if (action.equals("updatePushNotificationToken")) {
             if (MobiComUserPreference.getInstance(context).isRegistered()) {
                 try {
@@ -127,7 +130,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             Intent intent = new Intent(context, MobiComKitPeopleActivity.class);
             cordova.getActivity().startActivity(intent);
         } else if (action.equals("showAllRegisteredUsers")) {
-            if (data.getString(0) == "true") {
+            if ("true".equals(data.getString(0))) {
                 ApplozicSetting.getInstance(context).enableRegisteredUsersContactCall();
             }
         } else if (action.equals("addContact")) {
