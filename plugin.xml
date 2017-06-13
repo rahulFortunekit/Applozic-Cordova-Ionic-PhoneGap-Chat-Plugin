@@ -217,6 +217,9 @@
             </intent-filter>
         </service>
 
+      <service android:name="com.applozic.mobicomkit.uiwidgets.notification.NotificationIntentService"
+         android:exported="false" />
+
       <receiver android:name="com.applozic.mobicomkit.broadcast.TimeChangeBroadcastReceiver">
                <intent-filter>
                    <action android:name="android.intent.action.TIME_SET" />
