@@ -54,7 +54,7 @@ NOTE: Call it after the platform is ready, for example:
             'userId' : 'debug3',   //Replace it with the userId of the logged in user
             'password' : 'debug3',  //Put password here
             'authenticationTypeId' : 1,
-            'applicationId' : 'applozic-sample-app'
+            'applicationId' : 'applozic-sample-app' //replace "applozic-sample-app" with Application Key from Applozic Dashboard
         };
 
 	   applozic.login(alUser, function() {
