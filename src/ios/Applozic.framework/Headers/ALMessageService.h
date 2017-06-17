@@ -64,13 +64,15 @@ withAttachmentAtLocation:(NSString *)attachmentLocalPath
 
 +(ALMessage *)createHiddenMessageEntitySentTo:(NSString*)to withText:(NSString*)text;
 
-+(ALMessage *)createMessageWithMetaData:(NSMutableDictionary *)metaData andReceiverId:(NSString *)receiverId andMessageText:(NSString *)msgTxt;
++(ALMessage *)createMessageWithMetaData:(NSMutableDictionary *)metaData andContentType:(short)contentType andReceiverId:(NSString *)receiverId andMessageText:(NSString *)msgTxt;
 
 -(NSUInteger)getMessagsCountForUser:(NSString *)userId;
 
 -(ALMessage *)getLatestMessageForUser:(NSString *)userId;
 
 -(ALMessage *)getLatestMessageForChannel:(NSNumber *)channelKey excludeChannelOperations:(BOOL)flag;
+
+-(ALMessage *)getALMessageByKey:(NSString*)messageReplyId;
 
 +(void)addBroadcastMessageToDB:(ALMessage *)alMessage;
 

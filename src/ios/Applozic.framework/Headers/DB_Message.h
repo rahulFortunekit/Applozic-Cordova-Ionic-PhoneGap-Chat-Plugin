@@ -40,5 +40,7 @@
 @property (nonatomic, retain) NSString * pairedMessageKey;
 @property (nonatomic, retain) NSString * metadata;
 @property (nonatomic, retain) NSNumber * msgHidden;
+@property (nonatomic, retain) NSNumber * replyMessageType;
+
 
 @end

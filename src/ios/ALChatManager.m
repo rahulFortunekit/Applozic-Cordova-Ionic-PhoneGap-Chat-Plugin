@@ -526,6 +526,10 @@
    
     [ALApplozicSettings setUserDeletedText:@"User has been deleted"];            /*  SET DELETED USER NOTIFICATION TITLE   */
     
+
+    //For Audio Video Call
+    [ALApplozicSettings setAudioVideoClassName:@"ALAudioVideoCallVC"];
+
    
     /******************************************** CUSTOM TAB BAR ITEM : ICON && TEXT ************************************************/
     [ALApplozicSettings setChatListTabIcon:@""];

@@ -26,6 +26,8 @@
 @optional
 -(void)handleCustomActionFromChatVC:(UIViewController *)chatViewController andWithMessage:(ALMessage *)alMessage;
 
+-(void)handleMessageForward:(UIViewController *)chatViewController andWithMessage:(ALMessage *)alMessage;
+
 @end
 
 @interface ALChatViewController : ALBaseViewController<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ALMapViewControllerDelegate,ALChatCellDelegate,CNContactPickerDelegate>

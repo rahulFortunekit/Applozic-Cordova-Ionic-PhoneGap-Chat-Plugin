@@ -58,7 +58,5 @@
 
 -(void) fetchAndupdateUserDetails:(NSMutableArray *)userArray withCompletion:(void (^)(NSMutableArray * array, NSError *error))completion;
 
--(void)getUserDetail:(NSString*)userId withCompletion:(void(^)(ALContact *contact))completion;
-
 
 @end
