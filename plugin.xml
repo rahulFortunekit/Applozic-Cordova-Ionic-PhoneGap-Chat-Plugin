@@ -287,10 +287,12 @@
     <header-file src="src/ios/ApplozicCordovaPlugin.h" target-dir="ApplozicPlugin"/>
     <source-file src="src/ios/ApplozicCordovaPlugin.m" target-dir="ApplozicPlugin"/>
 
+<!--
     <header-file src="src/ios/ALChatManager.h" target-dir="ApplozicPlugin"/>
     <source-file src="src/ios/ALChatManager.m" target-dir="ApplozicPlugin"/>
+  -->
 
-    <header-file src="src/ios/AudioVideo/" target-dir="ApplozicPlugin"/>
+    <header-file src="src/ios/" target-dir="ApplozicPlugin"/>
 
     <framework src="src/ios/Applozic.framework" custom="true" embed="true" />
     <framework src="src/ios/TwilioVideo.framework" custom="true" embed="true" />
