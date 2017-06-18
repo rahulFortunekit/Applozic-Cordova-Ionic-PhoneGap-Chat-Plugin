@@ -50,6 +50,7 @@ typedef enum
 @property short deviceApnsType;
 @property BOOL enableEncryption;
 @property NSNumber* contactType;
+@property NSMutableArray * features;
 
 -(instancetype)initWithUserId:(NSString *)userId
                      password:(NSString *)password
