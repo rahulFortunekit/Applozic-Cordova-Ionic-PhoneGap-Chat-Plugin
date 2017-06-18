@@ -296,9 +296,6 @@
     <header-file src="src/ios/ALAudioVideoUtils.h" target-dir="ApplozicPlugin"/>
     <source-file src="src/ios/ALAudioVideoUtils.m" target-dir="ApplozicPlugin"/>
 
-    <header-file src="src/ios/ALAudioVideoUtils.h" target-dir="ApplozicPlugin"/>
-    <source-file src="src/ios/ALAudioVideoUtils.m" target-dir="ApplozicPlugin"/>
-
     <source-file src="src/ios/AudioVideo.storyboard" target-dir="ApplozicPlugin"/>
     <source-file src="src/ios/AudioVideo.xcassets" target-dir="ApplozicPlugin"/>
 
