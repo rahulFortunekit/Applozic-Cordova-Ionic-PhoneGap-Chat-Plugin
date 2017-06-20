@@ -49,6 +49,25 @@ module.exports = {
     createGroup: function(group, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "createGroup", [JSON.stringify(group)]);
     },
+    /*
+        {
+            'groupId': groupId,
+            'clientGroupId': clientGroupId, //use either groupId or clientGroupId
+            'userId': userIdToAdd
+        }
+    */
+    addGroupMember: function(group, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "addGroupMember", [JSON.stringify(group)]);
+    },
+    removeGroupMember: function(group, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "removeGroupMember", [JSON.stringify(group)]);
+    },
+    enableTopicBasedChat: function(enable, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "enableTopicBasedChat", [enable]);
+    },
+    startTopicBasedChat: function(conversation, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "startTopicBasedChat", [JSON.stringify(conversation)]);
+    },
     logout: function(successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "logout", []);
     }
