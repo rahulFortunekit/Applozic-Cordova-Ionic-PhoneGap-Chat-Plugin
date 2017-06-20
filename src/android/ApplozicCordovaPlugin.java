@@ -246,7 +246,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                     }
                     intent.putExtra(ConversationUIService.CONTEXT_BASED_CHAT, true);
                     intent.putExtra(ConversationUIService.CONVERSATION_ID,conversationId);
-                    context.startActivity(intent);
+                    cordova.getActivity().startActivity(intent);
                 }
 
                 @Override

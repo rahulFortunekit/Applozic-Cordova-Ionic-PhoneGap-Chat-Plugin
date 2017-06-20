@@ -46,15 +46,28 @@ module.exports = {
     processPushNotification: function(data, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "processPushNotification", [JSON.stringify(data)]);
     },
+    /*
+    var group = {
+            'groupName': 'hey',
+            'groupMemberList': ['userid1', 'userid2', 'userid3'], // Pass list of user Ids in groupMemberList
+            'imageUrl': 'https://www.applozic.com/favicon.ico',
+            'type' : 1,    //'type' : 1, //(required) 1:private, 2:public, 5:broadcast,7:GroupofTwo
+            'metadata' : {
+                'key1' : 'value1',
+                'key2' : 'value2'
+            }
+         };
+    applozic.createGroup(group, function() {}, function() {});
+    */
     createGroup: function(group, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "createGroup", [JSON.stringify(group)]);
     },
     /*
-        {
-            'groupId': groupId,
-            'clientGroupId': clientGroupId, //use either groupId or clientGroupId
-            'userId': userIdToAdd
-        }
+    {
+        'groupId': groupId,
+        'clientGroupId': clientGroupId, //use either groupId or clientGroupId
+        'userId': userIdToAdd
+    }
     */
     addGroupMember: function(group, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "addGroupMember", [JSON.stringify(group)]);
