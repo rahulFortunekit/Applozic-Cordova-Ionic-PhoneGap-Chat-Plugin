@@ -2,6 +2,7 @@ package com.applozic.phonegap;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.applozic.mobicomkit.Applozic;
@@ -236,11 +237,13 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             ApplozicConversationCreateTask.ConversationCreateListener conversationCreateListener =  new ApplozicConversationCreateTask.ConversationCreateListener() {
                 @Override
                 public void onSuccess(Integer conversationId, Context context) {
-
-                    //For launching the  one to one  chat
                     Intent intent = new Intent(context, ConversationActivity.class);
                     intent.putExtra("takeOrder", true);
-                    intent.putExtra(ConversationUIService.USER_ID, conversation.getUserId());//RECEIVER USERID
+                    if (!TextUtils.isEmpty(conversation.getUserId())) {
+                        intent.putExtra(ConversationUIService.USER_ID, conversation.getUserId());//RECEIVER USERID
+                    } else {
+                        intent.putExtra(ConversationUIService.GROUP_ID, conversation.getGroupId());//RECEIVER USERID
+                    }
                     intent.putExtra(ConversationUIService.CONTEXT_BASED_CHAT, true);
                     intent.putExtra(ConversationUIService.CONVERSATION_ID,conversationId);
                     context.startActivity(intent);
