@@ -197,6 +197,7 @@ Set the following in applozic-settings.json properties file.
   ```
 
 #### Topic Based Chat
+
     ```
        var topicDetail = {
                         'title': 'Hyundai Electric i20', // Product title
