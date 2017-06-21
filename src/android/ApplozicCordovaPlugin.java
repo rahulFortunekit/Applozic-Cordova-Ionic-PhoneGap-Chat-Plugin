@@ -21,6 +21,7 @@ import com.applozic.mobicomkit.api.people.ChannelInfo;
 import com.applozic.mobicomkit.channel.service.ChannelService;
 import com.applozic.mobicomkit.contact.AppContactService;
 import com.applozic.mobicomkit.uiwidgets.async.ApplozicChannelAddMemberTask;
+import com.applozic.mobicomkit.uiwidgets.async.ApplozicChannelCreateTask;
 import com.applozic.mobicomkit.uiwidgets.async.ApplozicChannelRemoveMemberTask;
 import com.applozic.mobicomkit.uiwidgets.async.ApplozicConversationCreateTask;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
@@ -178,9 +179,22 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             }
             callback.success(response);
         } else if (action.equals("createGroup")) {
-            ChannelInfo channelInfo = (ChannelInfo) GsonUtils.getJsonWithExposeFromObject(data.getString(0), ChannelInfo.class);
-            Channel channel = ChannelService.getInstance(context).createChannel(channelInfo);
-            callback.success(GsonUtils.getJsonFromObject(channel, Channel.class));
+            ApplozicChannelCreateTask.ChannelCreateListener channelCreateListener = new ApplozicChannelCreateTask.ChannelCreateListener(){
+
+                @Override
+                public void onSuccess(Channel channel, Context context) {
+                    callback.success(String.valueOf(channel.getKey()));
+                }
+
+                @Override
+                public void onFailure(Exception e, Context context) {
+
+                }
+            };
+
+            ChannelInfo channelInfo = (ChannelInfo) GsonUtils.getObjectFromJson(data.getString(0), ChannelInfo.class);
+            ApplozicChannelCreateTask applozicChannelCreateTask = new ApplozicChannelCreateTask(context, channelCreateListener, channelInfo.getGroupName(), channelInfo.getGroupMemberList(), channelInfo.getImageUrl());//pass channel key and userId whom you want to add to channel
+            applozicChannelCreateTask.execute((Void)null);
         }  else if (action.equals("addGroupMember")) {
             Gson gson = new Gson();
             Type type = new TypeToken<Map<String, String>>(){}.getType();
@@ -190,7 +204,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                 @Override
                 public void onSuccess(String response, Context context) {
                     //Response will be "success" if user is added successfully
-                    Log.i("ApplozicChannelMember","Add Response:" + response);
+                    Log.i("ApplozicChannelMember","Add member response:" + response);
                     callback.success(response);
                 }
 
@@ -213,7 +227,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                 @Override
                 public void onSuccess(String response, Context context) {
                     //Response will be "success" if user is removed successfully
-                    Log.i("ApplozicChannel","remove member response:"+response);
+                    Log.i("ApplozicChannel","Remove member response:"+response);
                     callback.success(response);
                 }
 
