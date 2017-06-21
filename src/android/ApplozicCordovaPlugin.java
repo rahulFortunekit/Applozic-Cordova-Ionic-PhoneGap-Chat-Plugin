@@ -78,8 +78,8 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                     /*ApplozicClient.getInstance(context).setHandleDial(true).setIPCallEnabled(true);
                     Map<ApplozicSetting.RequestCode, String> activityCallbacks = new HashMap<ApplozicSetting.RequestCode, String>();
                     activityCallbacks.put(ApplozicSetting.RequestCode.AUDIO_CALL, AudioCallActivityV2.class.getName());
-                    activityCallbacks.put(ApplozicSetting.RequestCode.VIDEO_CALL, VideoActivity.class.getName());*/
-                    ApplozicSetting.getInstance(context).setActivityCallbacks(activityCallbacks);
+                    activityCallbacks.put(ApplozicSetting.RequestCode.VIDEO_CALL, VideoActivity.class.getName());
+                    ApplozicSetting.getInstance(context).setActivityCallbacks(activityCallbacks);*/
 
 
                     callback.success(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
