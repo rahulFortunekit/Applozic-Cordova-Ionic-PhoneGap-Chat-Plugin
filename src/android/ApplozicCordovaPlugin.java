@@ -178,7 +178,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             }
             callback.success(response);
         } else if (action.equals("createGroup")) {
-            ChannelInfo channelInfo = (ChannelInfo) GsonUtils.getObjectFromJson(data.getString(0), ChannelInfo.class);
+            ChannelInfo channelInfo = (ChannelInfo) GsonUtils.getJsonWithExposeFromObject(data.getString(0), ChannelInfo.class);
             Channel channel = ChannelService.getInstance(context).createChannel(channelInfo);
             callback.success(GsonUtils.getJsonFromObject(channel, Channel.class));
         }  else if (action.equals("addGroupMember")) {
