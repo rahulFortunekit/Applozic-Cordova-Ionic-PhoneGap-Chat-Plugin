@@ -75,9 +75,9 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                 public void onSuccess(RegistrationResponse registrationResponse, Context context) {
                     //After successful registration with Applozic server the callback will come her
 
-                    ApplozicClient.getInstance(context).setHandleDial(true).setIPCallEnabled(true);
+                    /*ApplozicClient.getInstance(context).setHandleDial(true).setIPCallEnabled(true);
                     Map<ApplozicSetting.RequestCode, String> activityCallbacks = new HashMap<ApplozicSetting.RequestCode, String>();
-                   /* activityCallbacks.put(ApplozicSetting.RequestCode.AUDIO_CALL, AudioCallActivityV2.class.getName());
+                    activityCallbacks.put(ApplozicSetting.RequestCode.AUDIO_CALL, AudioCallActivityV2.class.getName());
                     activityCallbacks.put(ApplozicSetting.RequestCode.VIDEO_CALL, VideoActivity.class.getName());*/
                     ApplozicSetting.getInstance(context).setActivityCallbacks(activityCallbacks);
 
@@ -240,9 +240,9 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                     Intent intent = new Intent(context, ConversationActivity.class);
                     intent.putExtra("takeOrder", true);
                     if (!TextUtils.isEmpty(conversation.getUserId())) {
-                        intent.putExtra(ConversationUIService.USER_ID, conversation.getUserId());//RECEIVER USERID
+                        intent.putExtra(ConversationUIService.USER_ID, conversation.getUserId());
                     } else {
-                        intent.putExtra(ConversationUIService.GROUP_ID, conversation.getGroupId());//RECEIVER USERID
+                        intent.putExtra(ConversationUIService.GROUP_ID, conversation.getGroupId());
                     }
                     intent.putExtra(ConversationUIService.CONTEXT_BASED_CHAT, true);
                     intent.putExtra(ConversationUIService.CONVERSATION_ID,conversationId);
