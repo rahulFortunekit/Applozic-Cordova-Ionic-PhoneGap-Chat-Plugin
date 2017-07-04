@@ -12,6 +12,13 @@ Install the plugin
 
     $ cordova plugin add https://github.com/AppLozic/Applozic-Cordova-PhoneGap-Chat-Plugin.git
     
+    
+Note: For Ionic, use 
+
+	$ ionic cordova plugin add https://github.com/AppLozic/Applozic-Cordova-PhoneGap-Chat-Plugin.git
+
+Plugin works only on android and iOS, for web (browser) support, check the javascript plugin at:
+	https://www.applozic.com/docs/web-chat-plugin.html
 
 ## Android
 Open /platforms/android/ folder in Android Studio.
