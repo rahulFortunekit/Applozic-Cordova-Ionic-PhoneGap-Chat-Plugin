@@ -105,7 +105,7 @@ applozic.addContacts(contacts, function() {}, function() {});
 ```
 
 ##### Android
-Set the following in applozic-settings.json properties file.
+Set the following in platforms/android/assets/applozic-settings.json properties file.
 ```
 "registeredUserContactListCall": false,
 "startNewButton": true,
