@@ -189,7 +189,7 @@ Set the following in platforms/android/assets/applozic-settings.json properties 
         'clientGroupId': CLIENT_GROUP_ID, //use either groupId or clientGroupId
         'userId': USER_ID_TO_ADD
     }
-    applozic.addGroupMember(group, function() {}, function() {});
+    applozic.addGroupMember(groupDetails, function() {}, function() {});
   ```
   
   
@@ -200,7 +200,7 @@ Set the following in platforms/android/assets/applozic-settings.json properties 
         'clientGroupId': CLIENT_GROUP_ID, //use either groupId or clientGroupId
         'userId': USER_ID_TO_ADD
     }
-    applozic.removeGroupMember(group, function() {}, function() {});
+    applozic.removeGroupMember(groupDetails, function() {}, function() {});
   ```
 
 #### Topic Based Chat
@@ -232,7 +232,46 @@ Set the following in platforms/android/assets/applozic-settings.json properties 
 applozic.logout(function() {console.log("success");}, function () {console.log("error");});
 ```
 
+### Unread count:
 
+```
+```
+#### Total unreadcount:
+
+```
+   applozic.getUnreadCount(function(response){
+     var count = response;
+    },
+    function(error){alert(error)
+   });
+
+```
+
+#### unreadcount for user:
+
+```
+   var userId = 'USER_ID'; //pass UserId with which unread count 
+   applozic.getUnreadCountForUser(userId,function(response){
+     var count = response;
+    },
+    function(error){alert(error)
+   });
+
+```
+
+
+#### unreadcount for group:
+
+```
+   var groupId = 'GROUP_ID'; // pass groupId in which unreadcount required
+
+  applozic.getUnreadCountForGroup(groupId,function(response){
+       var count = response;
+    },
+     function(error){
+    });
+
+```
 
 Install iOS or Android platform
 
