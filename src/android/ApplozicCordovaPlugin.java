@@ -20,7 +20,7 @@ import com.applozic.mobicomkit.api.notification.MobiComPushReceiver;
 import com.applozic.mobicomkit.api.people.ChannelInfo;
 import com.applozic.mobicomkit.channel.service.ChannelService;
 import com.applozic.mobicomkit.contact.AppContactService;
-import com.applozic.mobicomkit.uiwidgets.async.ApplozicChannelAddMemberTask;
+import com.applozic.mobicomkit.uiwidgets.async.AlChannelAddMemberTask;
 import com.applozic.mobicomkit.uiwidgets.async.ApplozicChannelCreateTask;
 import com.applozic.mobicomkit.uiwidgets.async.ApplozicChannelRemoveMemberTask;
 import com.applozic.mobicomkit.uiwidgets.async.ApplozicConversationCreateTask;
@@ -36,6 +36,8 @@ import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 //import com.applozic.audiovideo.activity.AudioCallActivityV2;
 //import com.applozic.audiovideo.activity.VideoActivity;
 import com.applozic.mobicomkit.ApplozicClient;
+import java.util.List;
+import com.applozic.mobicomkit.feed.ErrorResponseFeed;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -110,8 +112,15 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         } else if (action.equals("isLoggedIn")) {
             callbackContext.success(String.valueOf(MobiComUserPreference.getInstance(context).isLoggedIn()));
         } else if (action.equals("getUnreadCount")) {
-            callback.success(String.valueOf(new MessageDatabaseService(context).getTotalUnreadCount()));
-        } else if (action.equals("updatePushNotificationToken")) {
+            callbackContext.success(String.valueOf(new MessageDatabaseService(context).getTotalUnreadCount()));
+        } else if (action.equals("getUnreadCountForUser")) {
+              String userId = data.getString(0);
+              String count = String.valueOf(new MessageDatabaseService(context).getUnreadMessageCountForContact(userId));
+              callback.success(count);
+        } else if (action.equals("getUnreadCountForGroup")) {
+              Integer groupId = Integer.valueOf(data.getString(0));
+              callback.success(String.valueOf(new MessageDatabaseService(context).getUnreadMessageCountForChannel(groupId)));
+        }else if (action.equals("updatePushNotificationToken")) {
             if (MobiComUserPreference.getInstance(context).isRegistered()) {
                 try {
                     new RegisterUserClientService(context).updatePushNotificationId(data.getString(0));
@@ -129,6 +138,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         } else if (action.equals("launchChatWithUserId")) {
             Intent intent = new Intent(context, ConversationActivity.class);
             intent.putExtra(ConversationUIService.USER_ID, data.getString(0));
+            intent.putExtra(ConversationUIService.TAKE_ORDER,true);
             cordova.getActivity().startActivity(intent);
         } else if (action.equals("launchChatWithGroupId")) {
             Intent intent = new Intent(context, ConversationActivity.class);
@@ -200,7 +210,8 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             Type type = new TypeToken<Map<String, String>>(){}.getType();
             Map<String, String> channelDetails = gson.fromJson(data.getString(0), type);
 
-            ApplozicChannelAddMemberTask.ChannelAddMemberListener channelAddMemberListener =  new ApplozicChannelAddMemberTask.ChannelAddMemberListener() {
+            AlChannelAddMemberTask.ChannelAddMemberListener channelAddMemberListener =  new AlChannelAddMemberTask.ChannelAddMemberListener() {
+
                 @Override
                 public void onSuccess(String response, Context context) {
                     //Response will be "success" if user is added successfully
@@ -209,15 +220,16 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                 }
 
                 @Override
-                public void onFailure(String response, Exception e, Context context) {
-                    callback.success(response);
+                public void onFailure(String response, Exception e,Context context, List<ErrorResponseFeed> errorResponseFeeds) {
+                    callback.error(GsonUtils.getJsonFromObject(errorResponseFeeds.get(0), ErrorResponseFeed.class));
                 }
             };
 
             Integer channelKey = getChannelKey(context, channelDetails);
 
-            ApplozicChannelAddMemberTask applozicChannelAddMemberTask =  new ApplozicChannelAddMemberTask(context, channelKey, channelDetails.get("userId"), channelAddMemberListener);//pass channel key and userId whom you want to add to channel
+            AlChannelAddMemberTask applozicChannelAddMemberTask =  new AlChannelAddMemberTask(context, channelKey, channelDetails.get("userId"), channelAddMemberListener);//pass channel key and userId whom you want to add to channel
             applozicChannelAddMemberTask.execute((Void)null);
+
         }  else if (action.equals("removeGroupMember")) {
             Gson gson = new Gson();
             Type type = new TypeToken<Map<String, String>>(){}.getType();

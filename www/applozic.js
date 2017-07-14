@@ -13,6 +13,12 @@ module.exports = {
     getUnreadCount: function(successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getUnreadCount", []);
     },
+    getUnreadCountForGroup: function(groupId,successCallback, errorCallback) {
+            cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getUnreadCountForGroup", [groupId]);
+    },
+    getUnreadCountForUser: function(userId,successCallback, errorCallback) {
+            cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getUnreadCountForUser", [userId]);
+    },
     updatePushNotificationToken: function(token, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "updatePushNotificationToken", [token]);
     },
