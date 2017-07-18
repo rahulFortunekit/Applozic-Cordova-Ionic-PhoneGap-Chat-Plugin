@@ -143,10 +143,12 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         } else if (action.equals("launchChatWithGroupId")) {
             Intent intent = new Intent(context, ConversationActivity.class);
             intent.putExtra(ConversationUIService.GROUP_ID, data.getString(0));
+            intent.putExtra(ConversationUIService.TAKE_ORDER,true);
             cordova.getActivity().startActivity(intent);
         } else if (action.equals("launchChatWithClientGroupId")) {
             Intent intent = new Intent(context, ConversationActivity.class);
             intent.putExtra(ConversationUIService.CLIENT_GROUP_ID, data.getString(0));
+            intent.putExtra(ConversationUIService.TAKE_ORDER,true);
             cordova.getActivity().startActivity(intent);
         }  else if (action.equals("startNew")) {
             Intent intent = new Intent(context, MobiComKitPeopleActivity.class);
