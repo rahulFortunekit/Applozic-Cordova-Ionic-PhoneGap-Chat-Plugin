@@ -60,12 +60,6 @@ Refer to the below documentation for a deeper integration if you wish to perform
     ```
 
 
-#### Logout
-
-```
-applozic.logout(function() {console.log("success");}, function () {console.log("error");});
-```
-
 ### Unread count:
 
 ```
@@ -81,7 +75,7 @@ applozic.logout(function() {console.log("success");}, function () {console.log("
 
 ```
 
-#### unreadcount for user:
+#### Unread count for user:
 
 ```
    var userId = 'USER_ID'; //pass UserId with which unread count 
@@ -94,7 +88,7 @@ applozic.logout(function() {console.log("success");}, function () {console.log("
 ```
 
 
-#### unreadcount for group:
+#### Unreadcount for group:
 
 ```
    var groupId = 'GROUP_ID'; // pass groupId in which unreadcount required
