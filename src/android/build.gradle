@@ -1,4 +1,3 @@
 dependencies {
-	//compile 'com.applozic.communication.uiwidget:audiovideo:1.2'
 	compile project(':audiovideo')
 }

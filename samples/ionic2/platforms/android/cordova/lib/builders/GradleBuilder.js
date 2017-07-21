@@ -113,9 +113,12 @@ GradleBuilder.prototype.prepBuildFiles = function() {
     });
 
     // Write the settings.gradle file.
+    var applozicui='include ":'+':mobicomkitui'+'"\n';
+    var applozicav='include ":'+':audiovideo'+'"\n';
+
     fs.writeFileSync(path.join(this.root, 'settings.gradle'),
         '// GENERATED FILE - DO NOT EDIT\n' +
-        'include ":"\n' + settingsGradlePaths.join(''));
+        'include ":"\n' +applozicui + applozicav +settingsGradlePaths.join(''));
     // Update dependencies within build.gradle.
     var buildGradle = fs.readFileSync(path.join(this.root, 'build.gradle'), 'utf8');
     var depsList = '';

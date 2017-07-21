@@ -38,8 +38,8 @@ dependencies {
     compile 'com.theartofdev.edmodo:android-image-cropper:2.3.1'
     compile 'com.android.support:cardview-v7:25.1.1'
     compile 'com.rockerhieu.emojicon:library:1.3.3'
-    compile project(':mobicomkit')//Note: use this for customization
-    //compile 'com.applozic.communication.message:mobicomkit:4.84' //Note: use this in case customization is not required
+    //compile project(':mobicomkit')//Note: use this for customization
+    compile 'com.applozic.communication.message:mobicomkit:4.94' //Note: use this in case customization is not required
 }
 /*ext {
     // Where you will see your artifact in Bintray's web interface
@@ -118,5 +118,3 @@ bintray {
         }
     }
 }*/
-
-
