@@ -7,13 +7,13 @@
 Install the plugin
 
 ```
-    $ cordova plugin add https://github.com/AppLozic/Applozic-Cordova-PhoneGap-Chat-Plugin.git
+    $ cordova plugin add https://github.com/AppLozic/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin.git
 ```    
     
 Note: For Ionic, use 
 
 ```
-	$ ionic cordova plugin add https://github.com/AppLozic/Applozic-Cordova-PhoneGap-Chat-Plugin.git
+    $ ionic cordova plugin add https://github.com/AppLozic/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin.git
 ``` 
 
 Plugin works only on android and iOS, for web (browser) support, check the javascript plugin at:
