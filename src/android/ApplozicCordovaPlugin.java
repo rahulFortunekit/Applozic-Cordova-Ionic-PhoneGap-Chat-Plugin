@@ -33,8 +33,8 @@ import com.applozic.mobicommons.people.channel.Channel;
 import com.applozic.mobicommons.people.channel.Conversation;
 import com.applozic.mobicommons.people.contact.Contact;
 import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
-//import com.applozic.audiovideo.activity.AudioCallActivityV2;
-//import com.applozic.audiovideo.activity.VideoActivity;
+import com.applozic.audiovideo.activity.AudioCallActivityV2;
+import com.applozic.audiovideo.activity.VideoActivity;
 import com.applozic.mobicomkit.ApplozicClient;
 import java.util.List;
 import com.applozic.mobicomkit.feed.ErrorResponseFeed;
@@ -78,11 +78,11 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                 public void onSuccess(RegistrationResponse registrationResponse, Context context) {
                     //After successful registration with Applozic server the callback will come her
 
-                    /*ApplozicClient.getInstance(context).setHandleDial(true).setIPCallEnabled(true);
+                    ApplozicClient.getInstance(context).setHandleDial(true).setIPCallEnabled(true);
                     Map<ApplozicSetting.RequestCode, String> activityCallbacks = new HashMap<ApplozicSetting.RequestCode, String>();
                     activityCallbacks.put(ApplozicSetting.RequestCode.AUDIO_CALL, AudioCallActivityV2.class.getName());
                     activityCallbacks.put(ApplozicSetting.RequestCode.VIDEO_CALL, VideoActivity.class.getName());
-                    ApplozicSetting.getInstance(context).setActivityCallbacks(activityCallbacks);*/
+                    ApplozicSetting.getInstance(context).setActivityCallbacks(activityCallbacks);
 
 
                     callback.success(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
