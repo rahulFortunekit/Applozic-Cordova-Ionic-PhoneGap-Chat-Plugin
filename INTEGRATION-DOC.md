@@ -165,3 +165,10 @@ Set the following in platforms/android/assets/applozic-settings.json properties 
    Add code as mentioned in the following documentation:
    https://www.applozic.com/docs/ios-chat-sdk.html#step-4-push-notification-setup
 
+
+
+#### Step 6: Logout
+
+```
+applozic.logout(function() {console.log("success");}, function () {console.log("error");});
+```
