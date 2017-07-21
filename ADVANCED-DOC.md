@@ -62,8 +62,7 @@ Refer to the below documentation for a deeper integration if you wish to perform
 
 ### Unread count
 
-```
-```
+
 #### Total unreadcount:
 
 ```
