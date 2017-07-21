@@ -67,6 +67,7 @@
   "muteOption": true,
   "logoutOption": false,
   "logoutPackageName": "",
+  "showDownloadOptionInContextMenu": "true",
   "attachmentOptions": {
     ":location": true,
     ":camera": true,
