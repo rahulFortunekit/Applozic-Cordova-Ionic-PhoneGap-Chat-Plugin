@@ -270,8 +270,8 @@
     <header-file src="src/ios/ALChatManager.h" target-dir="ApplozicPlugin"/>
     <source-file src="src/ios/ALChatManager.m" target-dir="ApplozicPlugin"/>
 
-    <framework src="src/ios/Applozic.framework" custom="true" embed="true" />
-
+<!-- <framework src="src/ios/Applozic.framework" custom="true" embed="true" /> -->
+ <framework src="Applozic" type="podspec" spec="~> 3.9" />
   </platform>
 
   <platform name="wp7">
