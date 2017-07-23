@@ -55,4 +55,10 @@
 
 - (void) logout:(CDVInvokedUrlCommand*)command;
 
+- (void) getUnreadCount:(CDVInvokedUrlCommand*)command;
+
+- (void) getUnreadCountForGroup:(CDVInvokedUrlCommand*)command;
+
+- (void) getUnreadCountForUser:(CDVInvokedUrlCommand*)command;
+
 @end

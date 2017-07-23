@@ -40,12 +40,12 @@
     NSString *jsonStr = [[command arguments] objectAtIndex:0];
     jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
     jsonStr = [NSString stringWithFormat:@"%@",jsonStr];
-    
+
     ALUser * alUser = [[ALUser alloc] initWithJSONString:jsonStr];
     ALChatManager *alChatManager = [self getALChatManager:alUser.applicationId];
-    
+
     [ALUserDefaultsHandler setDeviceApnsType:[alUser deviceApnsType]];
-    
+
     [alChatManager registerUser:alUser];
     [alChatManager registerUserWithCompletion:alUser withHandler:^(ALRegistrationResponse *rResponse, NSError *error) {
         NSString* msg = nil;
@@ -67,7 +67,7 @@
     if ([ALUserDefaultsHandler isLoggedIn]) {
         response = @"true";
     }
-    
+
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:response];
@@ -96,7 +96,7 @@
  ALPushNotificationService *pushNotificationService = [[ALPushNotificationService alloc] init];
  [pushNotificationService notificationArrivedToApplication:application withDictionary:dictionary];
  }
- 
+
  -(void) processBackgrou dPushNotification:(CDVInvokedUrlCommand*)command {
  {
  NSLog(@"Received notification Completion: %@", userInfo);
@@ -109,13 +109,13 @@
 - (void) launchChat:(CDVInvokedUrlCommand*)command
 {
     ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
-    
+
     ALPushAssist * assitant = [[ALPushAssist alloc] init];
     [alChatManager launchChat:[assitant topViewController]];
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:@"success"];
-    
+
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
@@ -123,7 +123,7 @@
 {
     ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
     NSString* userId = [[command arguments] objectAtIndex:0];
-    
+
     ALPushAssist * assitant = [[ALPushAssist alloc] init];
     [alChatManager launchChatForUserWithDisplayName:userId
                                         withGroupId:nil  //If launched for group, pass groupId(pass userId as nil)
@@ -132,7 +132,7 @@
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:@"success"];
-    
+
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
@@ -140,7 +140,7 @@
 {
     ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
     NSNumber* groupId = [[command arguments] objectAtIndex:0];
-    
+
     ALPushAssist * assitant = [[ALPushAssist alloc] init];
     [alChatManager launchChatForUserWithDisplayName:nil
                                         withGroupId:groupId  //If launched for group, pass groupId(pass userId as nil)
@@ -156,7 +156,7 @@
 {
     ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
     NSString* clientGroupId = [[command arguments] objectAtIndex:0];
-    
+
     ALPushAssist * assitant = [[ALPushAssist alloc] init];
     [alChatManager launchChatForUserWithDisplayName:nil
                                         withGroupId:nil  //If launched for group, pass groupId(pass userId as nil)
@@ -173,7 +173,7 @@
     ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
     alChatManager.chatLauncher = [[ALChatLauncher alloc] initWithApplicationId:[self getApplicationKey]];
     ALPushAssist * assitant = [[ALPushAssist alloc] init];
-    
+
     [alChatManager.chatLauncher launchContactList:[assitant topViewController]];
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
@@ -196,7 +196,7 @@
     NSString *jsonStr = [[command arguments] objectAtIndex:0];
     jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
     jsonStr = [NSString stringWithFormat:@"%@",jsonStr];
-    
+
     ALContact *contact = [[ALContact alloc] initWithJSONString:jsonStr];
     ALContactService * alContactService = [[ALContactService alloc] init];
     [alContactService addContact:contact];
@@ -211,7 +211,7 @@
     NSString *jsonStr = [[command arguments] objectAtIndex:0];
     jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
     jsonStr = [NSString stringWithFormat:@"%@",jsonStr];
-    
+
     ALContact *contact = [[ALContact alloc] initWithJSONString:jsonStr];
     ALContactService * alContactService = [[ALContactService alloc] init];
     [alContactService updateContact:contact];
@@ -227,7 +227,7 @@
     jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
     jsonStr = [NSString stringWithFormat:@"%@",jsonStr];
     ALContact *contact = [[ALContact alloc] initWithJSONString:jsonStr];
-    
+
     ALContactService * alContactService = [[ALContactService alloc] init];
     [alContactService purgeContact:contact];
     CDVPluginResult* result = [CDVPluginResult
@@ -241,7 +241,7 @@
     NSString *jsonStr = [[command arguments] objectAtIndex:0];
     jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
     jsonStr = [NSString stringWithFormat:@"%@",jsonStr];
-    
+
     NSError* error;
     NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
     id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error:&error];
@@ -259,7 +259,7 @@
             NSLog(@" userDetail ::%@",userDetail.displayName);
         }
     }
-    
+
     CDVPluginResult* result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
                                messageAsString:@"success"];
@@ -275,7 +275,7 @@
     NSError* error;
     id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error:&error];
     NSLog(@"%@", error);
-    
+
     ALChannelService *alChannelService = [[ALChannelService alloc]init];
     ALChannel *alChannel = [[ALChannel alloc] init];
     [alChannel setName:[jsonObject objectForKey:@"groupName"]];
@@ -284,7 +284,7 @@
     [alChannel setMembersId:[jsonObject objectForKey:@"groupMemberList"]];
     [alChannel setMetadata:[jsonObject objectForKey:@"metadata"]];
     [alChannel setType:[[jsonObject objectForKey:@"type"] shortValue]];
-    
+
     [alChannelService createChannel:alChannel.name orClientChannelKey:alChannel.clientChannelKey andMembersList:alChannel.membersId andImageLink:alChannel.channelImageURL channelType:alChannel.type andMetaData:alChannel.metadata withCompletion:^(ALChannel *alChannel, NSError *error) {
         CDVPluginResult* result = [CDVPluginResult
                                    resultWithStatus:CDVCommandStatus_OK
@@ -306,4 +306,49 @@
     }
 }
 
+- (void) getUnreadCount:(CDVInvokedUrlCommand*)command
+{
+
+    ALUserService * alUserService = [[ALUserService alloc] init];
+    NSNumber * totalUnreadCount = [alUserService getTotalUnreadCount];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[totalUnreadCount stringValue]];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+
+}
+
+- (void) getUnreadCountForGroup:(CDVInvokedUrlCommand*)command
+{
+    NSNumber* channelKey = [[command arguments] objectAtIndex:0];
+
+    ALChannelService *channelService = [ALChannelService new];
+    ALChannel *alChannel = [channelService getChannelByKey:channelKey];
+    NSNumber *unreadCount = [alChannel unreadCount];
+
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[unreadCount stringValue]];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+
+}
+
+- (void) getUnreadCountForUser:(CDVInvokedUrlCommand*)command
+{
+    NSString* userId = [[command arguments] objectAtIndex:0];
+
+    ALContactService* contactService = [ALContactService new];
+    ALContact *contact = [contactService loadContactByKey:@"userId" value:userId];
+    NSNumber *unreadCount = [contact unreadCount];
+
+    CDVPluginResult* result = [CDVPluginResult
+                               resultWithStatus:CDVCommandStatus_OK
+                               messageAsString:[unreadCount stringValue] ];
+
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+
+}
 @end
