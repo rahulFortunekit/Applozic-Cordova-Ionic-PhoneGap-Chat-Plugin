@@ -63,7 +63,7 @@ Refer to the below documentation for a deeper integration if you wish to perform
 ### Unread count
 
 
-#### Total unreadcount:
+#### Total unreadcount
 
 ```
    applozic.getUnreadCount(function(response){
@@ -74,7 +74,7 @@ Refer to the below documentation for a deeper integration if you wish to perform
 
 ```
 
-#### Unread count for user:
+#### Unread count for user
 
 ```
    var userId = 'USER_ID'; //pass UserId with which unread count 
@@ -87,7 +87,7 @@ Refer to the below documentation for a deeper integration if you wish to perform
 ```
 
 
-#### Unreadcount for group:
+#### Unreadcount for group
 
 ```
    var groupId = 'GROUP_ID'; // pass groupId in which unreadcount required
