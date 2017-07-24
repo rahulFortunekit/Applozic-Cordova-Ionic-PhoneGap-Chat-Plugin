@@ -107,7 +107,7 @@ applozic.addContacts(contacts, function() {}, function() {});
 ##### Android
 Set the following in platforms/android/assets/applozic-settings.json properties file.
 ```
-"registeredUserContactListCall": false,
+"registeredUserContactListCall": false, // set to true for displaying all registered users in the contact list
 "startNewButton": true,
 ```
 
