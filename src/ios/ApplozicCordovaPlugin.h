@@ -61,4 +61,9 @@
 
 - (void) getUnreadCountForUser:(CDVInvokedUrlCommand*)command;
 
+-(void) addGroupMember:(CDVInvokedUrlCommand*)command;
+
+-(void) removeGroupMember:(CDVInvokedUrlCommand*)command;
+
+
 @end

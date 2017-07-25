@@ -16,6 +16,8 @@
 #import <Applozic/ALNewContactsViewController.h>
 #import <Applozic/ALPushAssist.h>
 #import <Applozic/ALContactService.h>
+#import <Applozic/ALChannelService.h>
+#import <Applozic/ALUserService.h>
 
 
 @implementation ApplozicCordovaPlugin
@@ -291,6 +293,96 @@
                                    messageAsString:@"success"];
         [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
     }];
+}
+
+
+- (void) addGroupMember:(CDVInvokedUrlCommand*)command
+{
+    NSString *jsonStr = [[command arguments] objectAtIndex:0];
+    jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
+    jsonStr = [NSString stringWithFormat:@"%@",jsonStr];
+
+    NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error:&error];
+    NSLog(@"%@", error);
+
+    NSString *userId = [jsonObject objectForKey:@"userId"];
+    NSNumber *channelKey = [jsonObject objectForKey:@"groupId"];
+
+   
+    ALChannelService *alChannelService = [[ALChannelService alloc]init];
+    [alChannelService addMemberToChannel:@"deepak" andChannelKey:channelKey orClientChannelKey:nil
+                        withCompletion:^(NSError *error, ALAPIResponse *response) {
+        CDVPluginResult* result ;
+        if(!error && [response.status isEqualToString:@"success"])
+         {
+            result = [CDVPluginResult
+                       resultWithStatus:CDVCommandStatus_OK
+                                   messageAsString:response.status]; 
+             
+         }else if(response != nil && [response.status isEqualToString:@"error"]){
+             
+             NSError *writeError = nil;
+             NSArray * errorArray = [response.actualresponse valueForKey:@"errorResponse"];
+             NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[errorArray objectAtIndex:0] options:NSJSONWritingPrettyPrinted error:&writeError];
+             NSString *jsonString = [[NSString alloc] initWithData:jsonData  encoding:NSUTF8StringEncoding];
+             NSLog(@"JSON Output: %@", jsonString);
+             
+             result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                        messageAsString:jsonString];
+         }else{
+              result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.description];
+         }
+      
+         [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+     
+       }];
+
+}
+
+
+- (void) removeGroupMember:(CDVInvokedUrlCommand*)command
+{
+    NSString *jsonStr = [[command arguments] objectAtIndex:0];
+    jsonStr = [jsonStr stringByReplacingOccurrencesOfString:@"\\\"" withString:@"\""];
+    jsonStr = [NSString stringWithFormat:@"%@",jsonStr];
+    
+    NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options: NSJSONReadingMutableContainers error:&error];
+    NSLog(@"%@", error);
+    
+    NSString *userId = [jsonObject objectForKey:@"userId"];
+    NSNumber *channelKey = [jsonObject objectForKey:@"groupId"];
+    
+    ALChannelService *alChannelService = [[ALChannelService alloc]init];
+    
+    [alChannelService removeMemberFromChannel:userId andChannelKey:channelKey orClientChannelKey:nil withCompletion:^(NSError *error, ALAPIResponse *response) {
+        
+        CDVPluginResult* result ;
+        if(!error && [response.status isEqualToString:@"success"])
+        {
+           result =  [CDVPluginResult
+             resultWithStatus:CDVCommandStatus_OK
+             messageAsString:response.status];
+            
+        }else if(response != nil && [response.status isEqualToString:@"error"]){
+            
+            NSError *writeError = nil;
+            NSArray * errorArray = [response.actualresponse valueForKey:@"errorResponse"];
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[errorArray objectAtIndex:0] options:NSJSONWritingPrettyPrinted error:&writeError];
+            NSString *jsonString = [[NSString alloc] initWithData:jsonData  encoding:NSUTF8StringEncoding];
+            NSLog(@"JSON Output: %@", jsonString);
+            
+            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:jsonString];
+        }else{
+            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.description];
+        }
+        
+        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    }];
+    
 }
 
 - (void)logout:(CDVInvokedUrlCommand*)command
