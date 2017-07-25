@@ -1,0 +1,99 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/Users/ninu/Documents/github/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/Users/ninu/Documents/github/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin",
+        "spec": "/Users/ninu/Documents/github/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin",
+        "type": "directory"
+      },
+      "/Users/ninu/Documents/github/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin/samples/ionic2/node_modules"
+    ]
+  ],
+  "_from": "../..",
+  "_id": "Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin@0.7.0",
+  "_inCache": true,
+  "_location": "/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/Users/ninu/Documents/github/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/Users/ninu/Documents/github/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin",
+    "spec": "/Users/ninu/Documents/github/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin",
+    "type": "directory"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "file:../..",
+  "_shasum": "8a8b729f42f436ac92b5c733893461a076562e50",
+  "_shrinkwrap": null,
+  "_spec": "/Users/ninu/Documents/github/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin",
+  "_where": "/Users/ninu/Documents/github/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin/samples/ionic2/node_modules",
+  "author": {
+    "name": "Applozic"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/CB"
+  },
+  "cordova": {
+    "id": "om.applozic.phonegap",
+    "platforms": [
+      "firefoxos",
+      "android",
+      "amazon-fireos",
+      "ubuntu",
+      "ios",
+      "blackberry10",
+      "wp7",
+      "wp8",
+      "windows8",
+      "browser",
+      "windows"
+    ]
+  },
+  "dependencies": {},
+  "description": "Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin",
+  "devDependencies": {},
+  "engines": {
+    "cordovaDependencies": {
+      "3.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "gitHead": "5d2a24f06beba60171b981d8864d5018668c0796",
+  "homepage": "https://github.com/AppLozic/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin#readme",
+  "keywords": [
+    "cordova",
+    "camera",
+    "ecosystem:cordova",
+    "cordova-firefoxos",
+    "cordova-android",
+    "cordova-amazon-fireos",
+    "cordova-ubuntu",
+    "cordova-ios",
+    "cordova-blackberry10",
+    "cordova-wp7",
+    "cordova-wp8",
+    "cordova-windows8",
+    "cordova-browser",
+    "cordova-windows"
+  ],
+  "license": "Apache-2.0",
+  "name": "Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin",
+  "optionalDependencies": {},
+  "readme": "# Applozic Cordova Chat Plugin for Ionic and PhoneGap\n\nApplozic powers real time messaging across any device, any platform & anywhere in the world. Integrate our simple SDK to engage your users with image, file, location sharing and audio/video conversations.\n\nSignup at https://www.applozic.com/signup.html to get the application key.\n\n\n\n## Using\n    \nInstall the plugin\n\n    $ cordova plugin add https://github.com/AppLozic/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin.git\n    \n    \nNote: For Ionic, use \n\n\t$ ionic cordova plugin add https://github.com/AppLozic/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin.git\n\nPlugin works only on android and iOS, for web (browser) support, check the javascript plugin at:\n\thttps://www.applozic.com/docs/web-chat-plugin.html\n\n## Android\nOpen /platforms/android/ folder in Android Studio.\nIf you see gradle wrapper error then open gradle/wrapper/gradle-wrapper.properties\nChange distributionUrl to point to 2.14.1-all\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-2.14.1-all.zip\n\n\n## iOS\n\nOpen /platforms/ios/YOUR_PROJECT_NAME.xcodeproj in Xcode.\nVerify if the Applozic.framework is added in \"Embedded Binaries\". If not, then add it to the \"Embedded Binaries\" by clicking the + button under Project General Settings -> Embedded Binaries.\nRemove duplicate entry from \"Linked Framework and Libraries\" if any.\n\n\n\n### Steps to integrate:\n\n\n#### Login/Register User\n```js\n    var alUser = {\n            'userId' : userId,   //Replace it with the userId of the logged in user\n            'password' : password,  //Put password here\n            'authenticationTypeId' : 1,\n            'applicationId' : 'applozic-sample-app',  //replace \"applozic-sample-app\" with Application Key from Applozic Dashboard\n            'deviceApnsType' : 0    //Set 0 for Development and 1 for Distribution (Release)\n        };\n\n   applozic.login(alUser, function() {\n       applozic.registerPushNotification(function() {}, function(){});\n       applozic.launchChat(function() {}, function() {});\n   }, function() {});\n```\n\nNOTE: Call it after the platform is ready, for example:\n```\n\tplatform.ready().then(() => {\n  \t\t var alUser = {\n            'userId' : 'debug3',   //Replace it with the userId of the logged in user\n            'password' : 'debug3',  //Put password here\n            'authenticationTypeId' : 1,\n            'applicationId' : 'applozic-sample-app' //replace \"applozic-sample-app\" with Application Key from Applozic Dashboard\n        };\n\n\t   applozic.login(alUser, function() {\n\t        \t\tapplozic.launchChat(function() {}, function() {});\n\t        \t}, function() {});\n    });\n```\n\n#### Launch Chat\n\n\n##### Main Chat screen\n\n```\napplozic.launchChat(function() {console.log(\"success\");}, function () {console.log(\"error\");});\n```\n\n##### Launch Chat with a specific User\n\n```\napplozic.launchChatWithUserId(userId, function() {console.log(\"success\");}, function () {console.log(\"error\");});\n```\n\n##### Launch Chat with specific Group \n\n```\napplozic.launchChatWithGroupId(groupId, function() {console.log(\"success\");}, function () {console.log(\"error\");});\n```\n\n\n#### Contact List\n\n```\napplozic.showAllRegisteredUsers(false, function() {}, function() {});\n// create a contacts array and pass it to addContacts function. Below is the sample:               \nvar contacts = [\n                    {'userId' : 'adarsh', 'displayName' : 'Adarsh Kumar'}, \n                    {'userId' : 'ranjeet', 'displayName' : 'Ranjeet Priyadarshi'}\n                ];\napplozic.addContacts(contacts, function() {}, function() {});\n```\n\n##### Android\nSet the following in platforms/android/assets/applozic-settings.json properties file.\n```\n\"registeredUserContactListCall\": false,\n\"startNewButton\": true,\n```\n\n\n#### Push Notification Setup\n\n##### Android\n   Goto /platforms/android/build.gradle\n   Add the following under buildscript -> dependencies\n   ```\n   classpath 'com.google.gms:google-services:3.0.0'\n   ```\n   \n   Add the following at the bottom of the file:\n   ```\n   apply plugin: 'com.google.gms.google-services'\n   ```\n   \n   After adding, it will look something like this:\n   ```\n   buildscript {\n       repositories {\n           mavenCentral()\n           jcenter()\n       }\n       \n       // Switch the Android Gradle plugin version requirement depending on the\n       // installed version of Gradle. This dependency is documented at\n       // http://tools.android.com/tech-docs/new-build-system/version-compatibility\n       // and https://issues.apache.org/jira/browse/CB-8143\n       dependencies {\n          classpath 'com.android.tools.build:gradle:2.2.1'\n          classpath 'com.google.gms:google-services:3.0.0'\n       }\n   }\n\n   apply plugin: 'com.google.gms.google-services'\n   ```\n    \n   From login success callback, call applozic.registerPushNotification(function() {}, function(){});\n   \n   For push notifications, you must have a Firebase account: \n   Signup to https://console.firebase.google.com/ and create your application and generate push notification services file.\n   \n   Download google-services.json from your Firebase Console and paste it to /platforms/android/ folder\n   \n   Go to Applozic Dashboard, update the FCM/GCM Server Key from Firebase account to your Applozic application.\n   \"Edit Application -> Push Notification -> Android -> FCM/GCM Server Key\"\n\n\n\n##### iOS\n    \n   Open AppDelegate.m file under /platforms/ios/YOUR_PROJECT/Classes/\n   Add code as mentioned in the following documentation:\n   https://www.applozic.com/docs/ios-chat-sdk.html#step-4-push-notification-setup\n\n\n#### Group\n   ##### Create Group\n   ```\n     var group = {\n            \t'groupName': 'hey',\n            \t'groupMemberList': ['userid1', 'userid2', 'userid3'], // Pass list of user Ids in groupMemberList\n            \t'imageUrl': 'https://www.applozic.com/favicon.ico',\n            \t'type' : 1,    //'type' : 1, //(required) 1:private, 2:public, 5:broadcast,7:GroupofTwo\n            \t'metadata' : {\n            \t\t'key1' : 'value1',\n            \t\t'key2' : 'value2'\n            \t}\n            };\n     applozic.createGroup(group, function() {}, function() {});\n  ```\n  \n  ##### Add Group Member\n  ```\n    var groupDetails = {\n        'groupId': GROUP_ID,\n        'clientGroupId': CLIENT_GROUP_ID, //use either groupId or clientGroupId\n        'userId': USER_ID_TO_ADD\n    }\n    applozic.addGroupMember(groupDetails, function() {}, function() {});\n  ```\n  \n  \n  ##### Remove Group Member\n  ```\n    var groupDetails = {\n        'groupId': GROUP_ID,\n        'clientGroupId': CLIENT_GROUP_ID, //use either groupId or clientGroupId\n        'userId': USER_ID_TO_ADD\n    }\n    applozic.removeGroupMember(groupDetails, function() {}, function() {});\n  ```\n\n#### Topic Based Chat\n\n    ```\n       var topicDetail = {\n                        'title': 'Hyundai Electric i20', // Product title\n                        'subtitle': 'electric car',      // Product subTitle or Product Id\n                        'link': 'https://www.applozic.com/assets/resources/images/applozic_logo.gif',  // Product image link\n                        'key1': 'Mileage: ',  // Small text anything like Qty (Optional)\n                        'value1': '18 kmpl',  // Value of key1 ex-10 (number of quantity) Optional\n                        'key2': 'Price: ',    // Small text anything like MRP (product price) (Optional)\n                        'value2': '$50k'   // Value of key2 ex-$100  (Optional)\n                    };\n                    var conversation = {\n                        'topicId': 'topic-11', //Unique topic id\n                        'userId': 'demouser', //SET UserId for which you want to launch chat or conversation,\n                       // 'groupId': groupKey,  // Set groupId for which you want to launch chat, use either userId or groupId\n                        'topicDetail': JSON.stringify(topicDetail)\n                    };\n                    \n                    applozic.startTopicBasedChat(conversation, function() {}, function() {});\n    ```\n\n\n#### Logout\n\n```\napplozic.logout(function() {console.log(\"success\");}, function () {console.log(\"error\");});\n```\n\n### Unread count:\n\n```\n```\n#### Total unreadcount:\n\n```\n   applozic.getUnreadCount(function(response){\n     var count = response;\n    },\n    function(error){alert(error)\n   });\n\n```\n\n#### Unread count for user:\n\n```\n   var userId = 'USER_ID'; //pass UserId with which unread count \n   applozic.getUnreadCountForUser(userId,function(response){\n     var count = response;\n    },\n    function(error){alert(error)\n   });\n\n```\n\n\n#### Unread count for group:\n\n```\n   var groupId = 'GROUP_ID'; // pass groupId in which unreadcount required\n\n  applozic.getUnreadCountForGroup(groupId,function(response){\n       var count = response;\n    },\n     function(error){\n    });\n\n```\n\nInstall iOS or Android platform\n\n    cordova platform add ios\n    cordova platform add android\n    \nRun the code\n\n    cordova run \n\n## More Info\n\nFor more information on setting up Cordova see [the documentation](http://cordova.apache.org/docs/en/latest/guide/cli/index.html)\n\nFor more info on plugins see the [Plugin Development Guide](http://cordova.apache.org/docs/en/latest/guide/hybrid/plugins/index.html)\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AppLozic/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin.git"
+  },
+  "version": "0.7.0"
+}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="com.applozic.phonegap"
-        version="0.7.0">
+        version="0.8.0">
 
   <name>Applozic</name>
 
@@ -28,6 +28,7 @@
     <source-file src="src/android/FcmListenerService.java" target-dir="src/com/applozic/phonegap/notification"/>
     <source-file src="src/android/applozic-settings.json" target-dir="assets"/>
     <source-file src="src/android/provider_paths.xml" target-dir="res/xml"/>
+      <source-file src="src/android/mobicomkitui" target-dir="./"/>
 
     <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
 
@@ -191,7 +192,11 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
+            
+       <service
+            android:name="com.applozic.mobicomkit.uiwidgets.notification.NotificationIntentService"
+            android:exported="false" />
+            
       <receiver android:name="com.applozic.mobicomkit.broadcast.TimeChangeBroadcastReceiver">
                <intent-filter>
                    <action android:name="android.intent.action.TIME_SET" />
@@ -266,7 +271,8 @@
     <header-file src="src/ios/ALChatManager.h" target-dir="ApplozicPlugin"/>
     <source-file src="src/ios/ALChatManager.m" target-dir="ApplozicPlugin"/>
 
-    <framework src="src/ios/Applozic.framework" custom="true" embed="true" />
+   <!-- <framework src="Applozic" type="podspec" spec="~> 3.9" /> -->
+   <framework src="src/ios/Applozic.framework" custom="true" embed="true" />
 
   </platform>
 
