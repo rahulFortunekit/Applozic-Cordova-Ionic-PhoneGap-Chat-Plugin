@@ -25,6 +25,8 @@
 //@property (strong, nonatomic) UILabel * typingLabel;
 @property (nonatomic) BOOL  individualLaunch;
 @property (weak, nonatomic) IBOutlet UIView * typingMessageView;
+
+
 @property (nonatomic, strong) NSArray * wordArray;
 @property (strong, nonatomic) UIBarButtonItem * callButton;
 @property (strong, nonatomic) NSMutableArray <UIBarButtonItem *> * navRightBarButtonItems;

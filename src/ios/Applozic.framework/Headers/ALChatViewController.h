@@ -20,6 +20,7 @@
 #import "ALAudioAttachmentViewController.h"
 #import "ALVCardClass.h"
 #import <ContactsUI/CNContactPickerViewController.h>
+#import "PresetMessageViewController.h"
 
 @protocol ALChatViewControllerDelegate <NSObject>
 
@@ -39,8 +40,6 @@
 @property (nonatomic, strong) NSString * channelName;
 @property (nonatomic, strong) NSNumber * conversationId;
 @property (strong, nonatomic) ALMessage * alMessage;
-
-
 @property (nonatomic) BOOL refreshMainView;
 @property (nonatomic) BOOL refresh;
 @property (strong, nonatomic) NSString * displayName;
@@ -48,6 +47,7 @@
 @property (strong, nonatomic) NSString * text;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewBottomToAttachment;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTop2Constraint;
+@property (weak, nonatomic) IBOutlet UIButton *presentMessageButton;
 
 @property (strong, nonatomic) id <ALChatViewControllerDelegate> chatViewDelegate;
 
@@ -71,6 +71,7 @@
 -(void)markConversationRead;
 -(void)markSingleMessageRead:(ALMessage *)almessage;
 
+
 -(void)handleNotification:(UIGestureRecognizer*)gestureRecognizer;
 
 //-(void)googleImage:(UIImage*)staticImage withURL:(NSString *)googleMapUrl withCompletion:(void(^)(NSString *message, NSError *error))completion;
@@ -86,5 +87,7 @@
 
 -(void)subscrbingChannel;
 -(void)unSubscrbingChannel;
+
+-(void)postMessage;
 
 @end
