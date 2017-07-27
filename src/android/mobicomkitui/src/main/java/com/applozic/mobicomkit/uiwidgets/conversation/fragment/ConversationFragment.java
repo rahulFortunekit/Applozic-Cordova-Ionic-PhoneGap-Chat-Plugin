@@ -143,7 +143,7 @@ public class ConversationFragment extends MobiComConversationFragment implements
                                 processAttachButtonClick(view);
                             }
                         }
-                    }else {
+                    } else {
                         processAttachButtonClick(view);
                     }
                 } else if (contact != null) {
@@ -172,6 +172,10 @@ public class ConversationFragment extends MobiComConversationFragment implements
         if (multimediaPopupGrid.getVisibility() == View.VISIBLE) {
             multimediaPopupGrid.setVisibility(View.GONE);
         }
+    }
+
+    public void setPresetMessage(String message) {
+        messageEditText.append(message);
     }
 
     @Override

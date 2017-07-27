@@ -2,6 +2,7 @@ package com.applozic.mobicomkit.uiwidgets.conversation.activity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -110,6 +111,8 @@ import java.util.List;
 public class ConversationActivity extends AppCompatActivity implements MessageCommunicator, MobiComKitActivityInterface, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, ActivityCompat.OnRequestPermissionsResultCallback, MobicomkitUriListener, SearchView.OnQueryTextListener, OnClickReplyInterface {
 
     public static final int LOCATION_SERVICE_ENABLE = 1001;
+    public static final int PRESET_MESSAGE_LIST = 1009;
+    public static final String ACTION_RECEIVE_PRESET_MESSAGE = "actionReceivePresetMessage";
     public static final String TAKE_ORDER = "takeOrder";
     public static final String CONTACT = "contact";
     public static final String CHANNEL = "channel";
@@ -405,6 +408,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
             accountStatusAsyncTask.execute();
         }
         registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        registerReceiver(new PresetMessageReceiver(), new IntentFilter(ACTION_RECEIVE_PRESET_MESSAGE));
     }
 
     @Override
@@ -1164,6 +1168,17 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private class PresetMessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && intent.getAction().equals(ACTION_RECEIVE_PRESET_MESSAGE)) {
+                conversationUIService.getConversationFragment().setPresetMessage(intent.getStringExtra(MobicomPresetMessageActivity.PRESET_MESSAGE));
+            }
+
         }
     }
 

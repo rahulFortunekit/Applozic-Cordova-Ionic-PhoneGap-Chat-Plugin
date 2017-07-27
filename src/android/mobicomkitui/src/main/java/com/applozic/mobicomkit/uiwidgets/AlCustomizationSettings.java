@@ -2,6 +2,7 @@ package com.applozic.mobicomkit.uiwidgets;
 
 import com.applozic.mobicommons.json.JsonMarker;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -94,6 +95,8 @@ public class AlCustomizationSettings extends JsonMarker {
     private String replyMessageLayoutSentMessageBackground = "#C0C0C0";
     private String replyMessageLayoutReceivedMessageBackground = "#F5F5F5";
     private boolean groupInfoScreenVisible = true;
+    private boolean enablePresetMessages = false;
+    private Map<String, String> presetMessages;
 
     private boolean launchChatFromProfilePicOrName;
 
@@ -472,6 +475,22 @@ public class AlCustomizationSettings extends JsonMarker {
 
     public boolean isGroupInfoScreenVisible() {
         return groupInfoScreenVisible;
+    }
+
+    public boolean isPresetMessagesEnabled() {
+        return enablePresetMessages;
+    }
+
+    public void setEnablePresetMessages(boolean enablePresetMessages) {
+        this.enablePresetMessages = enablePresetMessages;
+    }
+
+    public Map<String, String> getPresetMessagesList() {
+        return presetMessages;
+    }
+
+    public void setPresetMessagesList(Map<String, String> presetMessages) {
+        this.presetMessages = presetMessages;
     }
 
     @Override

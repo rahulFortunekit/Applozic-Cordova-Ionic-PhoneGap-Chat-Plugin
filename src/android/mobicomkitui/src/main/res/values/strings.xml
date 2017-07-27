@@ -202,4 +202,34 @@
     <string name="copied_message">Copied message</string>
     <string name="data_usage">Data Usage</string>
     <string name="missed">Missed</string>>
+
+    <string-array name="preset_messages">
+        <item>https://apps.applozic.com</item>
+        <item>https://staging.applozic.com</item>
+        <item>https://apps-test.applozic.com</item>
+        <item>https://test.applozic.com</item>
+        <item>https://applozic.appspot.com</item>
+        <item>http://test.applozic.com</item>
+        <item>https://test.applozic.com</item>
+        <item>https://mobi-com.appspot.com</item>
+        <item>http://dashboard.mobicomkit.com</item>
+        <item>https://apps.applozic.com</item>
+        <item>https://staging.applozic.com</item>
+        <item>https://apps-test.applozic.com</item>
+        <item>https://test.applozic.com</item>
+        <item>https://applozic.appspot.com</item>
+        <item>http://test.applozic.com</item>
+        <item>https://test.applozic.com</item>
+        <item>https://mobi-com.appspot.com</item>
+        <item>http://dashboard.mobicomkit.com</item>
+        <item>https://apps.applozic.com</item>
+        <item>https://staging.applozic.com</item>
+        <item>https://apps-test.applozic.com</item>
+        <item>https://test.applozic.com</item>
+        <item>https://applozic.appspot.com</item>
+        <item>http://test.applozic.com</item>
+        <item>https://test.applozic.com</item>
+        <item>https://mobi-com.appspot.com</item>
+        <item>http://dashboard.mobicomkit.com</item>
+    </string-array>
 </resources>
