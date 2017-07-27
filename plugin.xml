@@ -44,14 +44,14 @@
                  android:value="chat" /> <!-- Attachment Folder Name -->
 
       <meta-data android:name="com.google.android.geo.API_KEY"
-                 android:value="AIzaSyAYB1vPc4cpn_FJv68eS_ZGe1UasBNwxLI" />  <!--Replace with your geo api key from google developer console  --> 
+                 android:value="AIzaSyAYB1vPc4cpn_FJv68eS_ZGe1UasBNwxLI" />  <!--Replace with your geo api key from google developer console  -->
       <!-- For testing purpose use AIzaSyAYB1vPc4cpn_FJv68eS_ZGe1UasBNwxLI
       To disable the location sharing via map add this line ApplozicSetting.getInstance(context).disableLocationSharingViaMap(); in onSuccess of Applozic UserLoginTask -->
 
        <meta-data android:name="activity.open.on.notification"
-                  android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" /> <!-- NOTE : Do NOT change this value -->    
+                  android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" /> <!-- NOTE : Do NOT change this value -->
 
-       <meta-data android:name="com.package.name" 
+       <meta-data android:name="com.package.name"
                  android:value="${applicationId}" /> <!-- NOTE: Do NOT change this, it should remain same i.e 'com.package.name' -->
 
       <provider android:name="android.support.v4.content.FileProvider"
@@ -146,10 +146,14 @@
                 android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
                 android:theme="@style/ApplozicTheme"
                 android:windowSoftInputMode="stateHidden|adjustResize">
-      <meta-data 
+      <meta-data
                  android:name="android.support.PARENT_ACTIVITY"
                  android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" />
       </activity>
+
+      <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.MobicomPresetMessageActivity"
+        android:theme="@style/ApplozicTheme" />
+
 
       <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.MobicomLocationActivity"
                 android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
@@ -192,11 +196,11 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-            
+
        <service
             android:name="com.applozic.mobicomkit.uiwidgets.notification.NotificationIntentService"
             android:exported="false" />
-            
+
       <receiver android:name="com.applozic.mobicomkit.broadcast.TimeChangeBroadcastReceiver">
                <intent-filter>
                    <action android:name="android.intent.action.TIME_SET" />
@@ -241,7 +245,7 @@
   </platform>
 
   <platform name="ios">
-    
+
     <config-file target="config.xml" parent="/widget">
       <feature name="ApplozicCordovaPlugin">
         <param name="ios-package" value="ApplozicCordovaPlugin" />
