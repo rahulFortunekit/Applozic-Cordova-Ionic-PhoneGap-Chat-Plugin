@@ -96,7 +96,7 @@ public class AlCustomizationSettings extends JsonMarker {
     private String replyMessageLayoutReceivedMessageBackground = "#F5F5F5";
     private boolean groupInfoScreenVisible = true;
     private boolean enablePresetMessages = false;
-    private Map<String, String> presetMessages;
+    private ArrayList<String> presetMessages;
 
     private boolean launchChatFromProfilePicOrName;
 
@@ -485,11 +485,11 @@ public class AlCustomizationSettings extends JsonMarker {
         this.enablePresetMessages = enablePresetMessages;
     }
 
-    public Map<String, String> getPresetMessagesList() {
+    public ArrayList<String> getPresetMessagesList() {
         return presetMessages;
     }
 
-    public void setPresetMessagesList(Map<String, String> presetMessages) {
+    public void setPresetMessagesList(ArrayList<String> presetMessages) {
         this.presetMessages = presetMessages;
     }
 

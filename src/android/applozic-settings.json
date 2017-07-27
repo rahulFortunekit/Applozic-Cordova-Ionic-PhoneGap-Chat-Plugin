@@ -81,9 +81,10 @@
   "replyMessageLayoutReceivedMessageBackground": "#F5F5F5",
   "groupInfoScreenVisible": true,
   "enablePresetMessages": false,
-  "presetMessages": {
-    "m1": "Hello",
-    "m2": "How are you",
-    "m3": "I am fine"
-  }
+   "presetMessages": [
+    "Hello",
+    "How are you?",
+    "Fine",
+    "Well done"
+  ]
 }

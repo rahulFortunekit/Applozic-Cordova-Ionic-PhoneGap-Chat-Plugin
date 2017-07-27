@@ -519,7 +519,7 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MobicomPresetMessageActivity.class);
                 if (alCustomizationSettings.getPresetMessagesList() != null) {
-                    intent.putStringArrayListExtra(MobicomPresetMessageActivity.PRESET_MESSAGE_LIST, new ArrayList<>(alCustomizationSettings.getPresetMessagesList().values()));
+                    intent.putStringArrayListExtra(MobicomPresetMessageActivity.PRESET_MESSAGE_LIST, alCustomizationSettings.getPresetMessagesList());
                 }
                 startActivity(intent);
             }
