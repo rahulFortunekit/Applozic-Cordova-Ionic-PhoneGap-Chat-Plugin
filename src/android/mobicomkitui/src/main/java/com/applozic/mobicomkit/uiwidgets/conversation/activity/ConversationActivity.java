@@ -150,6 +150,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
     MobiComMessageService mobiComMessageService;
     AlCustomizationSettings alCustomizationSettings;
     ConnectivityReceiver connectivityReceiver;
+    PresetMessageReceiver presetMessageReceiver;
     File mediaFile;
     File profilePhotoFile;
     SyncAccountStatusAsyncTask accountStatusAsyncTask;
@@ -340,6 +341,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
         mobiComMessageService = new MobiComMessageService(this, MessageIntentService.class);
         quickConversationFragment = new MobiComQuickConversationFragment();
         connectivityReceiver = new ConnectivityReceiver();
+        presetMessageReceiver = new PresetMessageReceiver();
         geoApiKey = Utils.getMetaDataValue(getApplicationContext(), GOOGLE_API_KEY_META_DATA);
         activityToOpenOnClickOfCallButton = Utils.getMetaDataValue(getApplicationContext(), ACTIVITY_TO_OPEN_ONCLICK_OF_CALL_BUTTON_META_DATA);
         layout = (LinearLayout) findViewById(R.id.footerAd);
@@ -408,7 +410,7 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
             accountStatusAsyncTask.execute();
         }
         registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        registerReceiver(new PresetMessageReceiver(), new IntentFilter(ACTION_RECEIVE_PRESET_MESSAGE));
+        registerReceiver(presetMessageReceiver, new IntentFilter(ACTION_RECEIVE_PRESET_MESSAGE));
     }
 
     @Override
@@ -1165,6 +1167,9 @@ public class ConversationActivity extends AppCompatActivity implements MessageCo
             }
             if (accountStatusAsyncTask != null) {
                 accountStatusAsyncTask.cancel(true);
+            }
+            if (presetMessageReceiver != null) {
+                unregisterReceiver(presetMessageReceiver);
             }
         } catch (Exception e) {
             e.printStackTrace();

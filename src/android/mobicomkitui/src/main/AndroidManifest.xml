@@ -2,8 +2,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.applozic.mobicomkit.uiwidgets">
 
-    <application>
-        <activity android:name=".conversation.activity.MobicomPresetMessageActivity"></activity>
-    </application>
 
 </manifest>
