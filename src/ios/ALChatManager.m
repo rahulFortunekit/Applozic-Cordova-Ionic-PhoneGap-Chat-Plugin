@@ -533,6 +533,17 @@
     
     [ALApplozicSettings setChatListTabTitle:@""];
     [ALApplozicSettings setProfileTabTitle:@""];
+    
+    /**************************** Pre Define Messages ********************************************/
+    NSMutableArray * myData = [[NSMutableArray alloc]initWithObjects:
+                               
+                               @"HI how are you ",@"I am busy",nil];
+    
+    
+    
+    [ALUserDefaultsHandler setPresetMessages:myData];
+    /**************************** Pre Define Messages ********************************************/
+
 }
 
 -(void)getApplicationBaseURL
