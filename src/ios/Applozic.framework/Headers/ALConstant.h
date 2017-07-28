@@ -9,14 +9,12 @@
 
 #define APPLOZIC_SDK_VERSION @"3.9"
 
-//#define KBASE_URL ([ALUserDefaultsHandler getBASEURL])
-//#define MQTT_URL ([ALUserDefaultsHandler getMQTTURL])
-//#define KBASE_FILE_URL ([ALUserDefaultsHandler getFILEURL])
+#define KBASE_URL ([ALUserDefaultsHandler getBASEURL])
+#define MQTT_URL ([ALUserDefaultsHandler getMQTTURL])
+#define KBASE_FILE_URL ([ALUserDefaultsHandler getFILEURL])
 #define MQTT_PORT ([ALUserDefaultsHandler getMQTTPort])
 
-#define KBASE_URL @"https://staging.applozic.com"
-#define MQTT_URL @"staging.applozic.com"
-#define KBASE_FILE_URL @"https://mobi-com-alpha.appspot.com"
+
 
 #define GREY_COLOR ([UIColor colorWithWhite:0.7 alpha:0.1])
 #define TEXT_VIEW_TO_MESSAGE_VIEW_RATIO 1.4 // Proper scolling.... 
