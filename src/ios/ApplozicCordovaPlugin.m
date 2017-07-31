@@ -312,7 +312,7 @@
 
    
     ALChannelService *alChannelService = [[ALChannelService alloc]init];
-    [alChannelService addMemberToChannel:@"deepak" andChannelKey:channelKey orClientChannelKey:nil
+    [alChannelService addMemberToChannel:userId andChannelKey:channelKey orClientChannelKey:nil
                         withCompletion:^(NSError *error, ALAPIResponse *response) {
         CDVPluginResult* result ;
         if(!error && [response.status isEqualToString:@"success"])
