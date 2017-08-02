@@ -107,7 +107,7 @@ applozic.addContacts(contacts, function() {}, function() {});
 ##### Android
 Set the following in platforms/android/assets/applozic-settings.json properties file.
 ```
-"registeredUserContactListCall": false,
+"registeredUserContactListCall": false, // set to true for displaying all registered users in the contact list
 "startNewButton": true,
 ```
 
@@ -232,11 +232,11 @@ Set the following in platforms/android/assets/applozic-settings.json properties 
 applozic.logout(function() {console.log("success");}, function () {console.log("error");});
 ```
 
-### Unread count:
+### Unread count
 
 ```
 ```
-#### Total unreadcount:
+#### Total unreadcount
 
 ```
    applozic.getUnreadCount(function(response){
@@ -247,7 +247,7 @@ applozic.logout(function() {console.log("success");}, function () {console.log("
 
 ```
 
-#### Unread count for user:
+#### Unread count for user
 
 ```
    var userId = 'USER_ID'; //pass UserId with which unread count 
@@ -260,7 +260,7 @@ applozic.logout(function() {console.log("success");}, function () {console.log("
 ```
 
 
-#### Unread count for group:
+#### Unread count for group
 
 ```
    var groupId = 'GROUP_ID'; // pass groupId in which unreadcount required
