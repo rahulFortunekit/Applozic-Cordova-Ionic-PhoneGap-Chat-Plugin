@@ -33,6 +33,7 @@ import com.applozic.mobicommons.people.channel.Channel;
 import com.applozic.mobicommons.people.channel.Conversation;
 import com.applozic.mobicommons.people.contact.Contact;
 import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
+import com.applozic.mobicomkit.uiwidgets.async.AlGroupInformationAsyncTask;
 //import com.applozic.audiovideo.activity.AudioCallActivityV2;
 //import com.applozic.audiovideo.activity.VideoActivity;
 import com.applozic.mobicomkit.ApplozicClient;
@@ -141,15 +142,43 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             intent.putExtra(ConversationUIService.TAKE_ORDER,true);
             cordova.getActivity().startActivity(intent);
         } else if (action.equals("launchChatWithGroupId")) {
+
+        AlGroupInformationAsyncTask.GroupMemberListener alGroupInformationAsyncTaskListener = new AlGroupInformationAsyncTask.GroupMemberListener() {
+            @Override
+            public void onSuccess(Channel channel, Context context) {
             Intent intent = new Intent(context, ConversationActivity.class);
-            intent.putExtra(ConversationUIService.GROUP_ID, data.getString(0));
+            intent.putExtra(ConversationUIService.GROUP_ID, channel.getKey());
             intent.putExtra(ConversationUIService.TAKE_ORDER,true);
             cordova.getActivity().startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Channel channel, Exception e, Context context) {
+
+            }
+        };
+        AlGroupInformationAsyncTask alGroupInformationAsyncTask  = new AlGroupInformationAsyncTask(context,Integer.valueOf(data.getString(0)),alGroupInformationAsyncTaskListener);
+        alGroupInformationAsyncTask.execute();
+
         } else if (action.equals("launchChatWithClientGroupId")) {
+
+      AlGroupInformationAsyncTask.GroupMemberListener alGroupInformationAsyncTaskListener = new AlGroupInformationAsyncTask.GroupMemberListener() {
+            @Override
+            public void onSuccess(Channel channel, Context context) {
             Intent intent = new Intent(context, ConversationActivity.class);
-            intent.putExtra(ConversationUIService.CLIENT_GROUP_ID, data.getString(0));
+            intent.putExtra(ConversationUIService.GROUP_ID, channel.getKey());
             intent.putExtra(ConversationUIService.TAKE_ORDER,true);
             cordova.getActivity().startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Channel channel, Exception e, Context context) {
+
+            }
+        };
+        AlGroupInformationAsyncTask alGroupInformationAsyncTask  = new AlGroupInformationAsyncTask(context,data.getString(0),alGroupInformationAsyncTaskListener);
+        alGroupInformationAsyncTask.execute();
+
         }  else if (action.equals("startNew")) {
             Intent intent = new Intent(context, MobiComKitPeopleActivity.class);
             cordova.getActivity().startActivity(intent);
@@ -223,7 +252,11 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
 
                 @Override
                 public void onFailure(String response, Exception e,Context context, List<ErrorResponseFeed> errorResponseFeeds) {
+                  if(errorResponseFeeds!=null && !errorResponseFeeds.isEmpty()){
                     callback.error(GsonUtils.getJsonFromObject(errorResponseFeeds.get(0), ErrorResponseFeed.class));
+                  }else{
+                    callback.error("Network error");
+                  }
                 }
             };
 
