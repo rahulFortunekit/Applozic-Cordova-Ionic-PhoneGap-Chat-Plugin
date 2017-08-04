@@ -112,6 +112,7 @@ import com.applozic.mobicommons.people.contact.Contact;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rockerhieu.emojicon.EmojiconEditText;
+import android.view.KeyEvent;
 
 import java.io.File;
 import java.lang.reflect.Type;
@@ -346,6 +347,17 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
                                               }
                                           }
         );
+
+     messageEditText.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    Utils.toggleSoftKeyBoard(getActivity(), true);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         messageEditText.addTextChangedListener(new TextWatcher() {
 

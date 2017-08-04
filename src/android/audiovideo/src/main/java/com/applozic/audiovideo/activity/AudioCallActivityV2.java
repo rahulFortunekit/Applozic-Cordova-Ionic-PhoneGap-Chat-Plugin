@@ -544,6 +544,8 @@ public class AudioCallActivityV2 extends AppCompatActivity implements TokenGener
 
             @Override
             public void onDisconnected(Room room, TwilioException e) {
+
+                try{
                 localParticipant = null;
                 videoStatusTextView.setText("Disconnected from " + room.getName());
                 AudioCallActivityV2.this.room = null;
@@ -560,6 +562,10 @@ public class AudioCallActivityV2 extends AppCompatActivity implements TokenGener
                     mediaPlayer.pause();
                 }
                 finish();
+
+                }catch(Exception ex){
+                Log.i(TAG, "Got the Exception in disconnect");
+                }
             }
 
             @Override
