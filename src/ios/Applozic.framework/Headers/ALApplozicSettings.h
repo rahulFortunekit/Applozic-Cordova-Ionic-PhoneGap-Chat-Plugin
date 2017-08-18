@@ -78,7 +78,9 @@
 #define OPEN_CHAT_ON_USER_PROFILE_TAP @"com.applozic.userdefault.OPEN_CHAT_ON_USER_PROFILE_TAP"
 #define MESSAGE_REPLY_ENABLED @"com.applozic.userdefault.MESSAGE_REPLY_MESSAGE"
 #define AV_ENABLED @"com.applozic.userfefault.AV_ENABLED"
-
+#define CONTACTS_GROUP @"com.applozic.userdefault.CONTACTS_GROUP"
+#define CONTACTS_GROUP_ID @"com.applozic.userdefault.CONTACTS_GROUP_ID"
+#define FORWARD_OPTION @"com.applozic.userdefault.FORWARD_OPTION"
 
 
 #import <Foundation/Foundation.h>
@@ -260,7 +262,7 @@
 +(BOOL)getReceiverUserProfileOption;
 +(void)setReceiverUserProfileOption:(BOOL)flag;
 
-+(float)getCustomMessageFontSize;
++(float)getCustomMessageFontSize; 
 +(void)setCustomMessageFontSize:(float)fontSize;
 
 +(NSString *)getCustomMessageFont;
@@ -324,6 +326,18 @@
 
 +(BOOL)isAudioVideoEnabled;
 +(void)setAudioVideoEnabled:(BOOL)flag;
+
++(void)enableOrDisableContactsGroup :(BOOL)flag;
+
++(BOOL)isContactsGroupEnabled;
+
++(void)setContactsGroupId:(NSString *)contactsGroupId;
+
++(NSString *)getContactsGroupId;
+
++(void)forwardOptionEnableOrDisable:(BOOL)flag;
+
++(BOOL)isForwardOptionEnabled;
 
 
 @end

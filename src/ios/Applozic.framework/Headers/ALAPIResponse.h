@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSString * status;
 @property (nonatomic, strong) NSNumber * generatedAt;
 @property (nonatomic, strong) id response;
-@property (nonatomic, strong) id actualresponse;
+@property (nonatomic, strong) NSString *actualresponse;
 
 
 @end
