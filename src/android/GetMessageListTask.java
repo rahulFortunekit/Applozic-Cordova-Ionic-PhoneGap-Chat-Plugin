@@ -82,18 +82,9 @@ public class GetMessageListTask extends AsyncTask<Void, Void, List<Message>> {
 
         if (!messageList.isEmpty()) {
             if (isLatestMessageRequest && !mList.isEmpty()) {
-                Utils.printLog(context, "ionictest", " in task size : " + mList.size());
                 listener.onSuccess(mList.toArray(new Message[mList.size()]), context);
             } else {
                 listener.onSuccess(messageList.toArray(new Message[messageList.size()]), context);
-            }
-
-            for (Message message : mList) {
-                Utils.printLog(context, "ionictest", "Message List in task : " + message);
-            }
-
-            for (String s : recList) {
-                Utils.printLog(context, "ionictest", "Bag : " + s);
             }
         } else {
             listener.onFailure("Some error occurred while fetching messages", context);
