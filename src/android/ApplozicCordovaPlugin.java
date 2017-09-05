@@ -34,6 +34,9 @@ import com.applozic.mobicommons.people.channel.Conversation;
 import com.applozic.mobicommons.people.contact.Contact;
 import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 import com.applozic.mobicomkit.uiwidgets.async.AlGroupInformationAsyncTask;
+import com.applozic.mobicomkit.api.conversation.Message;
+import com.applozic.phonegap.GetMessageListTask;
+import com.applozic.phonegap.MessageParamsModel;
 //import com.applozic.audiovideo.activity.AudioCallActivityV2;
 //import com.applozic.audiovideo.activity.VideoActivity;
 import com.applozic.mobicomkit.ApplozicClient;
@@ -219,6 +222,27 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                 MobiComPushReceiver.processMessageAsync(context, pushData);
             }
             callback.success(response);
+        }else if(action.equals("getMessageList")){
+
+            Log.d("ionictest","Hello I am in messagelist with data : " + data.getString(0));
+
+            GetMessageListTask.GetMessageListListener listener = new GetMessageListTask.GetMessageListListener() {
+            @Override
+            public void onSuccess(Message[] messageList, Context context) {
+                callback.success(GsonUtils.getJsonFromObject(messageList, Message[].class));
+            }
+
+            @Override
+            public void onFailure(String error, Context context) {
+                callback.error(error);
+            }
+        };
+
+        //String params = GsonUtils.getJsonFromObject(new MessageParamsModel(), MessageParamsModel.class);
+
+        GetMessageListTask task = new GetMessageListTask(data.getString(0), listener, context);
+        task.execute();
+
         } else if (action.equals("createGroup")) {
             ApplozicChannelCreateTask.ChannelCreateListener channelCreateListener = new ApplozicChannelCreateTask.ChannelCreateListener(){
 
