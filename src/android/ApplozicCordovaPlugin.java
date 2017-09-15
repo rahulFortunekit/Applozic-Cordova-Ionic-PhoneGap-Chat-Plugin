@@ -40,6 +40,8 @@ import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ApplozicCordovaPlugin extends CordovaPlugin {
 
@@ -56,10 +58,10 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
 
             Applozic.init(context, user.getApplicationId());
 
-            /*List<String> featureList =  new ArrayList<>();
+            List<String> featureList =  new ArrayList<String>();
             featureList.add(User.Features.IP_AUDIO_CALL.getValue());// FOR AUDIO
             featureList.add(User.Features.IP_VIDEO_CALL.getValue());// FOR VIDEO
-            user.setFeatures(featureList); // ADD FEATURES*/
+            user.setFeatures(featureList); // ADD FEATURES
 
             UserLoginTask.TaskListener listener = new UserLoginTask.TaskListener() {
 
@@ -72,7 +74,6 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                     activityCallbacks.put(ApplozicSetting.RequestCode.AUDIO_CALL, AudioCallActivityV2.class.getName());
                     activityCallbacks.put(ApplozicSetting.RequestCode.VIDEO_CALL, VideoActivity.class.getName());
                     ApplozicSetting.getInstance(context).setActivityCallbacks(activityCallbacks);
-
 
                     callback.success(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
                 }
