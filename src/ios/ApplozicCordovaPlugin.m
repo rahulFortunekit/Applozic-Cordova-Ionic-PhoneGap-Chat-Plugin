@@ -50,15 +50,24 @@
 
     [alChatManager registerUser:alUser];
     [alChatManager registerUserWithCompletion:alUser withHandler:^(ALRegistrationResponse *rResponse, NSError *error) {
-        NSString* msg = nil;
+        
+        CDVPluginResult* result;
+
         if (!error) {
-            msg = [NSString stringWithFormat: @"%@", rResponse];
-        } else {
-            msg = [NSString stringWithFormat: @"%@", error];
-        }
-        CDVPluginResult* result = [CDVPluginResult
+
+        NSError * error;
+        NSData * postdata = [NSJSONSerialization dataWithJSONObject:rResponse.dictionary options:0 error:&error];
+
+        NSString *jsonString = [[NSString alloc] initWithData:postdata encoding:NSUTF8StringEncoding];
+
+        result  = [CDVPluginResult
                                    resultWithStatus:CDVCommandStatus_OK
-                                   messageAsString:msg];
+                                   messageAsString:jsonString];
+        } else {
+          result =  [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+
+        }
+
         [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
     }];
 }
