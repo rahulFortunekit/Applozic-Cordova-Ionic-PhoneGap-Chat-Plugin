@@ -13,6 +13,7 @@ public class MessageParamsModel {
     Integer channelKey;
     Integer conversationId;
     Long createdAtTime;
+    boolean isScroll;
     boolean isSkipRead = false;
 
     public Long getStartTime() {
@@ -77,5 +78,13 @@ public class MessageParamsModel {
 
     public Long getCreatedAtTime() {
         return createdAtTime;
+    }
+
+    public void setIsScroll(boolean isScroll){
+this.isScroll = isScroll;
+    }
+
+    public boolean getIsScroll(){
+        return isScroll;
     }
 }

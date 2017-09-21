@@ -55,8 +55,17 @@ module.exports = {
     processPushNotification: function(data, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "processPushNotification", [JSON.stringify(data)]);
     },
-    getMessageList: function(data, successCallback, errorCallback){
-        cordova.exec(successCallback,errorCallback,"ApplozicCordovaPlugin", "getMessageList", [JSON.stringify(data)]);
+    getConversationList: function(data, successCallback, errorCallback){
+        cordova.exec(successCallback,errorCallback,"ApplozicCordovaPlugin", "getConversationList", [JSON.stringify(data)]);
+    },
+    getContactById: function(data, successCallback){
+        cordova.exec(successCallback,"ApplozicCordovaPlugin", "getContactById", [JSON.stringify(data)]);
+    },
+    getChannelByChannelKey: function(data, successCallback){
+        cordova.exec(successCallback,"ApplozicCordovaPlugin", "getChannelByChannelKey", [JSON.stringify(data)]);
+    },
+    getChannelByClientGroupId: function(data, successCallback){
+        cordova.exec(successCallback,"ApplozicCordovaPlugin", "getChannelByClientGroupId", [JSON.stringify(data)]);
     },
     /*
     var group = {

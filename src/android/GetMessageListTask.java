@@ -6,22 +6,25 @@ import com.applozic.mobicomkit.api.conversation.Message;
 import com.applozic.mobicomkit.api.conversation.MobiComConversationService;
 import com.applozic.mobicomkit.channel.database.ChannelDatabaseService;
 import com.applozic.mobicomkit.contact.database.ContactDatabase;
+import com.applozic.mobicommons.people.contact.Contact;
 import com.applozic.phonegap.MessageParamsModel;
 import com.applozic.mobicommons.commons.core.utils.Utils;
 import com.applozic.mobicommons.json.GsonUtils;
 import com.applozic.mobicommons.people.channel.Channel;
+import com.applozic.phonegap.GetMessageListTask.CustomConversation;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import android.util.Log;
 
 /**
  * Created by reytum on 4/9/17.
  */
 
-public class GetMessageListTask extends AsyncTask<Void, Void, List<Message>> {
+public class GetMessageListTask extends AsyncTask<Void, Void, List<CustomConversation>> {
 
     String error;
     String paramsJson;
@@ -36,7 +39,7 @@ public class GetMessageListTask extends AsyncTask<Void, Void, List<Message>> {
     }
 
     @Override
-    protected List<Message> doInBackground(Void... params) {
+    protected List<CustomConversation> doInBackground(Void... params) {
         MessageParamsModel model = (MessageParamsModel) GsonUtils.getObjectFromJson(paramsJson, MessageParamsModel.class);
         Channel channel = (model.getChannelKey() == null ? null : ChannelDatabaseService.getInstance(context).getChannelByChannelKey(model.getChannelKey()));
 
@@ -58,42 +61,77 @@ public class GetMessageListTask extends AsyncTask<Void, Void, List<Message>> {
             }
         });
 
-        return messageList;
-    }
-
-    @Override
-    protected void onPostExecute(List<Message> messageList) {
-        super.onPostExecute(messageList);
-
         List<String> recList = new ArrayList<String>();
-        List<Message> mList = new ArrayList<Message>();
+        List<CustomConversation> mList = new ArrayList<CustomConversation>();
 
         if (!messageList.isEmpty() && isLatestMessageRequest) {
             for (Message message : messageList) {
-                if (message.getGroupId() == null && !recList.contains(message.getContactIds())) {
-                    mList.add(message);
+                if ((message.getGroupId() == null || message.getGroupId() == 0) && !recList.contains(message.getContactIds())) {
+                    CustomConversation conversation = new CustomConversation();
+                    Log.d("testingm","Contact : " + message);
+                    conversation.setMessage(message);
+                    conversation.setContact(new ContactDatabase(context).getContactById(message.getContactIds()));
+                    Log.d("testingm","Contact Id: " + conversation.getContact().getUserId());
+                    mList.add(conversation);
                     recList.add(message.getContactIds());
                 } else if (message.getGroupId() != null && !recList.contains("group" + message.getGroupId())) {
-                    mList.add(message);
+                    CustomConversation conversation = new CustomConversation();
+                    Log.d("testingm","Group : " + message);
+                    conversation.setMessage(message);
+                    conversation.setChannel(ChannelDatabaseService.getInstance(context).getChannelByChannelKey(message.getGroupId()));
+                    Log.d("testingm","Contact Id: " + conversation.getChannel().getName());
+                    mList.add(conversation);
                     recList.add("group" + message.getGroupId());
                 }
             }
         }
+        return mList;
+    }
 
-        if (!messageList.isEmpty()) {
-            if (isLatestMessageRequest && !mList.isEmpty()) {
-                listener.onSuccess(mList.toArray(new Message[mList.size()]), context);
-            } else {
-                listener.onSuccess(messageList.toArray(new Message[messageList.size()]), context);
-            }
+    @Override
+    protected void onPostExecute(List<CustomConversation> messageList) {
+        super.onPostExecute(messageList);
+
+        if (!messageList.isEmpty() && isLatestMessageRequest) {
+            listener.onSuccess(messageList.toArray(new CustomConversation[messageList.size()]), context);
         } else {
             listener.onFailure("Some error occurred while fetching messages", context);
         }
     }
 
     public interface GetMessageListListener {
-        void onSuccess(Message[] messageList, Context context);
+        void onSuccess(CustomConversation[] messageList, Context context);
 
         void onFailure(String error, Context context);
+    }
+
+    public class CustomConversation{
+        private Message message;
+        private Channel channel;
+        private Contact contact;
+
+        public void setMessage(Message message){
+            this.message = message;
+        }
+
+        public Message getMessage(){
+            return message;
+        }
+
+        public void setChannel(Channel channel){
+            this.channel = channel;
+        }
+
+        public Channel getChannel(){
+            return channel;
+        }
+
+        public void setContact(Contact contact){
+            this.contact = contact;
+        }
+
+        public Contact getContact(){
+            return contact;
+        }
     }
 }

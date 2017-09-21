@@ -36,6 +36,10 @@ import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 import com.applozic.mobicomkit.uiwidgets.async.AlGroupInformationAsyncTask;
 import com.applozic.mobicomkit.api.conversation.Message;
 import com.applozic.phonegap.GetMessageListTask;
+import com.applozic.mobicomkit.channel.database.ChannelDatabaseService;
+import com.applozic.mobicomkit.contact.database.ContactDatabase;
+import com.applozic.phonegap.GetMessageListTask.CustomConversation;
+
 import com.applozic.phonegap.MessageParamsModel;
 //import com.applozic.audiovideo.activity.AudioCallActivityV2;
 //import com.applozic.audiovideo.activity.VideoActivity;
@@ -222,14 +226,12 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                 MobiComPushReceiver.processMessageAsync(context, pushData);
             }
             callback.success(response);
-        }else if(action.equals("getMessageList")){
-
-            Log.d("ionictest","Hello I am in messagelist with data : " + data.getString(0));
+        }else if(action.equals("getConversationList")){
 
             GetMessageListTask.GetMessageListListener listener = new GetMessageListTask.GetMessageListListener() {
             @Override
-            public void onSuccess(Message[] messageList, Context context) {
-                callback.success(GsonUtils.getJsonFromObject(messageList, Message[].class));
+            public void onSuccess(CustomConversation[] messageList, Context context) {
+                callback.success(GsonUtils.getJsonFromObject(messageList, CustomConversation[].class));
             }
 
             @Override
@@ -237,8 +239,6 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                 callback.error(error);
             }
         };
-
-        //String params = GsonUtils.getJsonFromObject(new MessageParamsModel(), MessageParamsModel.class);
 
         GetMessageListTask task = new GetMessageListTask(data.getString(0), listener, context);
         task.execute();
@@ -314,6 +314,15 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             applozicChannelRemoveMemberTask.execute((Void)null);
         } else if(action.equals("enableTopicBasedChat")) {
             ApplozicClient.getInstance(context).setContextBasedChat( data.getBoolean(0));
+        }else if(action.equals("getContactById")){
+            Contact contact = new ContactDatabase(context).getContactById(data.getString(0));
+            callback.success(GsonUtils.getJsonFromObject(contact, Contact.class));
+        }else if(action.equals("getChannelByChannelKey")){
+            Channel channel = ChannelDatabaseService.getInstance(context).getChannelByChannelKey(data.getInt(0));
+            callback.success(GsonUtils.getJsonFromObject(channel, Channel.class));
+        }else if(action.equals("getChannelByClientGroupId")){
+            Channel channel = ChannelService.getInstance(context).getChannelByClientGroupId(data.getString(0));
+            callback.success(GsonUtils.getJsonFromObject(channel, Channel.class));
         } else if (action.equals("startTopicBasedChat")) {
             final Conversation conversation = (Conversation) GsonUtils.getObjectFromJson(data.getString(0), Conversation.class);
 
