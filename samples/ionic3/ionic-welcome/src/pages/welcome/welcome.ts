@@ -17,6 +17,7 @@ import { Signup } from '../signup/signup';
 export class Welcome {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+   
   }
 
   ionViewDidLoad() {
@@ -24,11 +25,20 @@ export class Welcome {
   }
 
   login(){
-   this.navCtrl.push(Login);
-  }
+   this.navCtrl.push(Login).then(response => {
+     console.log('Response :'+response);
+   },
+  error => {
+    console.log('Error :'+error);
+  }).catch(exception =>{
+    console.log('Exception :'+exception);
+  });
+}
 
   signup(){
    this.navCtrl.push(Signup, {}, {animate:false});
   }
 
 }
+
+declare var applozic: any;

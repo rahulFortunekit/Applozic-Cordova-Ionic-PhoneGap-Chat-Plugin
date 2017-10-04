@@ -10,21 +10,20 @@ import {Platform} from 'ionic-angular';
 export class HomePage {
 
   constructor(public navCtrl: NavController, public app: App, platform: Platform) {
-    platform.ready().then(() => {
-       applozic.isLoggedIn(function(response) {
-          //alert(response);
-          if (response == "true") {
-            applozic.launchChat(function() {}, function() {});
-          }
-        }, function() {});
-    });
 
   }
 
   logout(){
     //Api Token Logout
-    const root = this.app.getRootNav();
-    root.popToRoot();
+    applozic.logout(()=>{
+      const root = this.app.getRootNav();
+      root.popToRoot();
+    },()=>{});
+    
+  }
+
+  launchChat(){
+    applozic.launchChat(function() {}, function() {});
   }
 
 }

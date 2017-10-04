@@ -33,7 +33,6 @@ import com.applozic.mobicommons.people.channel.Channel;
 import com.applozic.mobicommons.people.channel.Conversation;
 import com.applozic.mobicommons.people.contact.Contact;
 import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
-import com.applozic.mobicomkit.uiwidgets.async.AlGroupInformationAsyncTask;
 import com.applozic.mobicomkit.api.conversation.Message;
 import com.applozic.phonegap.GetMessageListTask;
 import com.applozic.phonegap.MessageParamsModel;
@@ -101,16 +100,22 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             new UserLoginTask(user, listener, context).execute((Void) null);
         } else if (action.equals("registerPushNotification")) {
             PushNotificationTask pushNotificationTask = null;
+            Log.d("pushtest","In Java plugin push");
             PushNotificationTask.TaskListener listener=  new PushNotificationTask.TaskListener() {
                 @Override
                 public void onSuccess(RegistrationResponse registrationResponse) {
+                    Log.d("pushtest","In Java plugin push onSuccess" + registrationResponse);
                     callback.success(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
                 }
                 @Override
                 public void onFailure(RegistrationResponse registrationResponse, Exception exception) {
+                    Log.d("pushtest","In Java plugin push onFailure" + registrationResponse);
                     callback.error(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
                 }
             };
+            if(data.getString(0) != null){
+            Applozic.getInstance(context).setDeviceRegistrationId(data.getString(0));
+        }
             pushNotificationTask = new PushNotificationTask(Applozic.getInstance(context).getDeviceRegistrationId(), listener, context);
             pushNotificationTask.execute((Void)null);
         } else if (action.equals("isLoggedIn")) {
@@ -146,42 +151,6 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             cordova.getActivity().startActivity(intent);
         } else if (action.equals("launchChatWithGroupId")) {
 
-        AlGroupInformationAsyncTask.GroupMemberListener alGroupInformationAsyncTaskListener = new AlGroupInformationAsyncTask.GroupMemberListener() {
-            @Override
-            public void onSuccess(Channel channel, Context context) {
-            Intent intent = new Intent(context, ConversationActivity.class);
-            intent.putExtra(ConversationUIService.GROUP_ID, channel.getKey());
-            intent.putExtra(ConversationUIService.TAKE_ORDER,true);
-            cordova.getActivity().startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(Channel channel, Exception e, Context context) {
-
-            }
-        };
-        AlGroupInformationAsyncTask alGroupInformationAsyncTask  = new AlGroupInformationAsyncTask(context,Integer.valueOf(data.getString(0)),alGroupInformationAsyncTaskListener);
-        alGroupInformationAsyncTask.execute();
-
-        } else if (action.equals("launchChatWithClientGroupId")) {
-
-      AlGroupInformationAsyncTask.GroupMemberListener alGroupInformationAsyncTaskListener = new AlGroupInformationAsyncTask.GroupMemberListener() {
-            @Override
-            public void onSuccess(Channel channel, Context context) {
-            Intent intent = new Intent(context, ConversationActivity.class);
-            intent.putExtra(ConversationUIService.GROUP_ID, channel.getKey());
-            intent.putExtra(ConversationUIService.TAKE_ORDER,true);
-            cordova.getActivity().startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(Channel channel, Exception e, Context context) {
-
-            }
-        };
-        AlGroupInformationAsyncTask alGroupInformationAsyncTask  = new AlGroupInformationAsyncTask(context,data.getString(0),alGroupInformationAsyncTaskListener);
-        alGroupInformationAsyncTask.execute();
-
         }  else if (action.equals("startNew")) {
             Intent intent = new Intent(context, MobiComKitPeopleActivity.class);
             cordova.getActivity().startActivity(intent);
@@ -215,16 +184,15 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             }
             callback.success(response);
         } else if (action.equals("processPushNotification")) {
-            Map<String, String> pushData = new HashMap<String, String>();
+            Map<String, String> pushData;
             //convert data to pushData
+            pushData = (Map) GsonUtils.getObjectFromJson(data.getString(0),Map.class);
             System.out.println(data);
             if (MobiComPushReceiver.isMobiComPushNotification(pushData)) {
                 MobiComPushReceiver.processMessageAsync(context, pushData);
             }
             callback.success(response);
         }else if(action.equals("getMessageList")){
-
-            Log.d("ionictest","Hello I am in messagelist with data : " + data.getString(0));
 
             GetMessageListTask.GetMessageListListener listener = new GetMessageListTask.GetMessageListListener() {
             @Override

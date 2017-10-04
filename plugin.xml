@@ -24,12 +24,13 @@
     </config-file>
 
     <source-file src="src/android/ApplozicCordovaPlugin.java" target-dir="src/com/applozic/phonegap/"/>
-    <source-file src="src/android/FcmInstanceIDListenerService.java" target-dir="src/com/applozic/phonegap/notification"/>
-    <source-file src="src/android/FcmListenerService.java" target-dir="src/com/applozic/phonegap/notification"/>
     <source-file src="src/android/GetMessageListTask.java" target-dir="src/com/applozic/phonegap/"/>
     <source-file src="src/android/MessageParamsModel.java" target-dir="src/com/applozic/phonegap/"/>
     <source-file src="src/android/applozic-settings.json" target-dir="assets"/>
     <source-file src="src/android/provider_paths.xml" target-dir="res/xml"/>
+    <source-file src="src/android/mobicomkitui" target-dir="./"/>
+           <source-file src="src/android/mobicomkit" target-dir="./"/>
+           <source-file src="src/android/mobicommons" target-dir="./"/>
 
     <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
 
@@ -77,7 +78,7 @@
 
       <activity android:name="com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity"
                 android:configChanges="keyboardHidden|screenSize|smallestScreenSize|screenLayout|orientation"
-                android:label="@string/activity_contacts_list"
+                android:label="@string/app_name"
                 android:parentActivityName="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity"
                 android:theme="@style/ApplozicTheme"
                 android:windowSoftInputMode="adjustResize">
@@ -181,18 +182,6 @@
 
       <service android:name="com.applozic.mobicomkit.api.conversation.ConversationReadService"
                android:exported="false" />
-
-      <service android:name="com.applozic.phonegap.notification.FcmListenerService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-      </service>
-
-      <service android:exported="false" android:name="com.applozic.phonegap.notification.FcmInstanceIDListenerService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
 
        <service
             android:name="com.applozic.mobicomkit.uiwidgets.notification.NotificationIntentService"

@@ -24,9 +24,6 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "io.ionic.starter"
-        },
-        "com.applozic.phonegap": {
-            "PACKAGE_NAME": "io.ionic.starter"
         }
     },
     "dependent_plugins": {}

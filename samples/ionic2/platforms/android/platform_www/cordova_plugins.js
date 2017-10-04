@@ -32,14 +32,6 @@ module.exports = [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
-    },
-    {
-        "id": "com.applozic.phonegap.applozic",
-        "file": "plugins/com.applozic.phonegap/www/applozic.js",
-        "pluginId": "com.applozic.phonegap",
-        "clobbers": [
-            "applozic"
-        ]
     }
 ];
 module.exports.metadata = 
@@ -50,8 +42,7 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "4.0.3",
     "cordova-plugin-statusbar": "2.2.2",
     "cordova-plugin-whitelist": "1.3.1",
-    "ionic-plugin-keyboard": "2.2.1",
-    "com.applozic.phonegap": "0.7.0"
+    "ionic-plugin-keyboard": "2.2.1"
 };
 // BOTTOM OF METADATA
 });
