@@ -41,6 +41,8 @@ import java.util.List;
 import com.applozic.mobicomkit.feed.ErrorResponseFeed;
 import com.applozic.mobicomkit.api.account.user.UserLogoutTask;
 import com.applozic.mobicomkit.api.MobiComKitConstants;
+import com.applozic.mobicomkit.ApplozicClient;
+import com.applozic.mobicomkit.uiwidgets.async.AlCreateGroupOfTwoTask;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -87,6 +89,22 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                     activityCallbacks.put(ApplozicSetting.RequestCode.VIDEO_CALL, VideoActivity.class.getName());
                     ApplozicSetting.getInstance(context).setActivityCallbacks(activityCallbacks);
 
+                    ApplozicClient.getInstance(context).hideChatListOnNotification();
+
+                    PushNotificationTask pushNotificationTask = null;
+                    PushNotificationTask.TaskListener listener = new PushNotificationTask.TaskListener() {
+                        @Override
+                        public void onSuccess(RegistrationResponse registrationResponse) {
+                            //callback.success(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
+                        }
+
+                        @Override
+                        public void onFailure(RegistrationResponse registrationResponse, Exception exception) {
+                            //callback.error(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
+                        }
+                    };
+                    pushNotificationTask = new PushNotificationTask(Applozic.getInstance(context).getDeviceRegistrationId(), listener, context);
+                    pushNotificationTask.execute((Void) null);
 
                     callback.success(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
                 }
@@ -95,7 +113,8 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                 public void onFailure(RegistrationResponse registrationResponse, Exception exception) {
                     //If any failure in registration the callback  will come here
                     callback.error(GsonUtils.getJsonFromObject(registrationResponse, RegistrationResponse.class));
-                }};
+                }
+            };
 
             new UserLoginTask(user, listener, context).execute((Void) null);
         } else if (action.equals("registerPushNotification")) {
@@ -337,6 +356,28 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
 
         UserLogoutTask userLogoutTask = new UserLogoutTask(userLogoutTaskListener, context);
         userLogoutTask.execute((Void) null);
+
+        }else if(action.equals("createGroupOfTwo")){
+        	ChannelInfo channelInfo = null;
+        	try{
+        		channelInfo = GsonUtils.getObjectFromJson(data.getString(0), ChannelInfo.class);
+        	}catch(Exception e){
+        		e.printStackTrace();
+        	}
+
+        	AlCreateGroupOfTwoTask.TaskListenerInterface listenerInterface = new AlCreateGroupOfTwoTask.TaskListenerInterface() {
+                    @Override
+                    public void onSuccess(Channel channel, Context context) {
+                        callback.success(GsonUtils.getJsonFromObject(channel, Channel.class));
+                    }
+
+                    @Override
+                    public void onFailure(String error, Context context) {
+callback.success(error);
+                    }
+                };
+
+                new AlCreateGroupOfTwoTask(context, channelInfo, listenerInterface).execute();
 
         } else {
             return false;

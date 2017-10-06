@@ -502,7 +502,11 @@ public class DetailedConversationAdapter extends ArrayAdapter<Message> {
                     // for (String fileKey : message.getFileMetaKeyStrings()) {
                     if (message.getFileMetas() != null) {
                         FileMeta fileMeta = message.getFileMetas();
-                        attachmentDownloadLayout.setVisibility(View.VISIBLE);
+                        if (fileMeta.getContentType().contains("image") && alCustomizationSettings.isHideAttachmentDownloadLayout()) {
+                            attachmentDownloadLayout.setVisibility(View.GONE);
+                        } else {
+                            attachmentDownloadLayout.setVisibility(View.VISIBLE);
+                        }
                         attachmentDownloadProgressLayout.setVisibility(View.GONE);
                         downloadSizeTextView.setText(fileMeta.getSizeInReadableFormat());
                         final String mimeType = FileUtils.getMimeType(fileMeta.getName());
@@ -554,12 +558,19 @@ public class DetailedConversationAdapter extends ArrayAdapter<Message> {
                     if (message.isAttachmentDownloaded()) {
                         showFullView(message);
                     } else {
-                        attachmentDownloadLayout.setVisibility(View.GONE);
-                        attachmentView.setProressBar(mediaDownloadProgressBar);
-                        attachmentView.setDownloadProgressLayout(attachmentDownloadProgressLayout);
-                        attachmentView.setMessage(message);
-                        attachmentView.setVisibility(View.VISIBLE);
-                        attachmentDownloadProgressLayout.setVisibility(View.VISIBLE);
+                        if ((message.isTypeOutbox() && message.isSentToServer()) || (!message.isTypeOutbox())) {
+                            if (message.getFileMetas() != null && message.getFileMetas().getContentType().contains("image") && alCustomizationSettings.isHideAttachmentDownloadLayout()) {
+
+                            } else {
+                                attachmentDownloadLayout.setVisibility(View.GONE);
+                                attachmentView.setProressBar(mediaDownloadProgressBar);
+                                attachmentView.setDownloadProgressLayout(attachmentDownloadProgressLayout);
+                                attachmentView.setMessage(message);
+                                attachmentView.setVisibility(View.VISIBLE);
+                                attachmentDownloadProgressLayout.setVisibility(View.VISIBLE);
+                            }
+
+                        }
                     }
 
                 }

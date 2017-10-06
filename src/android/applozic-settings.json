@@ -59,6 +59,7 @@
   "broadcastOption": true,
   "restrictedWordMessage": " Please don't use restricted word",
   "hideAttachmentButton": false,
+  "hideAttachmentDownloadLayout": false,
   "groupUsersOnlineStatus": false,
   "launchChatFromProfilePicOrName": false,
   "refreshOption": true,

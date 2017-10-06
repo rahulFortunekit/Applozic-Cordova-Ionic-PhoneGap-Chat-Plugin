@@ -112,10 +112,12 @@ import com.applozic.mobicommons.people.contact.Contact;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rockerhieu.emojicon.EmojiconEditText;
+
 import android.view.KeyEvent;
 
 import java.io.File;
 import java.lang.reflect.Type;
+import java.nio.channels.Channel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -348,7 +350,7 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
                                           }
         );
 
-     messageEditText.setOnKeyListener(new View.OnKeyListener() {
+        messageEditText.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -500,16 +502,20 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
                         channelInfo.putExtra(ChannelInfoActivity.CHANNEL_KEY, channel.getKey());
                         startActivity(channelInfo);
                     } else {
-                        UserProfileFragment userProfileFragment = (UserProfileFragment) UIService.getFragmentByTag(getActivity(), ConversationUIService.USER_PROFILE_FRAMENT);
-                        if (userProfileFragment == null) {
-                            String userId = ChannelService.getInstance(getActivity()).getGroupOfTwoReceiverUserId(channel.getKey());
-                            if (!TextUtils.isEmpty(userId)) {
-                                Contact newcContact = appContactService.getContactById(userId);
-                                userProfileFragment = new UserProfileFragment();
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable(ConversationUIService.CONTACT, newcContact);
-                                userProfileFragment.setArguments(bundle);
-                                ConversationActivity.addFragment(getActivity(), userProfileFragment, ConversationUIService.USER_PROFILE_FRAMENT);
+                        if (channel.getMetadata() != null && (channel.getMetadata().containsKey(ConversationUIService.GROUP_OF_TWO_ADMIN_SIDE_DISPLAY_NAME) || channel.getMetadata().containsKey(ConversationUIService.GROUP_OF_TWO_USER_SIDE_DISPLAY_NAME))) {
+
+                        } else {
+                            UserProfileFragment userProfileFragment = (UserProfileFragment) UIService.getFragmentByTag(getActivity(), ConversationUIService.USER_PROFILE_FRAMENT);
+                            if (userProfileFragment == null) {
+                                String userId = ChannelService.getInstance(getActivity()).getGroupOfTwoReceiverUserId(channel.getKey());
+                                if (!TextUtils.isEmpty(userId)) {
+                                    Contact newcContact = appContactService.getContactById(userId);
+                                    userProfileFragment = new UserProfileFragment();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable(ConversationUIService.CONTACT, newcContact);
+                                    userProfileFragment.setArguments(bundle);
+                                    ConversationActivity.addFragment(getActivity(), userProfileFragment, ConversationUIService.USER_PROFILE_FRAMENT);
+                                }
                             }
                         }
                     }
@@ -813,7 +819,7 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
             menu.findItem(R.id.video_call).setVisible(false);
 
             if (Channel.GroupType.GROUPOFTWO.getValue().equals(channel.getType())) {
-                String userId = ChannelService.getInstance(getActivity()).getGroupOfTwoReceiverUserId(channel.getKey());
+                /*String userId = ChannelService.getInstance(getActivity()).getGroupOfTwoReceiverUserId(channel.getKey());
                 if (!TextUtils.isEmpty(userId) && alCustomizationSettings.isBlockOption()) {
                     Contact withUserContact = appContactService.getContactById(userId);
                     if (withUserContact.isBlocked()) {
@@ -821,7 +827,9 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
                     } else {
                         menu.findItem(R.id.userBlock).setVisible(true);
                     }
-                }
+                }*/
+                menu.findItem(R.id.userBlock).setVisible(false);
+                menu.findItem(R.id.userUnBlock).setVisible(false);
             } else {
                 menu.findItem(R.id.userBlock).setVisible(false);
                 menu.findItem(R.id.userUnBlock).setVisible(false);
@@ -1034,12 +1042,12 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
         }
 
         if (contact != null) {
-            processUpdateLastSeenStatus(contact);
+            processUpdateLastSeenStatus(contact, null);
         } else if (channel != null && Channel.GroupType.GROUPOFTWO.getValue().equals(channel.getType())) {
             String userId = ChannelService.getInstance(getActivity()).getGroupOfTwoReceiverUserId(channel.getKey());
             if (!TextUtils.isEmpty(userId)) {
                 Contact withUserContact = appContactService.getContactById(userId);
-                processUpdateLastSeenStatus(withUserContact);
+                processUpdateLastSeenStatus(withUserContact, channel);
             }
 
         }
@@ -1047,14 +1055,18 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
     }
 
 
-    protected void processUpdateLastSeenStatus(final Contact withUserContact) {
+    protected void processUpdateLastSeenStatus(final Contact withUserContact, Channel channel) {
         if (withUserContact == null) {
             return;
         }
 
         if (menu != null) {
-            menu.findItem(R.id.userBlock).setVisible(alCustomizationSettings.isBlockOption() ? !withUserContact.isBlocked() : alCustomizationSettings.isBlockOption());
-            menu.findItem(R.id.userUnBlock).setVisible(alCustomizationSettings.isBlockOption() ? withUserContact.isBlocked() : alCustomizationSettings.isBlockOption());
+            if (channel != null && channel.getMetadata() != null && (channel.getMetadata().containsKey(ConversationUIService.GROUP_OF_TWO_ADMIN_SIDE_DISPLAY_NAME) || channel.getMetadata().containsKey(ConversationUIService.GROUP_OF_TWO_USER_SIDE_DISPLAY_NAME))) {
+
+            } else {
+                menu.findItem(R.id.userBlock).setVisible(alCustomizationSettings.isBlockOption() ? !withUserContact.isDeleted() && !withUserContact.isBlocked() : alCustomizationSettings.isBlockOption());
+                menu.findItem(R.id.userUnBlock).setVisible(alCustomizationSettings.isBlockOption() ? !withUserContact.isDeleted() && withUserContact.isBlocked() : alCustomizationSettings.isBlockOption());
+            }
         }
 
         if (withUserContact.isBlocked() || withUserContact.isBlockedBy()) {
@@ -1692,12 +1704,17 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
                         if (view != null) {
                             final RelativeLayout attachmentDownloadProgressLayout = (RelativeLayout) view.findViewById(R.id.attachment_download_progress_layout);
                             final AttachmentView attachmentView = (AttachmentView) view.findViewById(R.id.main_attachment_view);
-                            final ImageView preview = (ImageView) view.findViewById(R.id.preview);
+                            final LinearLayout attachmentDownloadLayout = (LinearLayout) view.findViewById(R.id.attachment_download_layout);
+                            TextView audioDurationTextView = (TextView) view.findViewById(R.id.audio_duration_textView);
                             final ImageView videoIcon = (ImageView) view.findViewById(R.id.video_icon);
+                            String audioDuration;
                             if (message.getFileMetas() != null && message.getFileMetas().getContentType().contains("image")) {
-                                attachmentView.setVisibility(View.VISIBLE);
+                                attachmentView.setVisibility(VISIBLE);
                                 preview.setVisibility(View.GONE);
                                 attachmentView.setMessage(smListItem);
+                                if (alCustomizationSettings.isHideAttachmentDownloadLayout()) {
+                                    attachmentDownloadLayout.setVisibility(View.GONE);
+                                }
                                 attachmentDownloadProgressLayout.setVisibility(View.GONE);
                             } else if (message.getFileMetas() != null && message.getFileMetas().getContentType().contains("video")) {
                                 FileClientService fileClientService = new FileClientService(getContext());
@@ -1829,10 +1846,19 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
             stringBufferTitle.append(contact.getDisplayName());
         } else if (channel != null) {
             if (Channel.GroupType.GROUPOFTWO.getValue().equals(channel.getType())) {
-                String userId = ChannelService.getInstance(getActivity()).getGroupOfTwoReceiverUserId(channel.getKey());
-                if (!TextUtils.isEmpty(userId)) {
-                    Contact withUserContact = appContactService.getContactById(userId);
-                    stringBufferTitle.append(withUserContact.getDisplayName());
+                if (channel.getMetadata() != null && channel.getAdminKey() != null && MobiComUserPreference.getInstance(getContext()).getUserId().equals(channel.getAdminKey()) &&
+                        channel.getMetadata().containsKey(ConversationUIService.GROUP_OF_TWO_ADMIN_SIDE_DISPLAY_NAME) &&
+                        channel.getMetadata().get(ConversationUIService.GROUP_OF_TWO_ADMIN_SIDE_DISPLAY_NAME) != null) {
+                    stringBufferTitle.append(channel.getMetadata().get(ConversationUIService.GROUP_OF_TWO_ADMIN_SIDE_DISPLAY_NAME));
+                } else if (channel.getMetadata() != null && channel.getAdminKey() != null && channel.getMetadata().containsKey(ConversationUIService.GROUP_OF_TWO_USER_SIDE_DISPLAY_NAME) &&
+                        channel.getMetadata().get(ConversationUIService.GROUP_OF_TWO_USER_SIDE_DISPLAY_NAME) != null) {
+                    stringBufferTitle.append(channel.getMetadata().get(ConversationUIService.GROUP_OF_TWO_USER_SIDE_DISPLAY_NAME));
+                } else {
+                    String userId = ChannelService.getInstance(getActivity()).getGroupOfTwoReceiverUserId(channel.getKey());
+                    if (!TextUtils.isEmpty(userId)) {
+                        Contact withUserContact = appContactService.getContactById(userId);
+                        stringBufferTitle.append(withUserContact.getDisplayName());
+                    }
                 }
             } else {
                 stringBufferTitle.append(ChannelUtils.getChannelTitleName(channel, MobiComUserPreference.getInstance(getActivity()).getUserId()));

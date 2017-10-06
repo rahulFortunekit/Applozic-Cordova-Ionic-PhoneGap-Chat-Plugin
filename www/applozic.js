@@ -92,5 +92,8 @@ module.exports = {
     },
     logout: function(successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "logout", []);
+    },
+    createGroupOfTwo: function(channelInfo, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "createGroupOfTwo", [JSON.stringify(channelInfo)]);
     }
 };

@@ -76,6 +76,7 @@ public class AlCustomizationSettings extends JsonMarker {
     private boolean broadcastOption;
     private boolean hideAttachmentButton;
     private boolean groupUsersOnlineStatus;
+    private boolean hideAttachmentDownloadLayout;
     private boolean refreshOption = true;
     private boolean deleteOption = true;
     private boolean blockOption = true;
@@ -378,6 +379,10 @@ public class AlCustomizationSettings extends JsonMarker {
 
     public void setRestrictedWordMessage(String restrictedWordMessage) {
         this.restrictedWordMessage = restrictedWordMessage;
+    }
+
+    public boolean isHideAttachmentDownloadLayout() {
+        return hideAttachmentDownloadLayout;
     }
 
     public boolean isLaunchChatFromProfilePicOrName() {

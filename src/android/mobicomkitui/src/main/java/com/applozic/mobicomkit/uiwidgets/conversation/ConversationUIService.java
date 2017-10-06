@@ -100,6 +100,8 @@ public class ConversationUIService {
     public static final String CONVERSATION_ID = "CONVERSATION_ID";
     public static final String TOPIC_ID = "TOPIC_ID";
     private static final String TAG = "ConversationUIService";
+    public static final String GROUP_OF_TWO_ADMIN_SIDE_DISPLAY_NAME = "adminSideDisplayName";
+    public static final String GROUP_OF_TWO_USER_SIDE_DISPLAY_NAME = "userSideDisplayName";
     private static final String APPLICATION_KEY_META_DATA = "com.applozic.application.key";
     FileClientService fileClientService;
     private FragmentActivity fragmentActivity;

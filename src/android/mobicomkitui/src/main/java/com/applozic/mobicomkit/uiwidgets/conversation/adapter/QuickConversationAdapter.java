@@ -170,10 +170,29 @@ public class QuickConversationAdapter extends BaseAdapter implements Filterable 
             }
             if (channel != null && message.getGroupId() != null) {
                 if (Channel.GroupType.GROUPOFTWO.getValue().equals(channel.getType())) {
-                    Contact withUserContact = contactService.getContactById(ChannelService.getInstance(context).getGroupOfTwoReceiverUserId(channel.getKey()));
-                    if (withUserContact != null) {
-                        smReceivers.setText(withUserContact.getDisplayName());
-                        processContactImage(withUserContact);
+                    if (channel.getMetadata() != null && channel.getAdminKey() != null && MobiComUserPreference.getInstance(context).getUserId().equals(channel.getAdminKey()) &&
+                            channel.getMetadata().containsKey(ConversationUIService.GROUP_OF_TWO_ADMIN_SIDE_DISPLAY_NAME) &&
+                            channel.getMetadata().get(ConversationUIService.GROUP_OF_TWO_ADMIN_SIDE_DISPLAY_NAME) != null) {
+                        smReceivers.setText(channel.getMetadata().get(ConversationUIService.GROUP_OF_TWO_ADMIN_SIDE_DISPLAY_NAME));
+                        if (!TextUtils.isEmpty(channel.getImageUrl())) {
+                            channelImageLoader.loadImage(channel, contactImage);
+                        } else {
+                            channelImageLoader.setLoadingImage(R.drawable.applozic_group_icon);
+                        }
+                    } else if (channel.getMetadata() != null && channel.getAdminKey() != null && channel.getMetadata().containsKey(ConversationUIService.GROUP_OF_TWO_USER_SIDE_DISPLAY_NAME) &&
+                            channel.getMetadata().get(ConversationUIService.GROUP_OF_TWO_USER_SIDE_DISPLAY_NAME) != null) {
+                        smReceivers.setText(channel.getMetadata().get(ConversationUIService.GROUP_OF_TWO_USER_SIDE_DISPLAY_NAME));
+                        if (!TextUtils.isEmpty(channel.getImageUrl())) {
+                            channelImageLoader.loadImage(channel, contactImage);
+                        } else {
+                            channelImageLoader.setLoadingImage(R.drawable.applozic_group_icon);
+                        }
+                    } else {
+                        Contact withUserContact = contactService.getContactById(ChannelService.getInstance(context).getGroupOfTwoReceiverUserId(channel.getKey()));
+                        if (withUserContact != null) {
+                            smReceivers.setText(withUserContact.getDisplayName());
+                            processContactImage(withUserContact);
+                        }
                     }
                 } else {
                     smReceivers.setText(ChannelUtils.getChannelTitleName(channel, MobiComUserPreference.getInstance(context).getUserId()));
