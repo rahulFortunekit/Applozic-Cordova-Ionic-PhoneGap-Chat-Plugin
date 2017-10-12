@@ -101,7 +101,7 @@ public class GetMessageListTask extends AsyncTask<Void, Void, List<CustomConvers
     protected void onPostExecute(List<CustomConversation> messageList) {
         super.onPostExecute(messageList);
 
-        if (!messageList.isEmpty() && isLatestMessageRequest) {
+        if (!messageList.isEmpty()) {
             listener.onSuccess(messageList.toArray(new CustomConversation[messageList.size()]), context);
         } else {
             listener.onFailure("Some error occurred while fetching messages", context);
