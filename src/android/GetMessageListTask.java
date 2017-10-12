@@ -64,24 +64,33 @@ public class GetMessageListTask extends AsyncTask<Void, Void, List<CustomConvers
         List<String> recList = new ArrayList<String>();
         List<CustomConversation> mList = new ArrayList<CustomConversation>();
 
-        if (!messageList.isEmpty() && isLatestMessageRequest) {
-            for (Message message : messageList) {
-                if ((message.getGroupId() == null || message.getGroupId() == 0) && !recList.contains(message.getContactIds())) {
+       if (!messageList.isEmpty()) {
+            if (isLatestMessageRequest) {
+                for (Message message : messageList) {
+                    if ((message.getGroupId() == null || message.getGroupId() == 0) && !recList.contains(message.getContactIds())) {
+                        CustomConversation conversation = new CustomConversation();
+                        conversation.setMessage(message);
+                        conversation.setContact(new ContactDatabase(context).getContactById(message.getContactIds()));
+                        mList.add(conversation);
+                        recList.add(message.getContactIds());
+                    } else if (message.getGroupId() != null && !recList.contains("group" + message.getGroupId())) {
+                        CustomConversation conversation = new CustomConversation();
+                        conversation.setMessage(message);
+                        conversation.setChannel(ChannelDatabaseService.getInstance(context).getChannelByChannelKey(message.getGroupId()));
+                        mList.add(conversation);
+                        recList.add("group" + message.getGroupId());
+                    }
+                }
+            } else {
+                for (Message message : messageList) {
                     CustomConversation conversation = new CustomConversation();
-                    Log.d("testingm","Contact : " + message);
                     conversation.setMessage(message);
-                    conversation.setContact(new ContactDatabase(context).getContactById(message.getContactIds()));
-                    Log.d("testingm","Contact Id: " + conversation.getContact().getUserId());
+                    if (message.getGroupId() == null) {
+                        conversation.setContact(new ContactDatabase(context).getContactById(message.getContactIds()));
+                    } else {
+                        conversation.setChannel(ChannelDatabaseService.getInstance(context).getChannelByChannelKey(message.getGroupId()));
+                    }
                     mList.add(conversation);
-                    recList.add(message.getContactIds());
-                } else if (message.getGroupId() != null && !recList.contains("group" + message.getGroupId())) {
-                    CustomConversation conversation = new CustomConversation();
-                    Log.d("testingm","Group : " + message);
-                    conversation.setMessage(message);
-                    conversation.setChannel(ChannelDatabaseService.getInstance(context).getChannelByChannelKey(message.getGroupId()));
-                    Log.d("testingm","Contact Id: " + conversation.getChannel().getName());
-                    mList.add(conversation);
-                    recList.add("group" + message.getGroupId());
                 }
             }
         }
