@@ -360,7 +360,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         }else if(action.equals("createGroupOfTwo")){
         	ChannelInfo channelInfo = null;
         	try{
-        		channelInfo = GsonUtils.getObjectFromJson(data.getString(0), ChannelInfo.class);
+        		channelInfo = (ChannelInfo) GsonUtils.getObjectFromJson(data.getString(0), ChannelInfo.class);
         	}catch(Exception e){
         		e.printStackTrace();
         	}
@@ -373,7 +373,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
 
                     @Override
                     public void onFailure(String error, Context context) {
-callback.success(error);
+                        callback.success(error);
                     }
                 };
 
