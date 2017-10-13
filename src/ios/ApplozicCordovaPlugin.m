@@ -18,6 +18,8 @@
 #import <Applozic/ALContactService.h>
 #import <Applozic/ALChannelService.h>
 #import <Applozic/ALUserService.h>
+#import <Applozic/ALChannelDBService.h>
+
 
 
 @implementation ApplozicCordovaPlugin
@@ -163,19 +165,50 @@
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
+
+
 - (void) launchChatWithClientGroupId:(CDVInvokedUrlCommand*)command
 {
     ALChatManager *alChatManager = [self getALChatManager: [self getApplicationKey]];
     NSString* clientGroupId = [[command arguments] objectAtIndex:0];
+    ALChannelService * channelService = [[ALChannelService alloc] init];
 
+    ALChannelDBService *channelDBService = [[ALChannelDBService alloc] init];
+    ALChannel *channel = [channelDBService loadChannelByClientChannelKey:clientGroupId];
     ALPushAssist * assitant = [[ALPushAssist alloc] init];
-    [alChatManager launchChatForUserWithDisplayName:nil
-                                        withGroupId:nil  //If launched for group, pass groupId(pass userId as nil)
-                                 andwithDisplayName:nil //Not mandatory, if receiver is not already registered you should pass Displayname.
-                              andFromViewController:[assitant topViewController]];
-    CDVPluginResult* result = [CDVPluginResult
-                               resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:@"success"];
+    CDVPluginResult* result;
+
+    if (channel){
+        
+        [alChatManager launchChatForUserWithDisplayName:nil
+                                            withGroupId:channel.key  //If launched for group, pass groupId(pass userId as nil)
+                                     andwithDisplayName:nil //Not mandatory, if receiver is not already registered you should pass Displayname.
+                                  andFromViewController:[assitant topViewController]];
+        
+        result =  [CDVPluginResult
+                   resultWithStatus:CDVCommandStatus_OK
+                   messageAsString:@"success"];
+    }else{
+         [channelService getChannelInformation:nil orClientChannelKey:clientGroupId withCompletion:^(ALChannel *alChannel) {
+             
+             if(alChannel){
+                 [alChatManager launchChatForUserWithDisplayName:nil
+                                                     withGroupId:alChannel.key  //If launched for group, pass groupId(pass userId as nil)
+                                              andwithDisplayName:nil //Not mandatory, if receiver is not already registered you should pass Displayname.
+                                           andFromViewController:[assitant topViewController]];
+                 
+                 result = [CDVPluginResult
+                           resultWithStatus:CDVCommandStatus_OK
+                           messageAsString:@"success"];
+             }else{
+                 result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                            messageAsString:@"error"];
+             }
+             
+            }];
+        
+    }
+
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
