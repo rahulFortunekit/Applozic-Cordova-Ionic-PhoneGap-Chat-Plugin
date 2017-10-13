@@ -117,7 +117,6 @@ import android.view.KeyEvent;
 
 import java.io.File;
 import java.lang.reflect.Type;
-import java.nio.channels.Channel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -1064,8 +1063,8 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
             if (channel != null && channel.getMetadata() != null && (channel.getMetadata().containsKey(ConversationUIService.GROUP_OF_TWO_ADMIN_SIDE_DISPLAY_NAME) || channel.getMetadata().containsKey(ConversationUIService.GROUP_OF_TWO_USER_SIDE_DISPLAY_NAME))) {
 
             } else {
-                menu.findItem(R.id.userBlock).setVisible(alCustomizationSettings.isBlockOption() ? !withUserContact.isDeleted() && !withUserContact.isBlocked() : alCustomizationSettings.isBlockOption());
-                menu.findItem(R.id.userUnBlock).setVisible(alCustomizationSettings.isBlockOption() ? !withUserContact.isDeleted() && withUserContact.isBlocked() : alCustomizationSettings.isBlockOption());
+                menu.findItem(R.id.userBlock).setVisible(alCustomizationSettings.isBlockOption() ? !withUserContact.isBlocked() : alCustomizationSettings.isBlockOption());
+                menu.findItem(R.id.userUnBlock).setVisible(alCustomizationSettings.isBlockOption() ? withUserContact.isBlocked() : alCustomizationSettings.isBlockOption());
             }
         }
 
@@ -1705,11 +1704,11 @@ abstract public class MobiComConversationFragment extends Fragment implements Vi
                             final RelativeLayout attachmentDownloadProgressLayout = (RelativeLayout) view.findViewById(R.id.attachment_download_progress_layout);
                             final AttachmentView attachmentView = (AttachmentView) view.findViewById(R.id.main_attachment_view);
                             final LinearLayout attachmentDownloadLayout = (LinearLayout) view.findViewById(R.id.attachment_download_layout);
-                            TextView audioDurationTextView = (TextView) view.findViewById(R.id.audio_duration_textView);
+                            final ImageView preview = (ImageView) view.findViewById(R.id.preview);
                             final ImageView videoIcon = (ImageView) view.findViewById(R.id.video_icon);
                             String audioDuration;
                             if (message.getFileMetas() != null && message.getFileMetas().getContentType().contains("image")) {
-                                attachmentView.setVisibility(VISIBLE);
+                                attachmentView.setVisibility(View.VISIBLE);
                                 preview.setVisibility(View.GONE);
                                 attachmentView.setMessage(smListItem);
                                 if (alCustomizationSettings.isHideAttachmentDownloadLayout()) {
