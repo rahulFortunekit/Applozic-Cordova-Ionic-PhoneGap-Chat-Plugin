@@ -176,10 +176,9 @@
     ALChannelDBService *channelDBService = [[ALChannelDBService alloc] init];
     ALChannel *channel = [channelDBService loadChannelByClientChannelKey:clientGroupId];
     ALPushAssist * assitant = [[ALPushAssist alloc] init];
-    CDVPluginResult* result;
 
     if (channel){
-        
+        CDVPluginResult* result;
         [alChatManager launchChatForUserWithDisplayName:nil
                                             withGroupId:channel.key  //If launched for group, pass groupId(pass userId as nil)
                                      andwithDisplayName:nil //Not mandatory, if receiver is not already registered you should pass Displayname.
@@ -188,9 +187,13 @@
         result =  [CDVPluginResult
                    resultWithStatus:CDVCommandStatus_OK
                    messageAsString:@"success"];
+        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+
     }else{
          [channelService getChannelInformation:nil orClientChannelKey:clientGroupId withCompletion:^(ALChannel *alChannel) {
              
+             CDVPluginResult* result;
+
              if(alChannel){
                  [alChatManager launchChatForUserWithDisplayName:nil
                                                      withGroupId:alChannel.key  //If launched for group, pass groupId(pass userId as nil)
@@ -204,12 +207,12 @@
                  result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
                                             messageAsString:@"error"];
              }
+             [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
              
             }];
         
     }
 
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
 -(void)startNewConversation:(CDVInvokedUrlCommand*)command
