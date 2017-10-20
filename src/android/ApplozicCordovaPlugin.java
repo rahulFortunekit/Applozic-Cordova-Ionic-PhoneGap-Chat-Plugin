@@ -36,6 +36,7 @@ import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 import com.applozic.mobicomkit.uiwidgets.async.AlGroupInformationAsyncTask;
 import com.applozic.mobicomkit.api.conversation.Message;
 import com.applozic.phonegap.GetMessageListTask;
+import com.applozic.phonegap.AlChannelInfoTask;
 import com.applozic.mobicomkit.channel.database.ChannelDatabaseService;
 import com.applozic.mobicomkit.contact.database.ContactDatabase;
 import com.applozic.phonegap.GetMessageListTask.CustomConversation;
@@ -149,42 +150,92 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             intent.putExtra(ConversationUIService.TAKE_ORDER,true);
             cordova.getActivity().startActivity(intent);
         } else if (action.equals("launchChatWithGroupId")) {
-
-        AlGroupInformationAsyncTask.GroupMemberListener alGroupInformationAsyncTaskListener = new AlGroupInformationAsyncTask.GroupMemberListener() {
+           
+        AlChannelInfoTask.ChannelInfoListener listener = new AlChannelInfoTask.ChannelInfoListener() {
+            
             @Override
-            public void onSuccess(Channel channel, Context context) {
-            Intent intent = new Intent(context, ConversationActivity.class);
-            intent.putExtra(ConversationUIService.GROUP_ID, channel.getKey());
-            intent.putExtra(ConversationUIService.TAKE_ORDER,true);
-            cordova.getActivity().startActivity(intent);
+            public void onSuccess(AlChannelInfoTask.ChannelInfoModel channelInfoModel, String response, Context context) {
+                Intent intent = new Intent(context, ConversationActivity.class);
+                intent.putExtra(ConversationUIService.GROUP_ID, channelInfoModel.getChannel().getKey());
+                intent.putExtra(ConversationUIService.TAKE_ORDER,true);
+                cordova.getActivity().startActivity(intent);
+                callback.success(response);
             }
 
             @Override
-            public void onFailure(Channel channel, Exception e, Context context) {
-
+            public void onFailure(String response, Exception e, Context context) {
+                if(response != null){
+                callback.error(response);
+            }else if(e != null){
+                 callback.error(e.getMessage());
+                }
             }
         };
-        AlGroupInformationAsyncTask alGroupInformationAsyncTask  = new AlGroupInformationAsyncTask(context,Integer.valueOf(data.getString(0)),alGroupInformationAsyncTaskListener);
-        alGroupInformationAsyncTask.execute();
+
+        new AlChannelInfoTask(context, Integer.parseInt(data.getString(0)), null, false, listener).execute();
 
         } else if (action.equals("launchChatWithClientGroupId")) {
 
-      AlGroupInformationAsyncTask.GroupMemberListener alGroupInformationAsyncTaskListener = new AlGroupInformationAsyncTask.GroupMemberListener() {
+        AlChannelInfoTask.ChannelInfoListener listener = new AlChannelInfoTask.ChannelInfoListener() {
             @Override
-            public void onSuccess(Channel channel, Context context) {
-            Intent intent = new Intent(context, ConversationActivity.class);
-            intent.putExtra(ConversationUIService.GROUP_ID, channel.getKey());
-            intent.putExtra(ConversationUIService.TAKE_ORDER,true);
-            cordova.getActivity().startActivity(intent);
+            public void onSuccess(AlChannelInfoTask.ChannelInfoModel channelInfoModel, String response, Context context) {
+                Intent intent = new Intent(context, ConversationActivity.class);
+                intent.putExtra(ConversationUIService.GROUP_ID, channelInfoModel.getChannel().getKey());
+                intent.putExtra(ConversationUIService.TAKE_ORDER,true);
+                cordova.getActivity().startActivity(intent);
+                callback.success(response);
             }
 
             @Override
-            public void onFailure(Channel channel, Exception e, Context context) {
-
+            public void onFailure(String response, Exception e, Context context) {
+                if(response != null){
+                callback.error(response);
+            } else if(e != null){
+                 callback.error(e.getMessage());
+                }
             }
         };
-        AlGroupInformationAsyncTask alGroupInformationAsyncTask  = new AlGroupInformationAsyncTask(context,data.getString(0),alGroupInformationAsyncTaskListener);
-        alGroupInformationAsyncTask.execute();
+
+        new AlChannelInfoTask(context, null, data.getString(0), false, listener).execute();
+
+        } else if(action.equals("getGroupInfoWithClientGroupId")){
+            AlChannelInfoTask.ChannelInfoListener listener = new AlChannelInfoTask.ChannelInfoListener() {
+            @Override
+            public void onSuccess(AlChannelInfoTask.ChannelInfoModel channelInfoModel, String response, Context context) {
+                callback.success(channelInfoModel.toString());
+            }
+
+            @Override
+            public void onFailure(String response, Exception e, Context context) {
+                if(response != null){
+                callback.error(response);
+            } else if(e != null){
+                 callback.error(e.getMessage());
+                }
+            }
+        };
+
+        new AlChannelInfoTask(context, null, data.getString(0), true, listener).execute();
+
+        } else if(action.equals("getGroupInfoWithGroupId")){
+
+            AlChannelInfoTask.ChannelInfoListener listener = new AlChannelInfoTask.ChannelInfoListener() {
+            @Override
+            public void onSuccess(AlChannelInfoTask.ChannelInfoModel channelInfoModel, String response, Context context) {
+                callback.success(channelInfoModel.toString());
+            }
+
+            @Override
+            public void onFailure(String response, Exception e, Context context) {
+                if(response != null){
+                callback.error(response);
+            }else if(e != null){
+                 callback.error(e.getMessage());
+                }
+            }
+        };
+
+        new AlChannelInfoTask(context, Integer.parseInt(data.getString(0)), null, true, listener).execute();
 
         }  else if (action.equals("startNew")) {
             Intent intent = new Intent(context, MobiComKitPeopleActivity.class);

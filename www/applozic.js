@@ -34,6 +34,12 @@ module.exports = {
     launchChatWithClientGroupId: function(clientGroupid, successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChatWithClientGroupId", [clientGroupid]);
     },
+    getGroupInfoWithClientGroupId: function(clientGroupid, successCallback, errorCallback){
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getGroupInfoWithClientGroupId", [clientGroupid]);
+    },
+    getGroupInfoWithGroupId: function(groupId, successCallback, errorCallback){
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getGroupInfoWithGroupId", [groupId]);
+    },
     startNewConversation: function(selected, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "startNewConversation", [selected]);
     },
