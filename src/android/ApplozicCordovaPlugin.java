@@ -368,7 +368,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         	AlCreateGroupOfTwoTask.TaskListenerInterface listenerInterface = new AlCreateGroupOfTwoTask.TaskListenerInterface() {
                     @Override
                     public void onSuccess(Channel channel, Context context) {
-                        callback.success(GsonUtils.getJsonFromObject(channel, Channel.class));
+                        callback.success(channel.getKey().toString());
                     }
 
                     @Override
