@@ -256,6 +256,11 @@
       </config-file>
 
 
+    <config-file target="*-Info.plist" parent="NSPhotoLibraryAddUsageDescription">
+     <string>Allow Write</string>
+      </config-file>
+
+
     <config-file target="*-Info.plist" parent="NSContactsUsageDescription">
      <string>Allow Contacts</string>
       </config-file>
