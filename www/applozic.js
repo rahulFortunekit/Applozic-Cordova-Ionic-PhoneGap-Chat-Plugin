@@ -90,6 +90,9 @@ module.exports = {
     startTopicBasedChat: function(conversation, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "startTopicBasedChat", [JSON.stringify(conversation)]);
     },
+    getChannelByChannelKey: function(data, successCallback, errorCallback){
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getChannelByChannelKey", [JSON.stringify(data)]);
+    },
     logout: function(successCallback, errorCallback) {
     	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "logout", []);
     },

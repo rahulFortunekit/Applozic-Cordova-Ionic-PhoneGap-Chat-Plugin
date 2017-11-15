@@ -43,6 +43,7 @@ import com.applozic.mobicomkit.api.account.user.UserLogoutTask;
 import com.applozic.mobicomkit.api.MobiComKitConstants;
 import com.applozic.mobicomkit.ApplozicClient;
 import com.applozic.mobicomkit.uiwidgets.async.AlCreateGroupOfTwoTask;
+import com.applozic.mobicomkit.channel.database.ChannelDatabaseService;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -240,6 +241,9 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
                 MobiComPushReceiver.processMessageAsync(context, pushData);
             }
             callback.success(response);
+        }else if(action.equals("getChannelByChannelKey")){
+            Channel channel = ChannelDatabaseService.getInstance(context).getChannelByChannelKey(data.getInt(0));
+            callback.success(GsonUtils.getJsonFromObject(channel, Channel.class));
         } else if (action.equals("createGroup")) {
             ApplozicChannelCreateTask.ChannelCreateListener channelCreateListener = new ApplozicChannelCreateTask.ChannelCreateListener(){
 
