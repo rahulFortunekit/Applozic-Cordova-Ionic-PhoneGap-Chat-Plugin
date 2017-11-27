@@ -54,5 +54,14 @@
 - (void) createGroup:(CDVInvokedUrlCommand*)command;
 
 - (void) logout:(CDVInvokedUrlCommand*)command;
+- (void)createGroupOfTwo:(CDVInvokedUrlCommand*)command;
+- (void)getChannelByChannelKey:(CDVInvokedUrlCommand*)command;
+
+- (void) getUnreadCount:(CDVInvokedUrlCommand*)command;
+
+- (void) getUnreadCountForGroup:(CDVInvokedUrlCommand*)command;
+
+- (void) getUnreadCountForUser:(CDVInvokedUrlCommand*)command;
+
 
 @end

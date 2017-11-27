@@ -12,6 +12,8 @@
 #define IMAGE_SHARE 3
 #define LAUNCH_GROUP_OF_TWO 4
 #define BROADCAST_GROUP_CREATION 5
+#define SHOW_CONTACTS 101
+#define SHOW_GROUP 102
 
 #import <UIKit/UIKit.h>
 #import "ALChannelService.h"
@@ -25,6 +27,13 @@
 
 @end
 
+@protocol ALForwardMessageDelegate <NSObject>
+
+@optional
+
+-(void)proccessReloadAndForwardMessage:(ALMessage *)alMessage;
+
+@end
 
 @interface ALNewContactsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
@@ -40,7 +49,10 @@
 @property (nonatomic, strong) NSMutableArray * contactsInGroup;
 @property (nonatomic, assign) id <ALContactDelegate> delegate;
 @property (nonatomic) BOOL directContactVCLaunch;
+@property (nonatomic) BOOL directContactVCLaunchForForward;
 @property(nonatomic,strong) ALMessage *alMessage;
+@property (nonatomic, weak)id<ALForwardMessageDelegate>forwardDelegate;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewTopSegmentConstraint;
 
 - (IBAction)segmentControlAction:(id)sender;
 -(UIView *)setCustomBackButton:(NSString *)text;
@@ -53,5 +65,6 @@ LAUNCH FOR SUB GROUP
 @property (nonatomic, strong) NSMutableArray * childChannels;
 
 -(void)launchProcessForSubgroups;
+-(void)proccessContactsGroupList;
 
 @end

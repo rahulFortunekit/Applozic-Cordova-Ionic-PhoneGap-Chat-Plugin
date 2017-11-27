@@ -7,7 +7,7 @@
 
 #import "ALUserDefaultsHandler.h"
 
-#define APPLOZIC_SDK_VERSION @"3.8.6"
+#define APPLOZIC_SDK_VERSION @"4.0.2"
 
 #define KBASE_URL ([ALUserDefaultsHandler getBASEURL])
 #define MQTT_URL ([ALUserDefaultsHandler getMQTTURL])
@@ -43,6 +43,10 @@
 #define CONNECTION_TYPE_USER_IMG_UPLOAD @"CONNECTION_TYPE_USER_IMG_UPLOAD"
 #define CONNECTION_TYPE_GROUP_IMG_UPLOAD @"CONNECTION_TYPE_GROUP_UPLOAD"
 #define IMAGE_UPLOAD_URL @"/rest/ws/upload/file"
+#define IMAGE_UPLOAD_ENDPOINT @"/files/upload/"
+#define CUSTOM_STORAGE_IMAGE_UPLOAD_ENDPOINT @"/rest/ws/upload/image"
+#define IMAGE_THUMBNAIL_ENDPOIT @"/files/"
+#define IMAGE_DOWNLOAD_ENDPOINT @"/files/get/"
 
 #define SOURCE_IOS 3
 

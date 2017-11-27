@@ -428,12 +428,6 @@
     /******************************************** NOTIIFCATION SETTINGS  ********************************************/
     
 
-    if([ALUtilityClass isThisDebugBuild]){
-        [ALUserDefaultsHandler setDeviceApnsType:(short)DEVELOPMENT];
-    }else{
-        [ALUserDefaultsHandler setDeviceApnsType:(short)DISTRIBUTION];
-    }
-    
     NSString * appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
     [ALApplozicSettings setNotificationTitle:appName];
     
@@ -533,6 +527,8 @@
     
     [ALApplozicSettings setChatListTabTitle:@""];
     [ALApplozicSettings setProfileTabTitle:@""];
+    [ALApplozicSettings setAudioVideoClassName:@"ALAudioVideoCallVC"];
+    [ALApplozicSettings setAudioVideoEnabled:YES];
 }
 
 -(void)getApplicationBaseURL
@@ -544,10 +540,10 @@
     NSString * alFILE_URL = [URLDictionary valueForKey:@"AL_FILE_URL"];
     NSString * alMQTT_PORT = [URLDictionary valueForKey:@"AL_MQTT_PORT"];
     
-    [ALUserDefaultsHandler setBASEURL:alKBASE_URL];
-    [ALUserDefaultsHandler setMQTTURL:alMQTT_URL];
-    [ALUserDefaultsHandler setFILEURL:alFILE_URL];
-    [ALUserDefaultsHandler setMQTTPort:alMQTT_PORT];
+    [ALUserDefaultsHandler setBASEURL:@"https://sweatnet.applozic.com"];
+    [ALUserDefaultsHandler setMQTTURL:@"sweatnet.applozic.com"];
+    [ALUserDefaultsHandler setFILEURL:@"https://apps.applozic.com"];
+    [ALUserDefaultsHandler setMQTTPort:@"1883"];
 }
 
 //==============================================================================================================================================

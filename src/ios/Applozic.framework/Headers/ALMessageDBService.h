@@ -37,7 +37,22 @@
                                            withCreatedAt:(NSNumber*)createdAt
                                            andChannelKey:(NSNumber *)channelKey
                                           conversationId:(NSNumber*)conversationId;
+
+-(NSMutableArray *)getAllMessagesWithAttachmentForContact:(NSString *)contactId
+                                            andChannelKey:(NSNumber *)channelKey
+                                onlyDownloadedAttachments: (BOOL )onlyDownloaded;
+
 -(NSMutableArray *)getPendingMessages;
+
+/**
+ * Returns a list of last messages (Group by Contact)
+ *
+ * @param messageCount The Number of messages required.
+ * @param received If YES, messages will be of type received. If NO, then messages can be of type received or sent.
+ * @return An array containing the list of messages.
+ */
+-(NSArray *)getMessageList:(int)messageCount
+                               messageTypeOnlyReceived:(BOOL)received;
 
 //update Message APIS
 -(void)updateMessageDeliveryReport:(NSString*)messageKeyString withStatus:(int)status;

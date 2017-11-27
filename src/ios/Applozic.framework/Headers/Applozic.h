@@ -19,6 +19,8 @@ FOUNDATION_EXPORT const unsigned char ApplozicVersionString[];
 
 #import <Applozic/ALRegisterUserClientService.h>
 #import <Applozic/ALContact.h>
+#import <Applozic/ALAudioVideoBaseVC.h>
+#import <Applozic/ALVOIPNotificationHandler.h>
 #import <Applozic/ALChatLauncher.h>
 #import <Applozic/ALRegistrationResponse.h>
 #import <Applozic/ALPushNotificationService.h>
@@ -100,6 +102,7 @@ FOUNDATION_EXPORT const unsigned char ApplozicVersionString[];
 #import <Applozic/ALNavigationController.h>
 #import <Applozic/ALMessageServiceWrapper.h>
 #import <Applozic/ALSubViewController.h>
+#import <Applozic/AlChannelResponse.h>
 
 
 
