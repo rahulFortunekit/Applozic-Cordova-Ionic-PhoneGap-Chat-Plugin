@@ -18,6 +18,7 @@ import com.applozic.mobicomkit.api.account.user.UserService;
 import com.applozic.mobicomkit.api.conversation.database.MessageDatabaseService;
 import com.applozic.mobicomkit.api.notification.MobiComPushReceiver;
 import com.applozic.mobicomkit.api.people.ChannelInfo;
+import com.applozic.mobicomkit.uiwidgets.async.AlChannelCreateAsyncTask;
 import com.applozic.mobicomkit.channel.service.ChannelService;
 import com.applozic.mobicomkit.contact.AppContactService;
 import com.applozic.mobicomkit.uiwidgets.async.AlChannelAddMemberTask;
@@ -295,22 +296,29 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
         task.execute();
 
         } else if (action.equals("createGroup")) {
-            ApplozicChannelCreateTask.ChannelCreateListener channelCreateListener = new ApplozicChannelCreateTask.ChannelCreateListener(){
+           
+           ChannelInfo channelInfo = data.getString(0);
 
-                @Override
-                public void onSuccess(Channel channel, Context context) {
-                    callback.success(String.valueOf(channel.getKey()));
-                }
+        try {
+            channelInfo = (ChannelInfo) GsonUtils.getObjectFromJson(channelInfo, ChannelInfo.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-                @Override
-                public void onFailure(Exception e, Context context) {
+        AlChannelCreateAsyncTask.TaskListenerInterface taskListenerInterface = new AlChannelCreateAsyncTask.TaskListenerInterface() {
+            @Override
+            public void onSuccess(Channel channel, Context context) {
+                callback.success(channel.getKey().toString());
+            }
 
-                }
-            };
+            @Override
+            public void onFailure(ChannelFeedApiResponse channelFeedApiResponse, Context context) {
+                callback.success(GsonUtils.getJsonFromObject(channelFeedApiResponse, ChannelFeedApiResponse.class));
+            }
+        };
 
-            ChannelInfo channelInfo = (ChannelInfo) GsonUtils.getObjectFromJson(data.getString(0), ChannelInfo.class);
-            ApplozicChannelCreateTask applozicChannelCreateTask = new ApplozicChannelCreateTask(context, channelCreateListener, channelInfo.getGroupName(), channelInfo.getGroupMemberList(), channelInfo.getImageUrl());//pass channel key and userId whom you want to add to channel
-            applozicChannelCreateTask.execute((Void)null);
+        new AlChannelCreateAsyncTask(context, channelInfo, taskListenerInterface).execute();
+
         }  else if (action.equals("addGroupMember")) {
             Gson gson = new Gson();
             Type type = new TypeToken<Map<String, String>>(){}.getType();
