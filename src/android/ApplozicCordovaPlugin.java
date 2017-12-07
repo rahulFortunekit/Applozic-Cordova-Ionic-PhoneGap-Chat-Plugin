@@ -26,6 +26,7 @@ import com.applozic.mobicomkit.uiwidgets.async.ApplozicChannelCreateTask;
 import com.applozic.mobicomkit.uiwidgets.async.ApplozicChannelRemoveMemberTask;
 import com.applozic.mobicomkit.uiwidgets.async.ApplozicConversationCreateTask;
 import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
+import com.applozic.mobicomkit.feed.ChannelFeedApiResponse;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.applozic.mobicomkit.uiwidgets.people.activity.MobiComKitPeopleActivity;
 import com.applozic.mobicommons.json.AnnotationExclusionStrategy;
@@ -297,10 +298,10 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
 
         } else if (action.equals("createGroup")) {
            
-           ChannelInfo channelInfo = data.getString(0);
+           ChannelInfo channelInfo = null;
 
         try {
-            channelInfo = (ChannelInfo) GsonUtils.getObjectFromJson(channelInfo, ChannelInfo.class);
+            channelInfo = (ChannelInfo) GsonUtils.getObjectFromJson(data.getString(0), ChannelInfo.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
