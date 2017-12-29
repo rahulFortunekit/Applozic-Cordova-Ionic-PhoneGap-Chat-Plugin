@@ -19,6 +19,9 @@
 #import <Applozic/ALChannelService.h>
 #import <Applozic/ALUserService.h>
 #import <Applozic/ALChannelDBService.h>
+#import <Applozic/AlChannelFeedResponse.h>
+#import <Applozic/AlChannelInfoModel.h>
+#import <Applozic/AlChannelResponse.h>
 
 
 
@@ -212,6 +215,125 @@
             }];
         
     }
+
+}
+
+-(void)getGroupInfoWithGroupId:(CDVInvokedUrlCommand*)command{
+
+    NSNumber* groupId = [[command arguments] objectAtIndex:0];
+
+    ALChannelService * channelService = [[ALChannelService alloc] init];
+   [channelService getChannelInformationByResponse:groupId orClientChannelKey:nil withCompletion:^(NSError *error, ALChannel *alChannel, AlChannelFeedResponse *channelResponse) {
+        
+        CDVPluginResult* result;
+
+        if(alChannel){
+    
+           AlChannelInfoModel *alChannelInfoModel= [[AlChannelInfoModel alloc]init];
+        AlChannelResponse * alChannelResponse = [[AlChannelResponse alloc ] init];
+
+        ALChannelService * channelService = [[ALChannelService alloc] init];
+        alChannelResponse.key = alChannel.key;
+        alChannelResponse.imageUrl = alChannel.channelImageURL;
+        alChannelResponse.name = alChannel.name;
+        alChannelResponse.notificationAfterTime = alChannel.notificationAfterTime;
+        alChannelResponse.deletedAtTime = alChannel.deletedAtTime;
+        alChannelResponse.clientGroupId = alChannel.clientChannelKey;
+        alChannelResponse.type = alChannel.type;
+        alChannelResponse.adminKey = alChannel.adminKey;
+        alChannelResponse.userCount = alChannel.userCount;
+        alChannelResponse.unreadCount = alChannel.unreadCount;
+        alChannelResponse.conversationProxy = alChannel.conversationProxy;
+        alChannelResponse.metadata = alChannel.metadata;
+        if(!alChannel.membersId){
+          alChannel.membersId =  [channelService getListOfAllUsersInChannel:alChannel.key];
+        }
+        alChannelInfoModel.groupMemberList = alChannel.membersId;
+        alChannelInfoModel.channel = alChannelResponse.dictionary;
+        
+        NSError * nsError;
+        NSData * postdata = [NSJSONSerialization dataWithJSONObject:alChannelInfoModel.dictionary options:0 error:&nsError];
+        NSString *json = [[NSString alloc] initWithData:postdata encoding:NSUTF8StringEncoding];
+        
+          result = [CDVPluginResult
+                      resultWithStatus:CDVCommandStatus_OK
+                      messageAsString:json];
+        }else if(channelResponse != nil && [channelResponse.status isEqualToString:@"error"]){
+                
+                NSError *writeError = nil;
+                NSArray * errorArray = [channelResponse.actualresponse valueForKey:@"errorResponse"];
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[errorArray objectAtIndex:0] options:NSJSONWritingPrettyPrinted error:&writeError];
+                NSString *jsonString = [[NSString alloc] initWithData:jsonData  encoding:NSUTF8StringEncoding];
+                
+                result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                           messageAsString:jsonString];
+            }else{
+                result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
+            }
+            
+    
+        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        
+    }];
+
+}
+
+
+-(void)getGroupInfoWithClientGroupId:(CDVInvokedUrlCommand*)command{
+
+    NSString* clientGroupId = [[command arguments] objectAtIndex:0];
+
+    ALChannelService * channelService = [[ALChannelService alloc] init];
+   [channelService getChannelInformationByResponse:nil orClientChannelKey:clientGroupId withCompletion:^(NSError *error, ALChannel *alChannel, AlChannelFeedResponse *channelResponse) {
+        
+        CDVPluginResult* result;
+        if(alChannel){
+    
+           AlChannelInfoModel *alChannelInfoModel= [[AlChannelInfoModel alloc]init];
+        AlChannelResponse * alChannelResponse = [[AlChannelResponse alloc ] init];
+
+        ALChannelService * channelService = [[ALChannelService alloc] init];
+        alChannelResponse.key = alChannel.key;
+        alChannelResponse.imageUrl = alChannel.channelImageURL;
+        alChannelResponse.name = alChannel.name;
+        alChannelResponse.notificationAfterTime = alChannel.notificationAfterTime;
+        alChannelResponse.deletedAtTime = alChannel.deletedAtTime;
+        alChannelResponse.clientGroupId = alChannel.clientChannelKey;
+        alChannelResponse.type = alChannel.type;
+        alChannelResponse.adminKey = alChannel.adminKey;
+        alChannelResponse.userCount = alChannel.userCount;
+        alChannelResponse.unreadCount = alChannel.unreadCount;
+        alChannelResponse.conversationProxy = alChannel.conversationProxy;
+        alChannelResponse.metadata = alChannel.metadata;
+        if(!alChannel.membersId){
+          alChannel.membersId =  [channelService getListOfAllUsersInChannel:alChannel.key];
+        }
+        alChannelInfoModel.groupMemberList = alChannel.membersId;
+        alChannelInfoModel.channel = alChannelResponse.dictionary;
+        
+        NSError * nsError;
+        NSData * postdata = [NSJSONSerialization dataWithJSONObject:alChannelInfoModel.dictionary options:0 error:&nsError];
+        NSString *json = [[NSString alloc] initWithData:postdata encoding:NSUTF8StringEncoding];
+        
+          result = [CDVPluginResult
+                      resultWithStatus:CDVCommandStatus_OK
+                      messageAsString:json];
+        }else if(channelResponse != nil && [channelResponse.status isEqualToString:@"error"]){
+                
+                NSError *writeError = nil;
+                NSArray * errorArray = [channelResponse.actualresponse valueForKey:@"errorResponse"];
+                NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[errorArray objectAtIndex:0] options:NSJSONWritingPrettyPrinted error:&writeError];
+                NSString *jsonString = [[NSString alloc] initWithData:jsonData  encoding:NSUTF8StringEncoding];
+                
+                result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR
+                                           messageAsString:jsonString];
+            }else{
+                result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
+            }
+        
+        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        
+    }];
 
 }
 

@@ -65,5 +65,9 @@
 
 -(void) removeGroupMember:(CDVInvokedUrlCommand*)command;
 
+-(void)getGroupInfoWithGroupId:(CDVInvokedUrlCommand*)command;
+
+-(void)getGroupInfoWithClientGroupId:(CDVInvokedUrlCommand*)command;
+
 
 @end
