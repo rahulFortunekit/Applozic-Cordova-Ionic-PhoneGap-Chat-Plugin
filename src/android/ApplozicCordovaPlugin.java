@@ -242,7 +242,7 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             }
             callback.success(response);
         }else if(action.equals("getChannelByChannelKey")){
-            Channel channel = ChannelDatabaseService.getInstance(context).getChannelByChannelKey(data.getInt(0));
+            Channel channel = ChannelService.getInstance(context).getChannelInfo(data.getInt(0));
             callback.success(GsonUtils.getJsonFromObject(channel, Channel.class));
         } else if (action.equals("createGroup")) {
             ApplozicChannelCreateTask.ChannelCreateListener channelCreateListener = new ApplozicChannelCreateTask.ChannelCreateListener(){
