@@ -184,6 +184,13 @@ public class DetailedConversationAdapter extends ArrayAdapter<Message> {
         deviceTimeOffset = MobiComUserPreference.getInstance(context).getDeviceTimeOffset();
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final Message message = getItem(position);
+        
+        if (message != null && message.getContentType() == Message.ContentType.CHANNEL_CUSTOM_MESSAGE.getValue() && message.getMetadata() != null) {
+            if (message.getMetadata().containsKey("show") && "false".equals(message.getMetadata().get("show"))) {
+                return inflater.inflate(R.layout.applozic_empty_view, parent, false);
+            }
+        }
+        
         int type = getItemViewType(position);
         if (type == 2) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy");
