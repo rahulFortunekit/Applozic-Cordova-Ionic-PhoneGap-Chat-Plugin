@@ -1,10 +1,14 @@
-# Applozic Cordova Chat Plugin for Ionic and PhoneGap
+# Applozic Cordova Chat Plugin for Ionic and PhoneGap 
 
 Applozic powers real time messaging across any device, any platform & anywhere in the world. Integrate our simple SDK to engage your users with image, file, location sharing and audio/video conversations.
 
 Signup at https://www.applozic.com/signup.html to get the application key.
 
+## Note
 
+This plugin is a wrapper around native code, so please make sure you test it on an emulator or a real device. This plugin wont work with browser or ionic lab. This plugin will only work on Android and iOS platforms. If you are looking for a javascript specific plugin you can explore our following repos :
+Web Plugin - https://github.com/AppLozic/Applozic-Web-Plugin/tree/javascript
+Phonegap Plugin - https://github.com/AppLozic/Applozic-PhoneGap-Chat-Plugin
 
 ## Using
     
