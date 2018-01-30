@@ -7,8 +7,9 @@ Signup at https://www.applozic.com/signup.html to get the application key.
 ## Note
 
 This plugin is a wrapper around native code, so please make sure you test it on an emulator or a real device. This plugin wont work with browser or ionic lab. This plugin will only work on Android and iOS platforms. If you are looking for a javascript specific plugin you can explore our following repos :
-Web Plugin - https://github.com/AppLozic/Applozic-Web-Plugin/tree/javascript
-Phonegap Plugin - https://github.com/AppLozic/Applozic-PhoneGap-Chat-Plugin
+
+ Web Plugin - https://github.com/AppLozic/Applozic-Web-Plugin/tree/javascript
+ Phonegap Plugin - https://github.com/AppLozic/Applozic-PhoneGap-Chat-Plugin
 
 ## Using
     
@@ -20,9 +21,6 @@ Install the plugin
 Note: For Ionic, use 
 
 	$ ionic cordova plugin add https://github.com/AppLozic/Applozic-Cordova-Ionic-PhoneGap-Chat-Plugin.git
-
-Plugin works only on android and iOS, for web (browser) support, check the javascript plugin at:
-	https://www.applozic.com/docs/web-chat-plugin.html
 
 ## Android
 Open /platforms/android/ folder in Android Studio.
