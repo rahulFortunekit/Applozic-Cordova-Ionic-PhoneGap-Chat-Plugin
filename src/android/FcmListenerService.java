@@ -14,7 +14,7 @@ import com.adobe.phonegap.push.FCMService;
 public class FcmListenerService extends FirebaseMessagingService {
 
     private static final String TAG = "ApplozicGcmListener";
-
+    public RemoteMessage fcmObject = new FCMService();
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
