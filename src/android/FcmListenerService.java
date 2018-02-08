@@ -9,7 +9,7 @@ import com.applozic.mobicomkit.api.account.user.PushNotificationTask;
 import com.applozic.mobicomkit.api.notification.MobiComPushReceiver;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
+import com.adobe.phonegap.push.FCMService;
 
 public class FcmListenerService extends FirebaseMessagingService {
 
@@ -26,6 +26,11 @@ public class FcmListenerService extends FirebaseMessagingService {
                 MobiComPushReceiver.processMessageAsync(this, remoteMessage.getData());
                 return;
             }
+        }
+        else
+        {
+            Log.i(TAG,"3 => Calling biizlo notification");
+            this.fcmObject.onMessageReceived(remoteMessage);
         }
 
     }
