@@ -1,77 +1,77 @@
 /*global cordova, module*/
 
 module.exports = {
-    login: function(alUser, successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "login", [JSON.stringify(alUser)]);
+    login: function (alUser, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "login", [JSON.stringify(alUser)]);
     },
-    registerPushNotification: function(successCallback, errorCallback) {
+    registerPushNotification: function (successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "registerPushNotification", []);
     },
-    isLoggedIn: function(successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "isLoggedIn", []);
+    isLoggedIn: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "isLoggedIn", []);
     },
-    getUnreadCount: function(successCallback, errorCallback) {
+    getUnreadCount: function (successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getUnreadCount", []);
     },
-    getUnreadCountForGroup: function(groupId,successCallback, errorCallback) {
-            cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getUnreadCountForGroup", [groupId]);
+    getUnreadCountForGroup: function (groupId, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getUnreadCountForGroup", [groupId]);
     },
-    getUnreadCountForUser: function(userId,successCallback, errorCallback) {
-            cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getUnreadCountForUser", [userId]);
+    getUnreadCountForUser: function (userId, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getUnreadCountForUser", [userId]);
     },
-    updatePushNotificationToken: function(token, successCallback, errorCallback) {
+    updatePushNotificationToken: function (token, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "updatePushNotificationToken", [token]);
     },
-    launchChat: function(successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChat", []);
+    launchChat: function (groupList, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChat", [groupList]);
     },
-    launchChatWithUserId: function(userId, successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChatWithUserId", [userId]);
+    launchChatWithUserId: function (userId, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChatWithUserId", [userId]);
     },
-    launchChatWithGroupId: function(groupId, successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChatWithGroupId", [groupId]);
+    launchChatWithGroupId: function (groupId, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChatWithGroupId", [groupId]);
     },
-    launchChatWithClientGroupId: function(clientGroupid, successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChatWithClientGroupId", [clientGroupid]);
+    launchChatWithClientGroupId: function (clientGroupid, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "launchChatWithClientGroupId", [clientGroupid]);
     },
-    getGroupInfoWithClientGroupId: function(clientGroupid, successCallback, errorCallback){
+    getGroupInfoWithClientGroupId: function (clientGroupid, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getGroupInfoWithClientGroupId", [clientGroupid]);
     },
-    getGroupInfoWithGroupId: function(groupId, successCallback, errorCallback){
+    getGroupInfoWithGroupId: function (groupId, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getGroupInfoWithGroupId", [groupId]);
     },
-    startNewConversation: function(selected, successCallback, errorCallback) {
+    startNewConversation: function (selected, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "startNewConversation", [selected]);
     },
-    showAllRegisteredUsers: function(showAllContacts, successCallback, errorCallback) {
+    showAllRegisteredUsers: function (showAllContacts, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "showAllRegisteredUsers", [showAllContacts]);
     },
-    addContact: function(contact, successCallback, errorCallback) {
+    addContact: function (contact, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "addContact", [JSON.stringify(contact)]);
     },
-    updateContact: function(contact, successCallback, errorCallback) {
+    updateContact: function (contact, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "updateContact", [JSON.stringify(contact)]);
     },
-    removeContact: function(contact, successCallback, errorCallback) {
+    removeContact: function (contact, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "removeContact", [JSON.stringify(contact)]);
     },
-    addContacts: function(contacts, successCallback, errorCallback) {
+    addContacts: function (contacts, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "addContacts", [JSON.stringify(contacts)]);
     },
-    processPushNotification: function(data, successCallback, errorCallback) {
+    processPushNotification: function (data, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "processPushNotification", [JSON.stringify(data)]);
     },
-    getConversationList: function(data, successCallback, errorCallback){
-        cordova.exec(successCallback,errorCallback,"ApplozicCordovaPlugin", "getConversationList", [JSON.stringify(data)]);
+    getConversationList: function (data, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "getConversationList", [JSON.stringify(data)]);
     },
-    getContactById: function(data, successCallback){
-        cordova.exec(successCallback,"ApplozicCordovaPlugin", "getContactById", [JSON.stringify(data)]);
+    getContactById: function (data, successCallback) {
+        cordova.exec(successCallback, "ApplozicCordovaPlugin", "getContactById", [JSON.stringify(data)]);
     },
-    getChannelByChannelKey: function(data, successCallback){
-        cordova.exec(successCallback,"ApplozicCordovaPlugin", "getChannelByChannelKey", [JSON.stringify(data)]);
+    getChannelByChannelKey: function (data, successCallback) {
+        cordova.exec(successCallback, "ApplozicCordovaPlugin", "getChannelByChannelKey", [JSON.stringify(data)]);
     },
-    getChannelByClientGroupId: function(data, successCallback){
-        cordova.exec(successCallback,"ApplozicCordovaPlugin", "getChannelByClientGroupId", [JSON.stringify(data)]);
+    getChannelByClientGroupId: function (data, successCallback) {
+        cordova.exec(successCallback, "ApplozicCordovaPlugin", "getChannelByClientGroupId", [JSON.stringify(data)]);
     },
     /*
     var group = {
@@ -86,7 +86,7 @@ module.exports = {
          };
     applozic.createGroup(group, function() {}, function() {});
     */
-    createGroup: function(group, successCallback, errorCallback) {
+    createGroup: function (group, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "createGroup", [JSON.stringify(group)]);
     },
     /*
@@ -96,19 +96,19 @@ module.exports = {
         'userId': userIdToAdd
     }
     */
-    addGroupMember: function(group, successCallback, errorCallback) {
+    addGroupMember: function (group, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "addGroupMember", [JSON.stringify(group)]);
     },
-    removeGroupMember: function(group, successCallback, errorCallback) {
+    removeGroupMember: function (group, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "removeGroupMember", [JSON.stringify(group)]);
     },
-    enableTopicBasedChat: function(enable, successCallback, errorCallback) {
+    enableTopicBasedChat: function (enable, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "enableTopicBasedChat", [enable]);
     },
-    startTopicBasedChat: function(conversation, successCallback, errorCallback) {
+    startTopicBasedChat: function (conversation, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "startTopicBasedChat", [JSON.stringify(conversation)]);
     },
-    logout: function(successCallback, errorCallback) {
-    	cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "logout", []);
+    logout: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "ApplozicCordovaPlugin", "logout", []);
     }
 };

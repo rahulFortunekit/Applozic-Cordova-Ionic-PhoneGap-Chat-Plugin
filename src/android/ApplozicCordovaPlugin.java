@@ -142,6 +142,8 @@ public class ApplozicCordovaPlugin extends CordovaPlugin {
             }
         } else if (action.equals("launchChat")) {
             Intent intent = new Intent(context, ConversationActivity.class);
+            ArrayList<String> u = (ArrayList<String>) GsonUtils.getObjectFromJson(data.getString(0), ArrayList.class);
+            intent.putStringArrayListExtra(ConversationUIService.GROUP_NAME_LIST_CONTACTS, u);
             if (ApplozicClient.getInstance(context).isContextBasedChat()) {
                 intent.putExtra(ConversationUIService.CONTEXT_BASED_CHAT,true);
             }
