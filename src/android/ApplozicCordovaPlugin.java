@@ -62,6 +62,7 @@ import org.json.JSONException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 public class ApplozicCordovaPlugin extends CordovaPlugin {
 
